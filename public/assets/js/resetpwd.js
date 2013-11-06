@@ -1,0 +1,10 @@
+$(function(){
+	valid_email('confirm_email','resetpwd_email_msg');
+	pwd_match(
+		'confirm_email',
+		'resetpwd_new_password',
+		'resetpwd_new_password_confirm',
+		'error_msg_resetpwd',
+		'do_resetpwd'
+		);
+})
