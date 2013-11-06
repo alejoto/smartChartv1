@@ -3,5 +3,7 @@
 @stop	
 @section('content')	
 	<h1>SMART CHARTS (TEMPORARY NAME) VERSION 1</h1>
-	<h2>Wellcome</h2>
+	<form action="file"></form>
+	<h2><a href="">Upload csv file</a></h2>
+	<h2><a href="{{URL::to('charts')}}">Go to charts</a></h2>
 @stop	

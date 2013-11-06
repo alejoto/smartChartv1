@@ -10,15 +10,15 @@
 			<div class="nav-collapse collapse">
 				<ul class="nav">
 					<li  class="active">
-						{{link_to('user/visible','never dissapears')}}
+						{{link_to('/','Go home')}}
 					</li>
 					{{--unchecked users--}}
 					@if (!Auth::check())
 					    <li>
-					    	<a href="#about">Dissapears when logged on</a>
+					    	<a href="#about">Please log in</a>
 					    </li>
 						<li>
-							{{link_to('user/subscribe','subscribe')}}
+							{{link_to('user/subscribe','if new user subscribe')}}
 						</li>
 					@endif
 					
@@ -37,11 +37,11 @@
 					</li> -->
 					@if (Auth::check())
 					<li>
-						{{link_to('logged',"success")}}
+						{{link_to('logged',"Wellcome, logged user")}}
 					</li>
-					<li>
+					<!-- <li>
 						<a href="#contact">Button for logged user only2</a>
-					</li>
+					</li> -->
 					<li>
 						{{link_to('logged/logout','Log off')}}
 					</li>
