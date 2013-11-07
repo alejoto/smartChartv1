@@ -2,9 +2,15 @@
 
 class ChartsController extends BaseController {
 	public function getIndex() {
-    return View::make('charts.base')
-      ->with('title','Charts page');
-     }
+		return View::make('charts.base')
+		->with('title','Charts page');
+	}
+
+	public function getXml() {
+		return View::make('charts.base2')
+		->with('title','Charts page');
+	}
+
 
 
 

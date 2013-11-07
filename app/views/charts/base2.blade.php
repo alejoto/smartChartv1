@@ -8,7 +8,7 @@
 	<h1>Charts</h1>
 	<br>
 	<p><a href="{{URL::to('/')}}">GO BACK HOME</a></p>
-	<div class="row">
+	<!-- <div class="row">
 		<div class="span12">
 			<ul class="unstyled">
 				<li><a href="#title_chart1">Single temperature register</a></li>
@@ -16,7 +16,7 @@
 				<li><a href="#title_chart3">Two different temperatures in same graph</a></li>
 			</ul>
 		</div>
-	</div>
+	</div> -->
 	<div class="row" >
 		<div class="span12">
 			<h3 id='title_chart1'>Single Temperature register</h3>
@@ -36,7 +36,7 @@
 	<div class="row">
 		<div class="offset2 span8"><a href="#">Back to top</a></div>
 	</div>
-	<hr>
+	<!-- <hr>
 	<div class="row">
 		<div class="span12">
 			<h3 id='title_chart2'>Temperature data with limit or warning line</h3>
@@ -55,8 +55,9 @@
 	</div>
 	<div class="row">
 		<div class="offset2 span8"><a href="#">Back to top</a></div>
-	</div>
-	<hr>
+	</div> -->
+	
+	<!-- <hr>
 	<div class="row">
 		<div class="span12">
 			<h3 id='title_chart3'>Multipe temperature data with limit or warning line</h3>
@@ -75,9 +76,9 @@
 	</div>
 	<div class="row">
 		<div class="offset2 span8"><a href="#">Back to top</a></div>
-	</div>
+	</div> -->
 	<div>
-		@include('charts.data')
+		@include('charts.temporaryjs')
 	</div>
 	<div>Database properly accesed</div>
 @stop	
