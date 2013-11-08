@@ -66,8 +66,8 @@ return array(
 		'mysql2' => array(
 			'driver'    => 'mysql',
 			'host'      => 'localhost',
-			'database'  => 'martyyo_ecam',
-			'username'  => 'martyyo_ecamuser',
+			'database'  => 'healmy5_martyyo_ecam',
+			'username'  => 'healmy5_ecamuser',
 			'password'  => 'QKAa3uWy6ppV',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',

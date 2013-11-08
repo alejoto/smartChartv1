@@ -7,8 +7,8 @@ $temp=array(
     ,array('time'=>'8:30','temp'=>110)
     ,array('time'=>'9:00','temp'=>102)
     );
- ?>
-<?xml version="1.0"?>
+?>
+<xml version="1.0">
 
 json notation
 <br>
