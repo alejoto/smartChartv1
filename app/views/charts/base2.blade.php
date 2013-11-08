@@ -3,11 +3,17 @@
 <script src="{{URL::to('assets/js/amcharts_3.1.1/amcharts/amcharts.js')}}" type="text/javascript"></script>
 <script src="{{URL::to('assets/js/amcharts_3.1.1/amcharts/serial.js')}}" type="text/javascript"></script>
 
+@include('charts.xmldata')
+
 @stop	
 @section('content')	
 	<h1>Charts</h1>
 	<br>
 	<p><a href="{{URL::to('/')}}">GO BACK HOME</a></p>
+	<?php 
+	
+	
+	 ?>
 	<!-- <div class="row">
 		<div class="span12">
 			<ul class="unstyled">
@@ -56,7 +62,7 @@
 	<div class="row">
 		<div class="offset2 span8"><a href="#">Back to top</a></div>
 	</div> -->
-	
+
 	<!-- <hr>
 	<div class="row">
 		<div class="span12">
@@ -82,3 +88,6 @@
 	</div>
 	<div>Database properly accesed</div>
 @stop	
+@section('scripts')
+
+@stop

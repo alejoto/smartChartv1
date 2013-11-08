@@ -6,20 +6,31 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			{{link_to('/','Smart Chart v1',$attributes = array('class'=>'brand'))}}
+			{{link_to('/','PNNL Trainning platform v1',$attributes = array('class'=>'brand'))}}
 			<div class="nav-collapse collapse">
 				<ul class="nav">
 					<li  class="active">
-						{{link_to('/','Go home')}}
+						{{link_to('/charts','Home')}}
+					</li>
+					<li  class="">
+						{{link_to('/charts/chapters','Chapters')}}
+					</li>
+					<li  class="">
+						{{link_to('/charts/data','Data')}}
+					</li>
+					<li  class="">
+						{{link_to('/charts/chart','Charts')}}
 					</li>
 					{{--unchecked users--}}
 					@if (!Auth::check())
+						
+					    <!-- 
 					    <li>
-					    	<a href="#about">Please log in</a>
+					    	<a href="#about">Wellcome user</a>
 					    </li>
 						<li>
 							{{link_to('user/subscribe','if new user subscribe')}}
-						</li>
+						</li> -->
 					@endif
 					
 					
@@ -50,6 +61,10 @@
 					@endif
 					
 				</ul>
+				<div class="pull-right nav-collapse collapse">
+					<ul class="nav"><li><a href="">Wellcome user</a></li></ul>
+					
+				</div>
 			</div><!--/.nav-collapse -->
 		</div>
 	</div>

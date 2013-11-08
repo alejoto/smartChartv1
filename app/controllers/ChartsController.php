@@ -2,13 +2,25 @@
 
 class ChartsController extends BaseController {
 	public function getIndex() {
-		return View::make('charts.base')
-		->with('title','Charts page');
+		return View::make('index')
+		->with('title','Home page');
 	}
 
-	public function getXml() {
+	public function getChapters() {
+		$chapter=Chapter::orderBy('id')->get();
+		return View::make('charts.chapters')
+		->with('chapter',$chapter)
+		->with('title','Chapters');
+	}
+
+	public function getData() {
+		return View::make('charts.data')
+		->with('title','Manage data');
+	}
+
+	public function getChart() {
 		return View::make('charts.base2')
-		->with('title','Charts page');
+		->with('title','Charts from XML');
 	}
 
 

@@ -55,17 +55,6 @@ return array(
 		'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => 'localhost',
-			'database'  => 'database',
-			'username'  => 'root',
-			'password'  => '',
-			'charset'   => 'utf8',
-			'collation' => 'utf8_unicode_ci',
-			'prefix'    => '',
-		),
-
-		'mysql2' => array(
-			'driver'    => 'mysql',
-			'host'      => 'mysql301.opentransfer.com',
 			'database'  => 'martyyo_ecam',
 			'username'  => 'martyyo_ecamuser',
 			'password'  => 'QKAa3uWy6ppV',
@@ -73,7 +62,18 @@ return array(
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',
 		),
-		
+
+		'mysql2' => array(
+			'driver'    => 'mysql',
+			'host'      => 'localhost',
+			'database'  => 'martyyo_ecam',
+			'username'  => 'martyyo_ecamuser',
+			'password'  => 'QKAa3uWy6ppV',
+			'charset'   => 'utf8',
+			'collation' => 'utf8_unicode_ci',
+			'prefix'    => '',
+		),
+
 		'pgsql' => array(
 			'driver'   => 'pgsql',
 			'host'     => 'localhost',
