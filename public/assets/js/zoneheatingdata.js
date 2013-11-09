@@ -141,5 +141,41 @@ AmCharts.ready(function () {
         ]
         ,'chartContainer3'
         );
+
+    createnewchart(
+        'zone_heating_data3'
+        ,'time'
+        ,{"leftaxis":"Temperature (F)","rightaxis":"Percent (%)"}
+        ,[
+        ['Outdoordamperpositionsignal','right','Damper position signal (%)','smoothedLine']
+        ,['outdoorairfraction','left','outdoor air fraction (Fh)','column']
+        ,['oat','left','outdoor air temperature','smoothedLine']
+        ]
+        ,'chartContainer4'
+        );
+
+    createnewchart(
+        'zone_heating_data3'
+        ,'time'
+        ,{"leftaxis":"Temperature (F)","rightaxis":"Percent (%)"}
+        ,[
+        ['Outdoordamperpositionsignal','right','Damper position signal (%)','smoothedLine']
+        ,['outdoorairfraction','left','outdoor air fraction (Fh)','column']
+        ,['rat','left','Return air temperature','smoothedLine']
+        ]
+        ,'chartContainer5'
+        );
+
+    createnewchart(
+        'zone_heating_data3'
+        ,'time'
+        ,{"leftaxis":"Temperature (F)","rightaxis":"Percent (%)"}
+        ,[
+         ['oat','left','outdoor air temperature','smoothedLine']
+        ,['rat','left','Return air temperature','smoothedLine']
+        ,['Outdoordamperpositionsignal','right','Damper position signal (%)','column']
+        ]
+        ,'chartContainer6'
+        );
 });
 
