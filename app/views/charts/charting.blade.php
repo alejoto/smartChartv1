@@ -9,9 +9,12 @@
 		$user=$_GET['user'];
 		$preffix=''; 
 		$verifier='';
+		$data=$data->where('user_id','=',$user);
 		?>
 		[
-		@foreach($data as $v)
+		{{-- "$data" variable comes from controller "Charts" action "getChart" --}}
+
+		@foreach($data->get() as $v)
 			@if($verifier	!=	$v->DATE_READING.' '.$v->TIME_READING)
 				{{$preffix.'{ "time":"'.$v->DATE_READING.' '.$v->TIME_READING.
 				'","Zonetemperature":'.round($v->ZT).

@@ -57,8 +57,12 @@ class ChartsController extends BaseController {
 			$user='unregistered user';
 			$userlink='';
 		}
+		/*
+		|
+		| Giving Measurement data to $data variable
+		*/
 		$data=Measurement::orderBy('DATE_READING')
-		->orderBy('TIME_READING')->get();
+		->orderBy('TIME_READING');
 		$chart=Chart::orderBy('chartname')->get();
 		return View::make('charts.charting')
 		->with('user',$user)
