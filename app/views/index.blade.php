@@ -1,5 +1,15 @@
 @extends('layouts.base')	
 @section('sidebar')	
+<?php 
+
+$linktopreffix='/charts/';
+$pages=array(
+	'chapters'=>'View course chapters'
+	,'data'=>'Manage building data'
+	,'chart'=>'Go to data charts');
+//$linktochapters['chapters']=URL::to($linktopreffix.'chapters'.$userlink);
+
+?>
 @stop	
 @section('content')	
 
@@ -7,7 +17,7 @@
 	<div class="offset3 span6">
 		<div class="row">
 			<div class="span6">
-				<h1>Wellcome, (user name)</h1>
+				<h1>Wellcome, <spam id="wellcome_user">{{$user}}</spam></h1>
 			</div>
 		</div>
 		<div class="row">
@@ -15,21 +25,15 @@
 				<h2 class='muted'>What would you like to do?</h2>
 			</div>
 		</div>
-		<div class="row">
-			<a class='btn btn-info span6' href="{{URL::to('/charts/chapters')}}">
-				<h4 class="">View course chapters</h4>
-			</a>
-		</div>
-		<div class="row">
-			<a class='btn btn-info span6' href="{{URL::to('/charts/data')}}">
-				<h4 class="">Manage building data</h4>
-			</a>
-		</div>
-		<div class="row">
-			<a class='btn btn-info span6' href="{{URL::to('/charts/chart')}}">
-				<h4 class="">Go to data charts</h4>
-			</a>
-		</div>
+		{{--Constructing links with iterations--}}
+		@foreach($pages as $k=>$v)
+			<?php $url_address=URL::to($linktopreffix.$k.$userlink) ?>
+			<div class="row">
+				<a href="{{$url_address}}" class="span6 btn btn-info">
+					<h4>{{$v}}</h4>
+				</a>
+			</div>
+		@endforeach
 	</div>
 </div>
 @stop	

@@ -2,27 +2,67 @@
 
 class ChartsController extends BaseController {
 	public function getIndex() {
+		if (isset($_GET['user'])) {
+			$user=$_GET['user'];
+			$userlink='?user='.$user;
+		}
+		else {
+			$user='unregistered user';
+			$userlink='';
+		}
 		return View::make('index')
+		->with('user',$user)
+		->with('userlink',$userlink)
 		->with('title','Home page');
 	}
 
 	public function getChapters() {
+		if (isset($_GET['user'])) {
+			$user=$_GET['user'];
+			$userlink='?user='.$user;
+		}
+		else {
+			$user='unregistered user';
+			$userlink='';
+		}
 		$chapter=Chapter::orderBy('id')->get();
 		return View::make('charts.chapters')
 		->with('chapter',$chapter)
+		->with('user',$user)
+		->with('userlink',$userlink)
 		->with('title','Chapters');
 	}
 
 	public function getData() {
+		if (isset($_GET['user'])) {
+			$user=$_GET['user'];
+			$userlink='?user='.$user;
+		}
+		else {
+			$user='unregistered user';
+			$userlink='';
+		}
 		return View::make('charts.data')
+		->with('user',$user)
+		->with('userlink',$userlink)
 		->with('title','Manage data');
 	}
 
 	public function getChart() {
+		if (isset($_GET['user'])) {
+			$user=$_GET['user'];
+			$userlink='?user='.$user;
+		}
+		else {
+			$user='unregistered user';
+			$userlink='';
+		}
 		$data=Measurement::orderBy('DATE_READING')
 		->orderBy('TIME_READING')->get();
 		$chart=Chart::orderBy('chartname')->get();
 		return View::make('charts.charting')
+		->with('user',$user)
+		->with('userlink',$userlink)
 		->with('title','Charts from XML')
 		->with('data',$data)
 		->with('chart',$chart);
