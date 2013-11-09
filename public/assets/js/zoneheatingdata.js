@@ -42,7 +42,7 @@ AmCharts.ready(function () {
     var graph = new AmCharts.AmGraph();
     graph.valueAxis = tempAxis;
     graph.valueField = "Zonetemperature";
-    graph.title = "Temperature";
+    graph.title = "Temperature (Fh)";
     graph.type = "smoothedLine";
     graph.lineThickness = 2;
     graph.balloonText = "[[category]]<br><b><span style='font-size:14px;'>[[value]]</span></b>";
@@ -52,7 +52,7 @@ AmCharts.ready(function () {
     var graph = new AmCharts.AmGraph();
     graph.valueAxis = PercentAxis;
     graph.valueField = "ReheatValveSignal";
-    graph.title = "ZRVS";
+    graph.title = "Reheat valve signal (%)";
     graph.type = "smoothedLine";
     graph.lineThickness = 2;
     graph.balloonText = "[[category]]<br><b><span style='font-size:14px;'>[[value]]</span></b>";
@@ -172,7 +172,7 @@ AmCharts.ready(function () {
     graph.balloonText = "[[category]]<br><b><span style='font-size:14px;'>[[value]]</span></b>";
     chart2.addGraph(graph);
 
-    //Reheat valve signal
+    //outdoor temp
     var graph = new AmCharts.AmGraph();
     graph.valueAxis = tempAxis2;
     graph.valueField = "Outdoortemperature";
@@ -187,7 +187,7 @@ AmCharts.ready(function () {
     var graphZOM = new AmCharts.AmGraph();
     graphZOM.type = "column";
     graphZOM.valueAxis = PercentAxis2;
-    graphZOM.title = "Reheat Valve Signal";
+    graphZOM.title = "Reheat Valve Signal (%)";
     graphZOM.lineColor = "#333333";
     graphZOM.valueField = "ReheatValveSignal";
     graphZOM.lineAlpha = 1;
@@ -242,4 +242,164 @@ AmCharts.ready(function () {
     chart2.addLegend(legend);
 
     chart2.write('chartContainer2');
+});
+
+/*
+|
+|
+|
+|
+|
+|
+|
+| THIRD CHART 
+*/
+
+AmCharts.ready(function () {
+    var chartData=new Object();
+    chartData=$('#zone_heating_data3').text();
+    chartData=eval(chartData);
+
+
+
+    var chart = new AmCharts.AmSerialChart();
+    chart.pathToImages = "http://www.amcharts.com/lib/3/images/";
+    chart.dataProvider = chartData;
+    chart.categoryField = "time";
+    //chart.sequencedAnimation=true;
+    chart.startEffect='bounce';
+    chart.startDuration = 0.3;
+    chart.color = "#FFFFFF";
+    //chart.addListener('dataUpdated',zoomChart);
+
+    //AXES
+
+    var tempAxis = new AmCharts.ValueAxis();
+    tempAxis.position = "left";
+    tempAxis.title = "Temperature (F)";
+    tempAxis.gridAlpha = 0;
+    tempAxis.axisAlpha = 0;
+    chart.addValueAxis(tempAxis);
+
+    // second value axis (on the right) 
+    var PercentAxis = new AmCharts.ValueAxis();
+    PercentAxis.position = "right"; // this line makes the axis to appear on the right
+    //PercentAxis.axisColor = "#FCD202";
+    PercentAxis.title = "Percent (%)";
+    PercentAxis.gridAlpha = 0;
+    PercentAxis.axisThickness = 2;
+    chart.addValueAxis(PercentAxis);
+
+    //CHARTS
+    //Chart1
+    var graph = new AmCharts.AmGraph();
+    graph.valueAxis = tempAxis;
+    graph.valueField = "mixedairtemperature";
+    graph.title = "Mixed-Air Temperature";
+    graph.type = "smoothedLine";
+    graph.lineThickness = 2;
+    graph.balloonText = "[[category]]<br><b><span style='font-size:14px;'>[[value]]</span></b>";
+    chart.addGraph(graph);
+
+    //Chart 2
+    var graph = new AmCharts.AmGraph();
+    graph.valueAxis = PercentAxis;
+    graph.valueField = "Outdoordamperpositionsignal";
+    graph.title = "Damper position signal (%)";
+    graph.type = "smoothedLine";
+    graph.lineThickness = 2;
+    graph.balloonText = "[[category]]<br><b><span style='font-size:14px;'>[[value]]</span></b>";
+    chart.addGraph(graph);
+
+
+    //Chart 3
+    var graphZOM = new AmCharts.AmGraph();
+    graphZOM.type = "smoothedLine";
+    graphZOM.valueAxis = tempAxis;
+    graphZOM.title = "outdoor air fraction (Fh)";
+    graphZOM.lineColor = "#333333";
+    graphZOM.valueField = "outdoorairfraction";
+    graphZOM.lineAlpha = 1;
+    graphZOM.fillAlphas = 1;
+    graphZOM.dashLengthField = "dashLengthColumn";
+    graphZOM.alphaField = "alpha";
+    //graphZOM.balloonText = "<span style='font-size:13px;'>[[title]] in [[category]]:<b>[[value]]</b> [[additional]]</span>";
+    chart.addGraph(graphZOM);
+
+
+    //Chart 4
+    var graphZOM = new AmCharts.AmGraph();
+    graphZOM.type = "smoothedLine";
+    graphZOM.valueAxis = tempAxis;
+    graphZOM.title = "outdoor air temperature";
+    //graphZOM.lineColor = "#333333";
+    graphZOM.valueField = "oat";
+    graphZOM.lineAlpha = 1;
+    graphZOM.lineThickness = 2;
+    //graphZOM.fillAlphas = 1;
+    graphZOM.dashLengthField = "dashLengthColumn";
+    //graphZOM.alphaField = "alpha";
+    graphZOM.balloonText = "<span style='font-size:13px;'>[[title]] in [[category]]:<b>[[value]]</b> [[additional]]</span>";
+    chart.addGraph(graphZOM);
+
+    //Chart 5
+    var graphZOM = new AmCharts.AmGraph();
+    graphZOM.type = "smoothedLine";
+    graphZOM.valueAxis = tempAxis;
+    graphZOM.title = "Return air temperature";
+    //graphZOM.lineColor = "#333333";
+    graphZOM.valueField = "rat";
+    graphZOM.lineAlpha = 1;
+    graphZOM.lineThickness = 2;
+    //graphZOM.fillAlphas = 1;
+    graphZOM.dashLengthField = "dashLengthColumn";
+    //graphZOM.alphaField = "alpha";
+    graphZOM.balloonText = "<span style='font-size:13px;'>[[title]] in [[category]]:<b>[[value]]</b> [[additional]]</span>";
+    chart.addGraph(graphZOM);
+
+
+    var categoryAxis = chart.categoryAxis;
+    categoryAxis.autoGridCount  = false;
+    categoryAxis.axisColor = "#fff";
+    categoryAxis.gridCount = chartData.length/2;
+    categoryAxis.gridPosition = "start";
+    categoryAxis.equalSpacing=true;
+    categoryAxis.parseDates = true; // in order char to understand dates, we should set parseDates to true
+    categoryAxis.minPeriod = "mm"; // as we have data with minute interval, we have to set "mm" here.
+
+    categoryAxis.labelRotation = 90;
+
+    graph.lineColor = "#666666";
+    
+
+    // CURSOR
+    var chartCursor = new AmCharts.ChartCursor();
+    chartCursor.cursorPosition = "mouse";
+    chart.addChartCursor(chartCursor);
+
+    // SCROLLBAR
+    var chartScrollbar = new AmCharts.ChartScrollbar();
+    //chartScrollbar.graph = graph;
+    chartScrollbar.autoGridCount=false;
+    chartScrollbar.categoryAxis='';
+    chartScrollbar.scrollbarHeight = 40;
+    //chartScrollbar.color = "#fff";
+    chartScrollbar.backgroundAlpha=1;
+    chartScrollbar.backgroundColor= "#1A1A1A";
+    chartScrollbar.graphFillAlpha=1;
+    chartScrollbar.graphFillColor= "#444444";
+    chartScrollbar.selectedBackgroundAlpha=1;
+    chartScrollbar.selectedBackgroundColor= "#aaa";
+    chartScrollbar.selectedGraphFillAlpha=1;
+    chartScrollbar.selectedGraphFillColor= "#111";
+    chartScrollbar.autoGridCount = true;
+    chart.addChartScrollbar(chartScrollbar);
+
+    // LEGEND
+    var legend = new AmCharts.AmLegend();
+    legend.marginLeft = 110;
+    legend.useGraphSettings = true;
+    chart.addLegend(legend);
+
+    chart.write('chartContainer3');
 });

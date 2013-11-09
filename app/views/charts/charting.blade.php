@@ -83,6 +83,51 @@
 	</button>
 </div>
 <hr>
+
+<div id='zone_heating_data3' class='hide'>
+	<?php 
+	if (isset($_GET['user'])) //if no logged user, no chart
+	{
+		$user=$_GET['user'];
+		$preffix=''; 
+		$verifier='';
+		$data=$data->where('user_id','=',$user);
+		?>
+		[
+		{{-- "$data" variable comes from controller "Charts" action "getChart" --}}
+
+		@foreach($data->get() as $v)
+			@if($verifier	!=	$v->DATE_READING.' '.$v->TIME_READING)
+				{{$preffix.'{ "time":"'.$v->DATE_READING.' '.$v->TIME_READING.
+				'","mixedairtemperature":'.round($v->MAT).
+				',"Outdoordamperpositionsignal":'.round($v->OADPS*100).
+				',"outdoorairfraction":'.($v->OAF).
+				',"oat":'.round($v->OAT).
+				',"rat":'.round($v->RAT).
+				'}'}}
+
+			@endif
+			<?php $preffix=','; $verifier=$v->DATE_READING.' '.$v->TIME_READING;?> 
+		@endforeach
+		]
+		<?php
+	}
+		
+	?>	
+</div>
+<div class="row">
+	<div class="offset2 span7"><h1>Mixed-air temperature economizer option</h1></div>
+</div>
+<div class="row">
+	<button class="btn btn-inverse offset2 span7" id='contain_chart1'>
+		<div class=" ">
+			<div class='center' id="chartContainer3" style="height:400px;width:640px;background-color:#161616"></div>
+		</div>
+	</button>
+</div>
+<hr>
+
+
 @stop
 
 @section('scripts')
