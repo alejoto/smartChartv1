@@ -21,9 +21,11 @@ class ChartsController extends BaseController {
 	public function getChart() {
 		$data=Measurement::orderBy('DATE_READING')
 		->orderBy('TIME_READING')->get();
+		$chart=Chart::orderBy('chartname')->get();
 		return View::make('charts.charting')
 		->with('title','Charts from XML')
-		->with('data',$data);
+		->with('data',$data)
+		->with('chart',$chart);
 	}
 
 

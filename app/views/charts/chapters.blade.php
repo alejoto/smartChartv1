@@ -12,8 +12,8 @@
 				<div class='span8'>
 					<h4>
 						<a href="#">
-							<i class="icon-chevron-right"></i>
-							<i class="icon-chevron-down hide"></i>
+							<spam id="chapt_hidden{{$v->id}}"><i class="icon-chevron-right" ></i></spam>
+							<spam class='hide' id="chapt_active{{$v->id}}"><i class="icon-chevron-down" id=''></i></spam>
 							Chapter {{$v->id.'. '.$v->chaptdescrip}}</a>
 					</h4>
 				</div>

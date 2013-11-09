@@ -7,7 +7,11 @@
 	<?php $preffix=''; $verifier='';?>
 	@foreach($data as $v)
 		@if($verifier	!=	$v->DATE_READING.' '.$v->TIME_READING)
-			{{$preffix.'{ "time":"'.$v->DATE_READING.' '.$v->TIME_READING.'","Zonetemperature":'.round($v->ZT).'}'}}
+			{{$preffix.'{ "time":"'.$v->DATE_READING.' '.$v->TIME_READING.
+			'","Zonetemperature":'.round($v->ZT).
+			',"ReheatValveSignal":'.round($v->ZRVS*100).
+			',"Occupancy":'.($v->ZOM*100).
+			'}'}}
 
 		@endif
 		<?php $preffix=','; $verifier=$v->DATE_READING.' '.$v->TIME_READING;?> 

@@ -20,19 +20,25 @@ $(function(){
 		$('#pnnlchapt'+id).click(function(e){
 			e.preventDefault();
 			var visible=$('#charthidden'+id).is(":visible");
+			var iconvisible=$('#chapt_hidden'+id).is(":visible");
 			if (visible) {
 				$('#charthidden'+id).attr('chapter','0');
 				$('#charthidden'+id).hide('fast');
+				$('#chapt_hidden'+id).show();
+				$('#chapt_active'+id).hide();
 			} 
 			else {
+				//$('#chapt_hidden'+id).hide();
 				$("[chapter='1']").hide('fast');
 				$('#charthidden'+id).show('fast');
 				$('#charthidden'+id).attr('chapter','1');
-				
+				$('#chapt_hidden'+id).hide();
+				$('#chapt_active'+id).show();
 			}
 		});
 	}
-
+/*chapt_hidden
+chapt_active*/
 	$('.pnnlchapt').each(function(){
 		var id=$(this).attr('id');
 			id=id.replace('pnnlchapt','');
