@@ -72,6 +72,14 @@ class ChartsController extends BaseController {
 		->with('chart',$chart);
 	}
 
+	public function getLog () {
+		return View::make('temporaryloguser')
+		->with('user','')
+		->with('userlink','')
+		->with('title','Log in');
+		
+	}
+
 
 
 
