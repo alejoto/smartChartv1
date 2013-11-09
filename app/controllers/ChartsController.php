@@ -72,6 +72,42 @@ class ChartsController extends BaseController {
 		->with('chart',$chart);
 	}
 
+	public function getMycharts() {
+		$fields=array(
+			'ChWLDP','ChWLDSP','ChWRT','ChWST'
+			,'ChWSTSP','CCV','ConskWH','DAT'
+			,'DATSP','DSP','DSPSP','HCVS'
+			,'HWLDP','HWLDPSP','HWRT','HWST'
+			,'HWSTSP','MAT','OM','OADPS'
+			,'OAF','OAT','RAT','SFSpd'
+			,'SFS','VAVDPSP','ZDPS','ZOM'
+			,'ZRVS','ZT','ZONE','DAMPER'
+		);
+
+		if (isset($_GET['user'])) {
+			$user=$_GET['user'];
+			$userlink='?user='.$user;
+		}
+		else {
+			$user='unregistered user';
+			$userlink='';
+		}
+		/*
+		|
+		| Giving Measurement data to $data variable
+		*/
+		$data=Measurement::orderBy('DATE_READING')
+		->orderBy('TIME_READING');
+		$chart=Chart::orderBy('chartname')->get();
+		return View::make('charts.mycharts')
+		->with('user',$user)
+		->with('userlink',$userlink)
+		->with('title','Charts from XML')
+		->with('fields',$fields)
+		->with('data',$data)
+		->with('chart',$chart);
+	}
+
 	public function getLog () {
 		return View::make('temporaryloguser')
 		->with('user','')

@@ -2,7 +2,7 @@
 @section('content')
 <script src="{{URL::to('assets/js/amcharts_3.1.1/amcharts/amcharts.js')}}" type="text/javascript"></script>
 <script src="{{URL::to('assets/js/amcharts_3.1.1/amcharts/serial.js')}}" type="text/javascript"></script>
-<div id='zone_heating_data' class='hide'>
+<div id='zone_heating_data' class='hider'>
 	<?php 
 	if (isset($_GET['user'])) //if no logged user, no chart
 	{
