@@ -2,7 +2,7 @@
 @section('content')	
 <div class="row">
 	<div class="offset2 span8">
-		<h2>Wellcome (username)</h2>
+		<h2>Wellcome {{$user}}</h2>
 	</div>
 </div>
 <div class="row">
@@ -22,7 +22,11 @@
 				@foreach($v->chart as $v2)
 					<div class="row ">
 						<div class="offset1 span7">
-							<h5><a href="">{{$v2->chartname}}</a></h5>
+							<?php 
+							$chart_url='charts/mycharts'.$userlink.'&chart='.$v2->id;
+							$chart_url=URL::to($chart_url); 
+							?>
+							<h5><a href="{{$chart_url}}">{{$v2->chartname}}</a></h5>
 						</div>
 					</div>
 				@endforeach

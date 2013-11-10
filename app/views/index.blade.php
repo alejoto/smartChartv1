@@ -4,9 +4,11 @@
 
 $linktopreffix='/charts/';
 $pages=array(
-	'chapters'=>'View course chapters'
-	,'data'=>'Manage building data'
-	,'chart'=>'Go to data charts');
+	'chapters'	=>'View course chapters'
+	,'data'		=>'Manage building data'
+	//,'chart'	=>'Go to data charts'
+	,'mycharts'	=>'Charts'
+	);
 //$linktochapters['chapters']=URL::to($linktopreffix.'chapters'.$userlink);
 
 ?>

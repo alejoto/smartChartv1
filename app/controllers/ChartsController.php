@@ -74,15 +74,16 @@ class ChartsController extends BaseController {
 
 	public function getMycharts() {
 		$fields=array(
-			'ChWLDP','ChWLDSP','ChWRT','ChWST'
-			,'ChWSTSP','CCV','ConskWH','DAT'
-			,'DATSP','DSP','DSPSP','HCVS'
-			,'HWLDP','HWLDPSP','HWRT','HWST'
-			,'HWSTSP','MAT','OM','OADPS'
-			,'OAF','OAT','RAT','SFSpd'
-			,'SFS','VAVDPSP','ZDPS','ZOM'
-			,'ZRVS','ZT','ZONE','DAMPER'
+			array('ChWLDP',1),array('ChWLDSP',1),array('ChWRT',1),array('ChWST',1)
+			,array('ChWSTSP',1),array('CCV',100),array('ConskWH',1),array('DAT',1)
+			,array('DATSP',1),array('DSP',1),array('DSPSP',1),array('HCVS',100)
+			,array('HWLDP',1),array('HWLDPSP',1),array('HWRT',1),array('HWST',1)
+			,array('HWSTSP',1),array('MAT',1),array('OM',100),array('OADPS',100)
+			,array('OAF',100),array('OAT',1),array('RAT',1),array('SFSpd',1)
+			,array('SFS',1),array('VAVDPSP',100),array('ZDPS',100),array('ZOM',100)
+			,array('ZRVS',100),array('ZT',1),array('ZONE',1),array('DAMPER',1)
 		);
+
 
 		if (isset($_GET['user'])) {
 			$user=$_GET['user'];

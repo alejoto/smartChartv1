@@ -63,7 +63,7 @@ function createnewchart(jsondata,y_axis,x_axis,thecharts,target){
     var categoryAxis = chart.categoryAxis;
     categoryAxis.autoGridCount  = false;
     categoryAxis.axisColor = "#fff";
-    categoryAxis.gridCount = chartData.length/2;
+    categoryAxis.gridCount = chartData.length;
     categoryAxis.gridPosition = "start";
     categoryAxis.equalSpacing=true;
     categoryAxis.parseDates = true; // in order char to understand dates, we should set parseDates to true
@@ -105,25 +105,16 @@ function createnewchart(jsondata,y_axis,x_axis,thecharts,target){
 
     chart.write(target);
 }
+
 AmCharts.ready(function () {
-
-    createnewchart(
-        'availabledatafields'
-        ,'time'
-        ,{"leftaxis":"Temperature (F)","rightaxis":"Percent (%)"}
-        ,[['ZT','left','Temperature (Fh)','smoothedLine']
-        ,['ZRVS','right','Reheat valve signal (%)','smoothedLine']
-        ,['ZOM','right','Occupancy (%)','column']
-        ]
-        ,'mychartContainer'
-        );
-
+    
 
     createnewchart(
         'zone_heating_data'
         ,'time'
         ,{"leftaxis":"Temperature (F)","rightaxis":"Percent (%)"}
-        ,[['Zonetemperature','left','Temperature (Fh)','smoothedLine']
+        ,
+        [['Zonetemperature','left','Temperature (Fh)','smoothedLine']
         ,['ReheatValveSignal','right','Reheat valve signal (%)','smoothedLine']
         ,['Occupancy','right','Occupancy (%)','column']
         ]
