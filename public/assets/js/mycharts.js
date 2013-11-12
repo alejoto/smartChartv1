@@ -122,11 +122,13 @@ if ($('#dparameters').html().trim()==11) { var dataparameter=[['CCV','right','Co
 if ($('#dparameters').html().trim()==12) { var dataparameter=[['ChWST','left','Chilled-Water Supply Temp','smoothedLine'],['OAT','left','Outdoor-Air Temp (temp)','smoothedLine']]; }
 if ($('#dparameters').html().trim()==13) { var dataparameter=[['ChWST','left','Chilled-Water Supply Temp','smoothedLine'],['CCV','right','Cooling-Coil Valve Signal (%)','column'],['OAT','left','Outdoor-Air Temp (temp)','smoothedLine']]; }
 if ($('#dparameters').html().trim()==14) { var dataparameter=[['ChWRT','left','Chilled-Water Return Temp','smoothedLine'],['ChWST','left','Chilled-Water Supply Temp','smoothedLine'],['OAT','left','Outdoor-Air Temp (temp)','smoothedLine']]; }
-if ($('#dparameters').html().trim()==15) { var dataparameter=[['CHWRT','left','Chilled-Water Return Temp','smoothedLine'],['CCV','right','Cooling-Coil Valve Signal (%)','column']]; }
+if ($('#dparameters').html().trim()==15) {  var dataparameter=[ ['ChWRT','left','Chilled-Water Return Temp','smoothedLine'],['CCV','right','Cooling-Coil Valve Signal (%)','column'] ]; }
 if ($('#dparameters').html().trim()==16) { var dataparameter=[['HWST','left','Hot-Water Supply Temp','smoothedLine'],['OAT','left','Outdoor-Air Temp (temp)','smoothedLine']]; }
 if ($('#dparameters').html().trim()==17) { var dataparameter=[['HWRT','left','Hot-Water Return Temp','smoothedLine'],['HWST','left','Hot-Water Supply Temp','smoothedLine'],['OAT','left','Outdoor-Air Temp (temp)','smoothedLine']]; }
 if ($('#dparameters').html().trim()==18) { var dataparameter=[['HWLDP','left','Hot-Water Loop Differential Pressure','smoothedLine'],['HCVS','right','Heating-Coil Valve Signal (%)','column']]; }
-if ($('#dparameters').html().trim()==19) { var dataparameter=[['OAT','left','Outdoor-Air Temp (temp)','smoothedLine'],['OADPS','right','Outdoor-Air Damper Position Signal (%)','column'],['OAF','right','Outdoor-Air Fraction temp','column'],['OM','right','Occupancy Mode','column']]; }
+
+if ($('#dparameters').html().trim()==19) { var dataparameter=[['OAT','left','Outdoor-Air Temp (temp)','smoothedLine'],['OADPS','right','Outdoor-Air Damper Position Signal (%)','column'],['OAF','left','Outdoor-Air Fraction temp','smoothedLine'],['OM','right','Occupancy Mode','column']]; }
+
 if ($('#dparameters').html().trim()==20) { var dataparameter=[['OAT','left','Outdoor-Air Temp (temp)','smoothedLine'],['OADPS','right','Outdoor-Air Damper Position Signal (%)','column'],['OM','right','Occupancy Mode','column']]; }
 if ($('#dparameters').html().trim()==21) { var dataparameter=[['DSP','left','Duct Static Pressure','smoothedLine'],['DSPSP','left','Duct Static Pressure Set Point','smoothedLine']]; }
 if ($('#dparameters').html().trim()==22) { var dataparameter=[['DSP','left','Duct Static Pressure','smoothedLine']]; }
@@ -148,10 +150,6 @@ if ($('#dparameters').html().trim()==28) { var dataparameter=[['SFS','right','Su
         ,{"leftaxis":"Temperature (F)","rightaxis":"Percent (%)"}
         ,
         dataparameter
-        /*[['ChWLDP','left','Chl water temp','smoothedLine']
-        ,['HWRT','right','Reheat valve signal (%)','smoothedLine']
-        ,['ZOM','right','Occupancy (%)','column']
-        ]*/
         ,'mychartContainer'
         );
 });
