@@ -109,43 +109,44 @@ class ChartsController extends BaseController {
 		return 1;
 	}
 
-	public function postAddnewrow () {
-		$data='id';
-		$id=$_POST[$data];
-		Measurement::where('data_id','=',$id);
+	public function postCelledition () {
+		$editdata=$_POST['editdata'];
+		$dataid=$_POST['dataid'];
+		$datacolumn=$_POST['datacolumn'];
+		$upd=array(
+			$datacolumn=>$editdata
+			);
+		Measurement::where('data_id','=',$dataid)->update($upd);
 		return 1;
 	}
-	/*
-	|
-	| URL: charts/chart  ->deprecated
-	| Content: 6 charts
-	| As building charts cosume many hardware resources 
-	| this page has been declared as deprecated.
-	| Replaced by page shown at charts/mycharts
-	*/
-	public function getChart() {
-		if (isset($_GET['user'])) {
-			$user=$_GET['user'];
-			$userlink='?user='.$user;
+
+	public function postAnewrow() {
+		$user=$_POST['user'];
+		$DATE_READING=$_POST['DATE_READING'];
+		$TIME_READING=$_POST['TIME_READING'];
+		$data=$_POST['datatobesend'];
+		$datakey=$_POST['datakey'];
+		$modelkey=array();
+		$modelval=array();
+
+		$newdata_id=Measurement::where('user_id','=',$user)->max('data_id')+1;
+		
+		$newr=new Measurement();
+		$newr->data_id=$newdata_id;
+		$newr->user_id=$user;
+		$newr->DATE_READING=$DATE_READING;
+		$newr->TIME_READING=$TIME_READING;
+		
+		$i=0;
+		foreach ($data as $v) {
+			$newr->$datakey[$i]=$v;
+			$i++;
 		}
-		else {
-			$user='unregistered user';
-			$userlink='';
-		}
-		/*
-		|
-		| Giving Measurement data to $data variable
-		*/
-		$data=Measurement::orderBy('DATE_READING')
-		->orderBy('TIME_READING');
-		$chart=Chart::orderBy('chartname')->get();
-		return View::make('charts.charting')
-		->with('user',$user)
-		->with('userlink',$userlink)
-		->with('title','Charts from XML')
-		->with('data',$data)
-		->with('chart',$chart);
+		
+		$newr->save();
+		return 1;
 	}
+	
 	/*
 	|
 	| URL: charts/mycharts

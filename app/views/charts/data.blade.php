@@ -1,11 +1,23 @@
 @extends('layouts.base')
 
 @section('content')
+<?php 
+if (isset($_GET['user'])) {
+ 	$user=$_GET['user'];
+ } else {
+ 	$user='unregistered user';
+ }
+ ?>
+wellcome <spam id="user">{{$user}}</spam>
+<br>
 Upload data here
 <br>
+@if(isset($_GET['user']))
 <a href="#" id='add_new_row_of_data'>ADD ROW</a>
 <a href="#" id='cancel_add_new_row_of_data' class='hide'>cancel adding new row</a>
 <br>
+@endif
+
 
 <a href="{{$previous}}"> &lt;&lt; Previous </a> ||
 <a href="{{$next}}">Next &gt;&gt;</a>
@@ -78,6 +90,8 @@ Upload data here
 						<input type="text" 
 						id='editdata{{$c.$v->data_id}}'
 						class='input-mini text-right'
+						dataid='{{$v->data_id}}' 
+						datacolumn='{{$c}}'
 						value="{{round($v->$c,2)}}">
 					</div>
 				</td>

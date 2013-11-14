@@ -60,9 +60,13 @@ chapt_active*/
 		$('#cancel_add_new_row_of_data').show();
 	});
 
-	$('#savenewrow').click(function(e){
 
-		var ts=$('#datadate').val()+' '+$('#datatime').val();
+
+	$('#savenewrow').click(function(e){
+		var DATE_READING=$('#datadate').val();
+		var TIME_READING=$('#datatime').val();
+		var user=$('#user').html().trim();
+		var ts=DATE_READING+' '+TIME_READING;
 		var allmydata=new Array(
 			'ChWLDP'
 			,'ChWLDSP'
@@ -97,25 +101,39 @@ chapt_active*/
 			,'ZONE'
 			,'DAMPER'
 			);
+
+		var datatobesend=new Array();
+		for (var i = 0; i < allmydata.length; i++) {
+			var datakey=allmydata[i];
+			datatobesend[i]=$('#newinput'+datakey).val();
+		};
 		var datarow='';
 		for (var i = 0; i < allmydata.length; i++) {
 			datarow=datarow+'<td>'+$('#newinput'+allmydata[i]).val()+'</td>';
-			//allmydata[i]
 		};
 		e.preventDefault();
-		$('#alldata tr:first').after('<tr>'
-			+'<td>'+ts+'</td>'
-			+datarow
-			+'<td>recently added</td>'
-			+'</tr>');
-			for (var i = 0; i < allmydata.length; i++) {
-				$('#newinput'+allmydata[i]).val('');
-			};
-		$('#add_data').hide();
+				
 		var base=$('#base').html();
-		/*$.post(base+'/charts/addnewrow',{},function(d){
-			//
-		});*/
+		$.post(base+'/charts/anewrow',{
+			user:user
+			,DATE_READING:DATE_READING
+			,TIME_READING:TIME_READING
+			,datatobesend:datatobesend
+			,datakey:allmydata},function(d){
+			if (d==1) {
+				$('#alldata tr:first').after('<tr>'
+					+'<td>'+ts+'</td>'
+					+datarow
+					+'<td>recently added</td>'
+					+'</tr>');
+					for (var i = 0; i < allmydata.length; i++) {
+						$('#newinput'+allmydata[i]).val('');
+					};
+				$('#add_data').hide();
+				$('#cancel_add_new_row_of_data').hide();
+				$('#add_new_row_of_data').show();
+			}
+		});
 	});
 
 	$('#cancel_add_new_row_of_data').click(function(e){
@@ -135,12 +153,30 @@ chapt_active*/
 		});
 		$('#editdata'+id).blur(function(e){
 			e.preventDefault();
+			var editdata=$(this).val();
+			var dataid=$(this).attr('dataid');
+			var datacolumn=$(this).attr('datacolumn');
 			$('#editable'+id).hide();
 			$('#edit'+id).show();
-			$('#edit'+id).html($(this).val());
+			var base=$('#base').html();
+			$.post(base+'/charts/celledition',{editdata:editdata,dataid:dataid,datacolumn:datacolumn},function(d){
+				$('#edit'+id).html(editdata);
+			});
+			//
+			//$('#edit'+id).html(id);
 		});
-		//
 	}
+
+	/*function celledition(id) {
+		$('#').blur(function(e){
+			var base=$('#base').html();
+			$.post(base+'/charts/celledition',{},function(d){
+				//
+			});
+		});
+	}*/
+
+
 	$('.catcheditable').each(function(){
 		id=$(this).attr('id');
 		id=id.replace('edit','');
