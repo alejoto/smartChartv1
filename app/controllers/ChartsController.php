@@ -102,6 +102,19 @@ class ChartsController extends BaseController {
 		->with('data',$data)
 		->with('title','Manage data');
 	}
+
+	public function postDeleterow () {
+		$id=$_POST['id'];
+		Measurement::where('data_id','=',$id)->delete();
+		return 1;
+	}
+
+	public function postAddnewrow () {
+		$data='id';
+		$id=$_POST[$data];
+		Measurement::where('data_id','=',$id);
+		return 1;
+	}
 	/*
 	|
 	| URL: charts/chart  ->deprecated

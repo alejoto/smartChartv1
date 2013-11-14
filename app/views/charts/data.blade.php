@@ -10,7 +10,7 @@ Upload data here
 <a href="{{$previous}}"> &lt;&lt; Previous </a> ||
 <a href="{{$next}}">Next &gt;&gt;</a>
 @if($data!='')
-<table class="table table-bordered table-hover table-condensed">
+<table class="table table-bordered table-hover table-condensed" id='alldata'>
 	<tr>
 		<th>Timestamp</th>
 		<th>Chilled-Water Loop Differential Pressure</th>
@@ -49,14 +49,17 @@ Upload data here
 	</tr>
 	<tr class="hide" id="add_data">
 		<td>
-			<input type="text" class="input-mini" placeholder='date'>
-			<input type="text" class="input-mini" placeholder='time'>
+			<input type="text" class="input-mini" placeholder='date' id='datadate'>
+			<input type="text" class="input-mini" placeholder='time' id='datatime'>
 		</td>
 		@foreach($column as $i)
 			<td>
-				<input type="text" class="input-mini">
+				<input type="text" class="input-mini" id='newinput{{$i}}'>
 			</td>
 		@endforeach
+		<td>
+			<a href="#" id='savenewrow'>SAVE</a>
+		</td>
 	</tr>
 	@foreach($data->take(10)->skip($page)->get() as $v)
 		<tr id='datarow{{$v->data_id}}' class='datarow'>

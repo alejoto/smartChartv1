@@ -60,6 +60,64 @@ chapt_active*/
 		$('#cancel_add_new_row_of_data').show();
 	});
 
+	$('#savenewrow').click(function(e){
+
+		var ts=$('#datadate').val()+' '+$('#datatime').val();
+		var allmydata=new Array(
+			'ChWLDP'
+			,'ChWLDSP'
+			,'ChWRT'
+			,'ChWST'
+			,'ChWSTSP'
+			,'CCV'
+			,'ConskWH'
+			,'DAT'
+			,'DATSP'
+			,'DSP'
+			,'DSPSP'
+			,'HCVS'
+			,'HWLDP'
+			,'HWLDPSP'
+			,'HWRT'
+			,'HWST'
+			,'HWSTSP'
+			,'MAT'
+			,'OM'
+			,'OADPS'
+			,'OAF'
+			,'OAT'
+			,'RAT'
+			,'SFSpd'
+			,'SFS'
+			,'VAVDPSP'
+			,'ZDPS'
+			,'ZOM'
+			,'ZRVS'
+			,'ZT'
+			,'ZONE'
+			,'DAMPER'
+			);
+		var datarow='';
+		for (var i = 0; i < allmydata.length; i++) {
+			datarow=datarow+'<td>'+$('#newinput'+allmydata[i]).val()+'</td>';
+			//allmydata[i]
+		};
+		e.preventDefault();
+		$('#alldata tr:first').after('<tr>'
+			+'<td>'+ts+'</td>'
+			+datarow
+			+'<td>recently added</td>'
+			+'</tr>');
+			for (var i = 0; i < allmydata.length; i++) {
+				$('#newinput'+allmydata[i]).val('');
+			};
+		$('#add_data').hide();
+		var base=$('#base').html();
+		/*$.post(base+'/charts/addnewrow',{},function(d){
+			//
+		});*/
+	});
+
 	$('#cancel_add_new_row_of_data').click(function(e){
 		e.preventDefault();
 		$('#add_data').hide('fast');
@@ -97,7 +155,14 @@ chapt_active*/
 		});
 		$('#yesdelete'+id).click(function(e){
 			e.preventDefault();
-			$('#datarow'+id).hide('fast');
+			var base=$('#base').html();
+			$.post(base+'/charts/deleterow',{id:id},function(d){
+				if (d==1) {
+					$('#datarow'+id).hide('fast');
+				}
+				
+			});
+			
 		});
 		$('#nodelete'+id).click(function(e){
 			e.preventDefault();
