@@ -10,9 +10,23 @@ if (isset($_GET['user'])) {
  ?>
 wellcome <spam id="user">{{$user}}</spam>
 <br>
-Upload data here
+
 <br>
 @if(isset($_GET['user']))
+<?php 
+$action='charts/upload?user='.$user;
+$action=URL::to($action);
+ ?>
+<form enctype='multipart/form-data' action="{{$action}}" method='post'>
+	Upload data here (csv format only)
+	<div>
+		<input class="uploadfile" type='file' name='filename'>
+		<input type="hidden" value='{{$user}}'>
+
+	</div>
+	<input class='btn' type='submit' name='submit' value='Upload'>
+	
+</form>
 <a href="#" id='add_new_row_of_data'>ADD ROW</a>
 <a href="#" id='cancel_add_new_row_of_data' class='hide'>cancel adding new row</a>
 <br>

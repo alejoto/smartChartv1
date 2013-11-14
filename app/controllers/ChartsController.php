@@ -120,6 +120,62 @@ class ChartsController extends BaseController {
 		return 1;
 	}
 
+	public function postUpload () {
+		$user=$_GET['user'];
+		$column=array(
+			'id','data_id','user_id','entered_at','changed_at'
+			,'DATE_READING','TIME_READING'
+			,'ChWLDP' ,'ChWLDSP' ,'ChWRT' ,'ChWST'
+			,'ChWSTSP' ,'CCV' ,'ConskWH' ,'DAT'
+			,'DATSP' ,'DSP' ,'DSPSP' ,'HCVS'
+			,'HWLDP' ,'HWLDPSP' ,'HWRT' ,'HWST'
+			,'HWSTSP' ,'MAT' ,'OM' ,'OADPS'
+			,'OAF' ,'OAT' ,'RAT' ,'SFSpd'
+			,'SFS' ,'VAVDPSP' ,'ZDPS' ,'ZOM'
+			,'ZRVS' ,'ZT' ,'ZONE' ,'DAMPER'
+			,'created_at','updated_at'
+			);
+		if (isset($_POST['submit'])) {
+			if (is_uploaded_file($_FILES['filename']['tmp_name'])) {
+			}
+			$handle = fopen($_FILES['filename']['tmp_name'], "r");
+			
+			while (($data=fgetcsv($handle, 1000, ","))!==false) {
+				$savingdata=array();
+				$longdata='';
+				$i=0;
+				$maxdata_id=Measurement::where('user_id','=',$user)->max('data_id')+1;
+				$addrow=new Measurement();
+				foreach ($data as $k => $v) {
+					if ($column[$i]=='user_id') {
+						$addrow->$column[$i]=$user;
+					}
+					else if($column[$i]=='data_id') {
+						$addrow->$column[$i]=$maxdata_id;
+					}
+					else if ($column[$i]=='id') {
+						$addrow->$column[$i]='';
+					}
+					else if ($column[$i]=='created_at') {
+						$addrow->$column[$i]='';
+					}
+					else if ($column[$i]=='updated_at') {
+						$addrow->$column[$i]='';
+					}
+					else {
+						$addrow->$column[$i]=$v;
+					}
+					$longdata=$longdata.'$newobject->'.$column[$i].'='.$v.';';
+					$i++;
+				}
+				$addrow->save();
+			}
+			fclose($handle);
+			$back='charts/data?user='.$user;
+			return Redirect::to($back);
+		}
+	}
+
 	public function postAnewrow() {
 		$user=$_POST['user'];
 		$DATE_READING=$_POST['DATE_READING'];
