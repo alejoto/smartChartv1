@@ -53,6 +53,65 @@ chapt_active*/
 	|
 	| 3. javascripts for data view
 	*/
+	$('#add_new_row_of_data').click(function(e){
+		e.preventDefault();
+		$('#add_data').show('fast');
+		$(this).hide();
+		$('#cancel_add_new_row_of_data').show();
+	});
+
+	$('#cancel_add_new_row_of_data').click(function(e){
+		e.preventDefault();
+		$('#add_data').hide('fast');
+		$(this).hide();
+		$('#add_new_row_of_data').show();
+	});
+
+	function showeditabledata(id) {
+		$('#edit'+id).click(function(e){
+			e.preventDefault();
+			$('#editable'+id).show();
+			$(this).hide();
+			$('#editdata'+id).val($('#editdata'+id).val());
+			$('#editdata'+id).focus();
+		});
+		$('#editdata'+id).blur(function(e){
+			e.preventDefault();
+			$('#editable'+id).hide();
+			$('#edit'+id).show();
+			$('#edit'+id).html($(this).val());
+		});
+		//
+	}
+	$('.catcheditable').each(function(){
+		id=$(this).attr('id');
+		id=id.replace('edit','');
+		showeditabledata(id);
+	});
+
+	function deleterequest(id) {
+		$('#delete'+id).click(function(e){
+			e.preventDefault();
+			$('#delete'+id).hide();
+			$('#confirmdelete'+id).show();
+		});
+		$('#yesdelete'+id).click(function(e){
+			e.preventDefault();
+			$('#datarow'+id).hide('fast');
+		});
+		$('#nodelete'+id).click(function(e){
+			e.preventDefault();
+			$('#delete'+id).show();
+			$('#confirmdelete'+id).hide();
+		});
+	}
+
+	$('.datarow').each(function(){
+		id=$(this).attr('id');
+		id=id.replace('datarow','');
+		deleterequest(id);
+		//confirmdelete(id);
+	});
 
 	/*----------------------------
 	|
