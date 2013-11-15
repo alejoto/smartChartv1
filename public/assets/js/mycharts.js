@@ -87,7 +87,7 @@ function createnewchart2(jsondata,y_axis,x_axis,thecharts,target){
     chartScrollbar.scrollbarHeight = 40;
     chartScrollbar.color = "#111";
     chartScrollbar.backgroundAlpha=1;
-    chartScrollbar.backgroundColor= "#1A1A1A";
+    chartScrollbar.backgroundColor= "#fff";
     chartScrollbar.graphFillAlpha=1;
     chartScrollbar.graphFillColor= "#444444";
     chartScrollbar.selectedBackgroundAlpha=1;

@@ -39,19 +39,13 @@ if (isset($_GET['user'])) {
 </div>
 <div class="row">
 	<div class="offset2 span8">
-		<h1>
-			@if(isset($_GET['chart']))
-				{{Chart::find($_GET['chart'])->chartname}}
-			@else
-			 ...Choose chart type (left)
-			@endif
-		</h1>
+		
 	</div>
 </div>
 
 
 <div class="row">
-	<div class="span3">
+	<div class="span4">
 		<ol class="">
 			@foreach($chart as $ch)
 				<li class=''>
@@ -67,9 +61,17 @@ if (isset($_GET['user'])) {
 			@endforeach
 		</ul>
 	</div>
-	<div class=" span7">
+	<div class="offset4 span7 affix">
+
 		<button class="btn ">
-			<div class='center' id="mychartContainer" style="height:400px;width:640px;background-color:#EEEEEE"></div>
+			<h2>
+				@if(isset($_GET['chart']))
+					{{Chart::find($_GET['chart'])->chartname}}
+				@else
+				 ...Choose chart type (left)
+				@endif
+			</h2>
+			<div class='center' id="mychartContainer" style="height:400px;width:640px;background-color:#fff"></div>
 		</button>
 	</div>
 </div>
