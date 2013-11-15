@@ -18,7 +18,7 @@ class ChartsController extends BaseController {
 		return View::make('index')
 		->with('user',$user)
 		->with('userlink',$userlink)
-		->with('title','Home page');
+		->with('title','Home');
 	}
 	/*
 	|
@@ -240,7 +240,7 @@ class ChartsController extends BaseController {
 		return View::make('charts.mycharts')
 		->with('user',$user)
 		->with('userlink',$userlink)
-		->with('title','Charts from XML')
+		->with('title','Charts')
 		->with('fields',$fields)
 		->with('data',$data)
 		->with('chart',$chart);

@@ -10,7 +10,7 @@
 			{{link_to($link_home,'PNNL Trainning platform v1',$attributes = array('class'=>'brand'))}}
 			<div class="nav-collapse collapse">
 				<ul class="nav">
-					<li  class="active">
+					<li  class="">
 						{{link_to($link_home,'Home')}}
 					</li>
 					@if(!isset($userlink)||$userlink=='')
@@ -19,6 +19,15 @@
 								YOU ARE NOT LOGGED IN! (click here)
 							</a>
 						</li>
+					@else
+						@foreach($pages as $k=>$v)
+							<?php $url_address=URL::to($linktopreffix.$k.$userlink) ?>
+							<li class="">
+								<a href="{{$url_address}}" class="  ">
+									{{$v}}
+								</a>
+							</li>
+						@endforeach
 					@endif
 				</ul>
 				<div class="pull-right nav-collapse collapse">

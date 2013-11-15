@@ -8,24 +8,26 @@ if (isset($_GET['user'])) {
  	$user='unregistered user';
  }
  ?>
-wellcome <spam id="user">{{$user}}</spam>
-<br>
 
-<br>
+
 @if(isset($_GET['user']))
 <?php 
 $action='charts/upload?user='.$user;
 $action=URL::to($action);
  ?>
 <form enctype='multipart/form-data' action="{{$action}}" method='post'>
-	Upload data here (csv format only)
-	<div>
+	<h3>
+		wellcome 
+		<spam id="user">{{$user}}</spam>, 
+		please Upload cvs file 
 		<input class="uploadfile" type='file' name='filename'>
 		<input type="hidden" value='{{$user}}'>
+		<input class='btn' type='submit' name='submit' value='Upload'>
 
-	</div>
-	<input class='btn' type='submit' name='submit' value='Upload'>
+	</h3>
+	 
 	
+		
 </form>
 <a href="#" id='add_new_row_of_data'>ADD ROW</a>
 <a href="#" id='cancel_add_new_row_of_data' class='hide'>cancel adding new row</a>
@@ -36,7 +38,7 @@ $action=URL::to($action);
 <a href="{{$previous}}"> &lt;&lt; Previous </a> ||
 <a href="{{$next}}">Next &gt;&gt;</a>
 @if($data!='')
-<table class="table table-bordered table-hover table-condensed" id='alldata'>
+<table class="table table-bordered table-hover table-condensed maureenhome" id='alldata'>
 	<tr>
 		<th>Timestamp</th>
 		<th>Chilled-Water Loop Differential Pressure</th>

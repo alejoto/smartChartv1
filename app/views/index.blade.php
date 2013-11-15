@@ -2,15 +2,13 @@
 @section('sidebar')	
 <?php 
 
+
 $linktopreffix='/charts/';
 $pages=array(
 	'chapters'	=>'View course chapters'
 	,'data'		=>'Manage building data'
-	//,'chart'	=>'Go to data charts'
 	,'mycharts'	=>'Charts'
 	);
-//$linktochapters['chapters']=URL::to($linktopreffix.'chapters'.$userlink);
-
 ?>
 @stop	
 @section('content')	
@@ -22,12 +20,12 @@ $pages=array(
 				<h1>Wellcome, <spam id="wellcome_user">{{$user}}</spam></h1>
 			</div>
 		</div>
+		@if(isset($_GET['user']))
 		<div class="row">
 			<div class="span6">
 				<h2 class='muted'>What would you like to do?</h2>
 			</div>
 		</div>
-		{{--Constructing links with iterations--}}
 		<div class="row">
 			<div class="offset1 span5">
 				<ul class='nav nav-pills nav-stacked'>
@@ -42,7 +40,16 @@ $pages=array(
 				</ul>
 			</div>
 		</div>
+		@else
+		<div class="row">
+			<div class="span6">
+				<a href="{{URL::to('charts/log')}}">
+					<h1 class='muted'>PLEASE LOG IN (click here)</h1>
+				</a>
 				
+			</div>
+		</div>
+		@endif		
 	</div>
 </div>
 @stop	

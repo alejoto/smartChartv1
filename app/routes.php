@@ -15,7 +15,7 @@ Route::get('/', function()
 	return View::make('index')
 	->with('user',$user)
 	->with('userlink',$userlink)
-	->with('title','Data-analizer home page');
+	->with('title','Home');
 });
 
 Route::controller('charts','ChartsController');

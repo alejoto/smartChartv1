@@ -11,13 +11,32 @@
 	{{HTML::script('assets/js/bootstrap.min.js');}}
 	{{HTML::script('assets/js/pnnl.js');}}
 </head>
-    <body class=''>
+<?php 
+$bodyclass='';
+if ($title=='Home'||$title=='Chapters') {
+	$bodyclass='maureenhome';
+}
+$containerclass='';
+if ($title=='Charts') {
+	$containerclass='maureenhome';
+}
+
+$linktopreffix='/charts/';
+$pages=array(
+	'chapters'	=>'View course chapters'
+	,'data'		=>'Manage building data'
+	,'mycharts'	=>'Charts'
+	);
+?>
+
+    <body class='{{$bodyclass}}'>
+
     	<div class='hide'  id='base'>{{URL::to('/')}}</div>
     	<div id="wrap">
     		@include('layouts.navbar')
 	    		
 
-	        <div class="container maureenhome">
+	        <div class="container {{$containerclass}} ">
 	        	@section('sidebar')
 		        @show
 		        
