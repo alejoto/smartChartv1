@@ -46,7 +46,7 @@ if (isset($_GET['user'])) {
 
 <div class="row">
 	<div class="span4">
-		<ol class="">
+		<ul class="nav nav-pills nav-stacked">
 			@foreach($chart as $ch)
 				<li class=''>
 					<?php 
@@ -56,7 +56,6 @@ if (isset($_GET['user'])) {
 					<a href="{{$link}}" class="">
 						{{$ch->chartname}}
 					</a>
-					<br>
 				</li>
 			@endforeach
 		</ul>

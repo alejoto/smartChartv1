@@ -19,17 +19,19 @@
 				</div>
 			</div>
 			<div class="charthidden hide" id='charthidden{{$v->id}}' chapter='0'>
-				@foreach($v->chart as $v2)
-					<div class="row ">
-						<div class="offset1 span7">
-							<?php 
-							$chart_url='charts/mycharts'.$userlink.'&chart='.$v2->id;
-							$chart_url=URL::to($chart_url); 
-							?>
-							<h5><a href="{{$chart_url}}">{{$v2->chartname}}</a></h5>
-						</div>
+				<div class="row">
+					<div class="offset1 span7">
+						<ul class='nav nav-pills nav-stacked'>
+							@foreach($v->chart as $v2)
+								<?php 
+								$chart_url='charts/mycharts'.$userlink.'&chart='.$v2->id;
+								$chart_url=URL::to($chart_url); 
+								?>
+								<li><a href="{{$chart_url}}">{{$v2->chartname}}</a></li>
+							@endforeach
+						</ul>
 					</div>
-				@endforeach
+				</div>
 			</div>	
 		@endforeach
 	</div>

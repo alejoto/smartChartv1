@@ -222,11 +222,10 @@ textarea {
 }
 
 body {
-  /**/
+  
   margin: 0;
-  font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, "AppleGothic", sans-serif;
-  /*"Helvetica Neue", Helvetica, Arial, sans-serif;*/ 
-  font-size: 12px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; 
+  font-size: 13px;
   line-height: 20px;
   color: #333333;
   background-color: #ffffff;
@@ -741,7 +740,8 @@ h4,
 h5,
 h6 {
   margin: 10px 0;
-  font-family: inherit;
+  /* font-family: inherit;*/
+  font-family:"Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, "AppleGothic", sans-serif;
   font-weight: normal;
   line-height: 20px;
   color: inherit;
