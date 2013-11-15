@@ -68,8 +68,8 @@ if (isset($_GET['user'])) {
 		</ul>
 	</div>
 	<div class=" span7">
-		<button class="btn btn-inverse">
-			<div class='center' id="mychartContainer" style="height:400px;width:640px;background-color:#161616"></div>
+		<button class="btn ">
+			<div class='center' id="mychartContainer" style="height:400px;width:640px;background-color:#EEEEEE"></div>
 		</button>
 	</div>
 </div>

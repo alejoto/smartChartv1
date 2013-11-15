@@ -10,7 +10,7 @@ function createnewchart2(jsondata,y_axis,x_axis,thecharts,target){
     //chart.sequencedAnimation=true;
     chart.startEffect='bounce';
     chart.startDuration = 1;
-    chart.color = "#FFFFFF";
+    chart.color = "#000000";
     //chart.addListener('dataUpdated',zoomChart);
 
     //AXES
@@ -85,7 +85,7 @@ function createnewchart2(jsondata,y_axis,x_axis,thecharts,target){
     chartScrollbar.autoGridCount=false;
     chartScrollbar.categoryAxis='';
     chartScrollbar.scrollbarHeight = 40;
-    //chartScrollbar.color = "#fff";
+    chartScrollbar.color = "#111";
     chartScrollbar.backgroundAlpha=1;
     chartScrollbar.backgroundColor= "#1A1A1A";
     chartScrollbar.graphFillAlpha=1;
