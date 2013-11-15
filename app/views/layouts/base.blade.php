@@ -11,13 +11,13 @@
 	{{HTML::script('assets/js/bootstrap.min.js');}}
 	{{HTML::script('assets/js/pnnl.js');}}
 </head>
-    <body>
+    <body class=''>
     	<div class='hide'  id='base'>{{URL::to('/')}}</div>
     	<div id="wrap">
     		@include('layouts.navbar')
 	    		
 
-	        <div class="container">
+	        <div class="container maureenhome">
 	        	@section('sidebar')
 		        @show
 		        

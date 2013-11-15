@@ -28,14 +28,21 @@ $pages=array(
 			</div>
 		</div>
 		{{--Constructing links with iterations--}}
-		@foreach($pages as $k=>$v)
-			<?php $url_address=URL::to($linktopreffix.$k.$userlink) ?>
-			<div class="row">
-				<a href="{{$url_address}}" class="span6 btn btn-info">
-					<h4>{{$v}}</h4>
-				</a>
+		<div class="row">
+			<div class="offset1 span5">
+				<ul class='nav nav-pills nav-stacked'>
+				@foreach($pages as $k=>$v)
+					<?php $url_address=URL::to($linktopreffix.$k.$userlink) ?>
+					<li class="">
+						<a href="{{$url_address}}" class="  ">
+							<h3>{{$v}}</h3>
+						</a>
+					</li>
+				@endforeach
+				</ul>
 			</div>
-		@endforeach
+		</div>
+				
 	</div>
 </div>
 @stop	
