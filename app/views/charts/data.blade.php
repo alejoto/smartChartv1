@@ -77,12 +77,12 @@ $action=URL::to($action);
 	</tr>
 	<tr class="hide" id="add_data">
 		<td>
-			<input type="text" class="input-mini" placeholder='date' id='datadate'>
-			<input type="text" class="input-mini" placeholder='time' id='datatime'>
+			<input type="text" class="input-mini datepicker" placeholder='date' id='datadate'>
+			<input type="text" class="input-mini timepicker" placeholder='time' id='datatime'>
 		</td>
 		@foreach($column as $i)
 			<td>
-				<input type="text" class="input-mini" id='newinput{{$i}}'>
+				<input type="text" class="input-mini floatnumber" id='newinput{{$i}}'>
 			</td>
 		@endforeach
 		<td>
@@ -105,7 +105,7 @@ $action=URL::to($action);
 					<div id="editable{{$c.$v->data_id}}" class='hide'>
 						<input type="text" 
 						id='editdata{{$c.$v->data_id}}'
-						class='input-mini text-right'
+						class='input-mini text-right floatnumber'
 						dataid='{{$v->data_id}}' 
 						datacolumn='{{$c}}'
 						value="{{round($v->$c,2)}}">
@@ -128,5 +128,33 @@ $action=URL::to($action);
 	Login please
 @endif
 
+@stop
+
+
+@section('scripts')
+<script type="text/javascript">
+	$('.timepicker').timepicker({
+		template: 'dropdown',
+		showSeconds: true,
+		minuteStep: 30,
+		//secondStep: 0,
+		showInputs: false,
+		disableFocus: true,
+		defaultTime: '8:00:00',
+		showMeridian: false
+	});
+	$(function(){
+		$('.datepicker').datepicker({
+			format : 	'yyyy/mm/dd'
+		});
+
+		$('.floatnumber').each(function(){
+			var id=$(this).attr('id');
+			hmdfloatnumb($('#'+id));
+		});
+	});
+	
+</script>
 
 @stop
+

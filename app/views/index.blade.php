@@ -1,18 +1,6 @@
 @extends('layouts.base')	
-@section('sidebar')	
-<?php 
 
-
-$linktopreffix='/charts/';
-$pages=array(
-	'chapters'	=>'View course chapters'
-	,'data'		=>'Manage building data'
-	,'mycharts'	=>'Charts'
-	);
-?>
-@stop	
 @section('content')	
-
 <div class="row">
 	<div class="offset3 span6">
 		<div class="row">
