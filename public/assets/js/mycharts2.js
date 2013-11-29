@@ -1,5 +1,8 @@
 AmCharts.ready(function () {
-if ($('#dparameters').html().trim()==1) { var dataparameter=[['ZT','left','Zone Temperature','smoothedLine'],['ZRVS','right','Zone Reheat Valve Signal (%)','column'],['ZOM','right','Zone Occupancy Mode (Occupied/Unoccupied)','column']]; }
+
+var param1=$('#param1').html().trim();
+if ($('#dparameters').html().trim()==1) { var dataparameter=param1; }
+//if ($('#dparameters').html().trim()==1) { var dataparameter=[['ZT','left','Zone Temperature','smoothedLine'],['ZRVS','right','Zone Reheat Valve Signal (%)','column'],['ZOM','right','Zone Occupancy Mode (Occupied/Unoccupied)','column']]; }
 if ($('#dparameters').html().trim()==2) { var dataparameter=[['ZT','left','Zone Temperature','smoothedLine'],['ZRVS','right','Zone Reheat Valve Signal (%)','column'],['OAT','left','Outdoor/Air Temp (temp)','smoothedLine']]; }
 if ($('#dparameters').html().trim()==3) { var dataparameter=[['MAT','left','Mixed/Air Temp','smoothedLine'],['OADPS','right','Outdoor/Air Damper Position Signal (%)','column'],['OAF','right','Outdoor/Air Fraction temp','column'],['OAT','left','Outdoor/Air Temp (temp)','smoothedLine'],['RAT','left','Return/Air Temp','smoothedLine']]; }
 if ($('#dparameters').html().trim()==4) { var dataparameter=[['OAT','left','Outdoor/Air Temp (temp)','smoothedLine'],['OADPS','right','Outdoor/Air Damper Position Signal (%)','column'],['OAF','right','Outdoor/Air Fraction temp','column']]; }

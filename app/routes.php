@@ -7,9 +7,9 @@ Route::get('/', function()
 	//
 	$linktopreffix='/charts/';
 	$pages=array(
-	'chapters'	=>'View course chapters'
-	,'data'		=>'Manage building data'
-	,'mycharts'	=>'Charts'
+	'chapters'		=>'View course chapters'
+	,'data'			=>'Manage building data'
+	,'mycharts2'	=>'Charts'
 	);
 
 	if (isset($_GET['user'])) {

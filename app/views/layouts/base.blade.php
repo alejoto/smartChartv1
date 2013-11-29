@@ -27,7 +27,7 @@ $linktopreffix='/charts/';
 $pages=array(
 	'chapters'	=>'View course chapters'
 	,'data'		=>'Manage building data'
-	,'mycharts'	=>'Charts'
+	,'mycharts2'	=>'Charts'
 	);
 ?>
 

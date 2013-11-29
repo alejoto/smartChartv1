@@ -6,7 +6,16 @@ class ChartsController extends BaseController {
 	| URL: charts/
 	| Content: basic index
 	*/
+
+	//
+
 	public function getIndex() {
+		$linktopreffix='/charts/';
+		$pages=array(
+		'chapters'		=>'View course chapters'
+		,'data'			=>'Manage building data'
+		,'mycharts2'	=>'Charts'
+		);
 		if (isset($_GET['user'])) {
 			$user=$_GET['user'];
 			$userlink='?user='.$user;
@@ -16,6 +25,8 @@ class ChartsController extends BaseController {
 			$userlink='';
 		}
 		return View::make('index')
+		->with('linktopreffix',$linktopreffix)
+		->with('pages',$pages)
 		->with('user',$user)
 		->with('userlink',$userlink)
 		->with('title','Home');
@@ -238,6 +249,43 @@ class ChartsController extends BaseController {
 		->orderBy('TIME_READING');
 		$chart=Chart::orderBy('chartname')->get();
 		return View::make('charts.mycharts')
+		->with('user',$user)
+		->with('userlink',$userlink)
+		->with('title','Charts')
+		->with('fields',$fields)
+		->with('data',$data)
+		->with('chart',$chart);
+	}
+
+	public function getMycharts2() {
+		$fields=array(
+			array('ChWLDP',1),array('ChWLDSP',1),array('ChWRT',1),array('ChWST',1)
+			,array('ChWSTSP',1),array('CCV',100),array('ConskWH',1),array('DAT',1)
+			,array('DATSP',1),array('DSP',1),array('DSPSP',1),array('HCVS',100)
+			,array('HWLDP',1),array('HWLDPSP',1),array('HWRT',1),array('HWST',1)
+			,array('HWSTSP',1),array('MAT',1),array('OM',100),array('OADPS',100)
+			,array('OAF',1),array('OAT',1),array('RAT',1),array('SFSpd',1)
+			,array('SFS',1),array('VAVDPSP',100),array('ZDPS',100),array('ZOM',100)
+			,array('ZRVS',100),array('ZT',1),array('ZONE',1),array('DAMPER',1)
+		);
+
+
+		if (isset($_GET['user'])) {
+			$user=$_GET['user'];
+			$userlink='?user='.$user;
+		}
+		else {
+			$user='unregistered user';
+			$userlink='';
+		}
+		/*
+		|
+		| Giving Measurement data to $data variable
+		*/
+		$data=Measurement::orderBy('DATE_READING')
+		->orderBy('TIME_READING');
+		$chart=Chart::orderBy('chartname')->get();
+		return View::make('charts.mycharts2')
 		->with('user',$user)
 		->with('userlink',$userlink)
 		->with('title','Charts')
