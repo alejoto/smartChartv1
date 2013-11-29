@@ -42,6 +42,8 @@
 				From <input type="text" class='span2' id='datepicker_from' value='{{$mindateslash}}'>
 				<br>
 				To <input type="text" class='span2' id='datepicker_to' value='{{$maxdateslash}}'>
+				<br>
+				<a href="#" class='btn' id="updatechart">Update chart</a>
 			</div>
 		</div>
 		<!-- <div class="row">

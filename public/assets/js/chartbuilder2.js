@@ -152,6 +152,29 @@ function createnewchart2(jsondata,y_axis,x_axis,thecharts,target){
 
     function zoomChart() {
     // different zoom methods can be used - zoomToIndexes, zoomToDates, zoomToCategoryValues
-    chart.zoomToIndexes(10, 40);
-}
+    var startDateString = $('#datepicker_from').val();
+    var endDateString = $('#datepicker_to').val()+" 23:00:00";
+    var initialdate=new Date(startDateString);
+    var finishindate=new Date(endDateString);
+    //finishindate=finishindate.setMinutes(finishindate.getMinutes()+1939);
+    chart.zoomToDates(initialdate, finishindate);
+    }
+
+    /*function changeZoomDates() {
+        var startDateString = $('#datepicker_from').val();
+        var endDateString = $('#datepicker_to').val();
+        var initialdate=new Date(startDateString);
+        var finishindate=new Date(endDateString);
+        chart.zoomToDates(startDate, endDate);
+    }*/
+
+    $('#datepicker_from').on('change blur',function(e){
+        //e.preventDefault();
+        zoomChart();
+    });
+
+    $('#updatechart').click(function(e){
+        e.preventDefault();
+        zoomChart();
+    });
 }
