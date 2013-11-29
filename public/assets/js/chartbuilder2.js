@@ -1,4 +1,4 @@
-function createnewchart2(jsondata,y_axis,x_axis,thecharts,target){
+function createnewchart3(jsondata,y_axis,x_axis,thecharts,target){
 
     /*
     | RETRIEVING DATA FROM HTML TAG 
@@ -156,20 +156,15 @@ function createnewchart2(jsondata,y_axis,x_axis,thecharts,target){
     var endDateString = $('#datepicker_to').val()+" 23:00:00";
     var initialdate=new Date(startDateString);
     var finishindate=new Date(endDateString);
-    //finishindate=finishindate.setMinutes(finishindate.getMinutes()+1939);
     chart.zoomToDates(initialdate, finishindate);
     }
 
-    /*function changeZoomDates() {
-        var startDateString = $('#datepicker_from').val();
-        var endDateString = $('#datepicker_to').val();
-        var initialdate=new Date(startDateString);
-        var finishindate=new Date(endDateString);
-        chart.zoomToDates(startDate, endDate);
-    }*/
 
     $('#datepicker_from').on('change blur',function(e){
-        //e.preventDefault();
+        zoomChart();
+    });
+
+    $('#datepicker_to').on('change blur',function(e){
         zoomChart();
     });
 

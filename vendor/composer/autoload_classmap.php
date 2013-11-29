@@ -7,7 +7,6 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'BaseController' => $baseDir . '/app/controllers/BaseController.php',
-    'Buildingmeasurement' => $baseDir . '/app/models/Buildingmeasurement.php',
     'Carbon\\Carbon' => $vendorDir . '/nesbot/carbon/src/Carbon/Carbon.php',
     'Chapter' => $baseDir . '/app/models/Chapter.php',
     'Chart' => $baseDir . '/app/models/Chart.php',
@@ -22,10 +21,10 @@ return array(
     'ClassPreloader\\Parser\\DirVisitor' => $vendorDir . '/classpreloader/classpreloader/src/ClassPreloader/Parser/DirVisitor.php',
     'ClassPreloader\\Parser\\FileVisitor' => $vendorDir . '/classpreloader/classpreloader/src/ClassPreloader/Parser/FileVisitor.php',
     'ClassPreloader\\Parser\\NodeTraverser' => $vendorDir . '/classpreloader/classpreloader/src/ClassPreloader/Parser/NodeTraverser.php',
-    'CreateBuildingmeasurementsTable' => $baseDir . '/app/database/migrations/2013_11_14_073521_create_buildingmeasurements_table.php',
     'CreateChaptersTable' => $baseDir . '/app/database/migrations/2013_11_08_020047_create_chapters_table.php',
     'CreateChartsTable' => $baseDir . '/app/database/migrations/2013_11_08_024720_create_charts_table.php',
     'CreateMeasurementsTable' => $baseDir . '/app/database/migrations/2013_11_14_082552_create_measurements_table.php',
+    'CreateSetchartsTable' => $baseDir . '/app/database/migrations/2013_11_29_215240_create_setcharts_table.php',
     'CreateUsersTable' => $baseDir . '/app/database/migrations/2013_11_08_224538_create_users_table.php',
     'DatabaseSeeder' => $baseDir . '/app/database/seeds/DatabaseSeeder.php',
     'Doctrine\\Common\\Annotations\\Annotation' => $vendorDir . '/doctrine/annotations/lib/Doctrine/Common/Annotations/Annotation.php',
@@ -611,6 +610,7 @@ return array(
     'Jeremeamia\\SuperClosure\\SerializableClosure' => $vendorDir . '/jeremeamia/SuperClosure/src/Jeremeamia/SuperClosure/SerializableClosure.php',
     'Jeremeamia\\SuperClosure\\Visitor\\ClosureFinderVisitor' => $vendorDir . '/jeremeamia/SuperClosure/src/Jeremeamia/SuperClosure/Visitor/ClosureFinderVisitor.php',
     'Jeremeamia\\SuperClosure\\Visitor\\MagicConstantVisitor' => $vendorDir . '/jeremeamia/SuperClosure/src/Jeremeamia/SuperClosure/Visitor/MagicConstantVisitor.php',
+    'Measurement' => $baseDir . '/app/models/Measurement.php',
     'Monolog\\ErrorHandler' => $vendorDir . '/monolog/monolog/src/Monolog/ErrorHandler.php',
     'Monolog\\Formatter\\ChromePHPFormatter' => $vendorDir . '/monolog/monolog/src/Monolog/Formatter/ChromePHPFormatter.php',
     'Monolog\\Formatter\\FormatterInterface' => $vendorDir . '/monolog/monolog/src/Monolog/Formatter/FormatterInterface.php',

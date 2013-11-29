@@ -1,10 +1,10 @@
 @extends('layouts.base')
 @section('content')
 <div id="param1">
-	[['ZT','left','Zone Temperature','smoothedLine'],['ZRVS','right','Zone Reheat Valve Signal (%)','column'],['ZOM','right','Zone Occupancy Mode (Occupied/Unoccupied)','column']]
+	ZT,left,Zone Temperature,smoothedLine|ZRVS,right,Zone Reheat Valve Signal (%),column|ZOM,right,Zone Occupancy Mode (yes/no),column
 </div>
 
-@include('charts.datafeeder')
+@include('charts.datafeeder') {{--data retrieval--}}
 
 <?php 
 //min date
@@ -31,9 +31,7 @@
 			<div class="offset1 span3 text-right">
 			pending things: 
 			<ul>
-				<li>rebuild charts from zero for allowing live editing</li>
 				<li>Retrieve chart parameters as XML instead of js conditional</li>
-				<li>Add default start date as min date, same with end date (max)</li>
 				<li>Everything must be dryed</li>
 			</ul>
 			

@@ -1,7 +1,20 @@
 AmCharts.ready(function () {
 
-var param1=$('#param1').html().trim();
-if ($('#dparameters').html().trim()==1) { var dataparameter=param1; }
+//var param1=$('#param1').html().trim();//not working
+//var firstset=['ZT','left','Zone Temperature','smoothedLine'];
+var confdataset=$('#param1').html().trim();
+confdataset=confdataset.split('|');
+var i;
+thedataset=[];
+var param1=[];
+for (var i = 0; i < confdataset.length; i++) {
+    thedataset[i]=confdataset[i].split(',');
+    param1[i]=thedataset[i];
+}
+
+
+
+/*if ($('#dparameters').html().trim()==1) { var dataparameter=param1; } 
 //if ($('#dparameters').html().trim()==1) { var dataparameter=[['ZT','left','Zone Temperature','smoothedLine'],['ZRVS','right','Zone Reheat Valve Signal (%)','column'],['ZOM','right','Zone Occupancy Mode (Occupied/Unoccupied)','column']]; }
 if ($('#dparameters').html().trim()==2) { var dataparameter=[['ZT','left','Zone Temperature','smoothedLine'],['ZRVS','right','Zone Reheat Valve Signal (%)','column'],['OAT','left','Outdoor/Air Temp (temp)','smoothedLine']]; }
 if ($('#dparameters').html().trim()==3) { var dataparameter=[['MAT','left','Mixed/Air Temp','smoothedLine'],['OADPS','right','Outdoor/Air Damper Position Signal (%)','column'],['OAF','right','Outdoor/Air Fraction temp','column'],['OAT','left','Outdoor/Air Temp (temp)','smoothedLine'],['RAT','left','Return/Air Temp','smoothedLine']]; }
@@ -29,23 +42,16 @@ if ($('#dparameters').html().trim()==24) { var dataparameter=[['DAT','left','Dis
 if ($('#dparameters').html().trim()==25) { var dataparameter=[['DAT','left','Discharge/Air Temp','smoothedLine'],['DATSP','left','Discharge/Air Temp Set Point','smoothedLine'],['OAT','left','Outdoor/Air Temp (temp)','smoothedLine']]; }
 if ($('#dparameters').html().trim()==26) { var dataparameter=[['ZRVS','right','Zone Reheat Valve Signal (%)','column']]; }
 if ($('#dparameters').html().trim()==27) { var dataparameter=[['DSP','left','Duct Static Pressure','smoothedLine']]; }
-if ($('#dparameters').html().trim()==28) { var dataparameter=[['SFS','right','Supply Fan Status (on/off)','column']]; }
+if ($('#dparameters').html().trim()==28) { var dataparameter=[['SFS','right','Supply Fan Status (on/off)','column']]; }*/
 
 
-	createnewchart2(
+	createnewchart3(
         'availabledatafields'   //div id with all data to be charted
         ,'time'                 //name of category (horizontal) axis
         ,{"leftaxis":"Temperature (F)","rightaxis":"Percent (%)"} //name of left and right axis
         ,
-        dataparameter           //multidimensional array with some specifications of chart lines and columns
+        param1           //multidimensional array with some specifications of chart lines and columns
         ,'mychartContainer'     //div id that will display chart
         );
-
-
 });
 
-// this method is called when chart is first inited as we listen for "dataUpdated" event
-/*function zoomChart() {
-    // different zoom methods can be used - zoomToIndexes, zoomToDates, zoomToCategoryValues
-    chart.zoomToIndexes(1, 10);*/
-//}
