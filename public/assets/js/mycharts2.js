@@ -1,14 +1,13 @@
+
 AmCharts.ready(function () {
 
-//var param1=$('#param1').html().trim();//not working
-//var firstset=['ZT','left','Zone Temperature','smoothedLine'];
 var confdataset=$('#param1').html().trim();
 confdataset=confdataset.split('|');
 var i;
 thedataset=[];
 var param1=[];
 for (var i = 0; i < confdataset.length; i++) {
-    thedataset[i]=confdataset[i].split(',');
+    thedataset[i]=confdataset[i].replace(' ','').split(',');
     param1[i]=thedataset[i];
 }
 

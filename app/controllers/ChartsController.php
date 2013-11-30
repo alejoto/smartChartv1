@@ -269,6 +269,40 @@ class ChartsController extends BaseController {
 			,array('ZRVS',100),array('ZT',1),array('ZONE',1),array('DAMPER',1)
 		);
 
+		$setofdata=array(
+		1=>array('ZT','ZRVS','ZOM')
+		,2=>array('ZT','ZRVS','OAT')
+		,3=>array('MAT','OADPS','OAF','OAT','RAT')
+		,4=>array('OAT','OADPS','OAF')
+		,5=>array('OAT','RAT','OADPS')
+		,6=>array('OAT','OADPS')
+		,7=>array('CCV','DATSP','OADPS','OAT')
+		,8=>array('CCV','OADPS','OAT')
+		,9=>array('CCV','OADPS')
+		,10=>array('DAT','MAT','OAT','RAT')
+		,11=>array('CCV','HCVS','OAT')
+		,12=>array('ChWST','OAT')
+		,13=>array('ChWST','CCV','OAT')
+		,14=>array('ChWRT','ChWST','OAT')
+		,15=>array('ChWRT','CCV')
+		,16=>array('HWST','OAT')
+		,17=>array('HWRT','HWST','OAT')
+		,18=>array('HWLDP','HCVS')
+		,19=>array('OAT','OADPS','OAF','OM')
+		,20=>array('OAT','OADPS','OM')
+		,21=>array('DSP','DSPSP')
+		,22=>array('DSP')
+		,23=>array('VAVDPSP')
+		,24=>array('DAT','DATSP')
+		,25=>array('DAT','DATSP','OAT')
+		,26=>array('ZRVS')
+		,27=>array('DSP')
+		,28=>array('SFS')
+		);
+
+		$chartsparamhead1=array('mscol','axislocation','descriptcol','charttype');
+
+		if (isset($_GET['chart'])) {$chooser=$_GET['chart'];} else {$chooser='';}
 
 		if (isset($_GET['user'])) {
 			$user=$_GET['user'];
@@ -290,6 +324,9 @@ class ChartsController extends BaseController {
 		->with('userlink',$userlink)
 		->with('title','Charts')
 		->with('fields',$fields)
+		->with('chooser',$chooser)
+		->with('setofdata',$setofdata)
+		->with('chartsparamhead1',$chartsparamhead1)
 		->with('data',$data)
 		->with('chart',$chart);
 	}

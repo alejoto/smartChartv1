@@ -1,8 +1,28 @@
 @extends('layouts.base')
 @section('content')
-<div id="param1">
-	ZT,left,Zone Temperature,smoothedLine|ZRVS,right,Zone Reheat Valve Signal (%),column|ZOM,right,Zone Occupancy Mode (yes/no),column
+<?php 
+if (isset($_GET['chart'])) {$chooser=$_GET['chart'];} else {$chooser='';}
+$l='';
+?>
+<div id="param1" class='hide'>
+	<?php 
+	//
+	if (isset($_GET['chart'])&&isset($setofdata[$chooser])) {
+		foreach ($setofdata[$chooser] as $v) {
+			$chartsparam=Setchart::where('mscol','=',$v)->first();
+			echo $l;
+			$i='';
+			foreach ($chartsparamhead1 as $c) {
+				echo $i.$chartsparam->$c;
+				$i=',';
+			}
+			$l='|';
+		}
+	}
+	 ?>
 </div>
+
+
 
 @include('charts.datafeeder') {{--data retrieval--}}
 
@@ -29,14 +49,7 @@
 	<div class="span4">
 		<div class="row">
 			<div class="offset1 span3 text-right">
-			pending things: 
-			<ul>
-				<li>Retrieve chart parameters as XML instead of js conditional</li>
-				<li>Everything must be dryed</li>
-			</ul>
-			
-				
-				CHOOSE DATE RANGE <br>
+			CHOOSE DATE RANGE <br>
 				From <input type="text" class='span2' id='datepicker_from' value='{{$mindateslash}}'>
 				<br>
 				To <input type="text" class='span2' id='datepicker_to' value='{{$maxdateslash}}'>
