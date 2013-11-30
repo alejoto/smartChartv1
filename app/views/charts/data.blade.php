@@ -16,18 +16,17 @@ $action='charts/upload?user='.$user;
 $action=URL::to($action);
  ?>
 <form enctype='multipart/form-data' action="{{$action}}" method='post'>
-	<h3>
-		wellcome 
-		<spam id="user">{{$user}}</spam>, 
-		please Upload cvs file 
-		<input class="uploadfile" type='file' name='filename'>
-		<input type="hidden" value='{{$user}}'>
-		<input class='btn' type='submit' name='submit' value='Upload'>
-
-	</h3>
-	 
-	
-		
+	<div class="row">
+		<div class="span2">
+			<strong>Viewing data for<spam id="user">{{$user}}</spam></strong>
+		</div>
+		<div class="span6">
+			Upload csv file 
+			<input class="uploadfile" type='file' name='filename'>
+			<input type="hidden" value='{{$user}}'>
+			<input class='btn' type='submit' name='submit' value='Upload'>
+		</div>
+	</div>	
 </form>
 <a href="#" id='add_new_row_of_data'>ADD ROW</a>
 <a href="#" id='cancel_add_new_row_of_data' class='hide'>cancel adding new row</a>

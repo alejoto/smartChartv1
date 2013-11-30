@@ -1,7 +1,7 @@
 @extends('layouts.base')
 @section('content')
 <?php 
-if (isset($_GET['chart'])) {$chooser=$_GET['chart'];} else {$chooser='';}
+
 $l='';
 ?>
 <div id="param1" class='hide'>
@@ -57,13 +57,7 @@ $l='';
 				<a href="#" class='btn' id="updatechart">Update chart</a>
 			</div>
 		</div>
-		<!-- <div class="row">
-			<div class="offset1 span3">
-				SET TIME RANGE <br>
-				From <input type="text" class='span1 ' id='timepicker_from'>
-				To <input type="text" class='span1' id='timepicker_to'>
-			</div>
-		</div> -->
+		
 		<hr>
 		{{--LEFT MENU WITH ALL TYPES OF AVAILABLE CHARTS--}}
 		<ul class="nav nav-pills nav-stacked">

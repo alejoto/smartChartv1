@@ -24,14 +24,14 @@ if ($title=='Charts') {
 }
 
 $linktopreffix='/charts/';
-$pages=array(
+/*$pages=array(
 	'chapters'	=>'View course chapters'
 	,'data'		=>'Manage building data'
 	,'mycharts2'	=>'Charts'
-	);
+	);*/
 ?>
 
-    <body class='{{$bodyclass}}'>
+    <body class='maureenhome'>
 
     	<div class='hide'  id='base'>{{URL::to('/')}}</div>
     	<div id="wrap">

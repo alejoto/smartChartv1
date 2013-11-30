@@ -5,7 +5,7 @@
 	<div class="offset3 span6">
 		<div class="row">
 			<div class="span6">
-				<h1>Wellcome, <spam id="wellcome_user">{{$user}}</spam></h1>
+				<h1>Welcome, <spam id="wellcome_user">{{$user}}</spam></h1>
 			</div>
 		</div>
 		@if(isset($_GET['user']))

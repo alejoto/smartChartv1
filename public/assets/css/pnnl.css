@@ -21,9 +21,9 @@ div.uploadfile input {
 }
 
 .maureenhome {
-	background: #fff;
-	background-image:url(../img/blackcloudsandtrees.jpg) ;
-	background-size: cover;
+	background: #dbdacc;
+	/*background-image:url(../img/blackcloudsandtrees.jpg) ;*/
+	/*background-size: cover;*/
 	min-height: 630px;
 	position: relative;
 	top: 0;

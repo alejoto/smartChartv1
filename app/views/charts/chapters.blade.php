@@ -2,7 +2,7 @@
 @section('content')	
 <div class="row">
 	<div class="offset2 span8">
-		<h2>Wellcome {{$user}}</h2>
+		<h2>Welcome {{$user}}</h2>
 	</div>
 </div>
 <div class="row">

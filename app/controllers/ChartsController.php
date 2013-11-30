@@ -11,11 +11,12 @@ class ChartsController extends BaseController {
 
 	public function getIndex() {
 		$linktopreffix='/charts/';
-		$pages=array(
-		'chapters'		=>'View course chapters'
-		,'data'			=>'Manage building data'
-		,'mycharts2'	=>'Charts'
-		);
+		
+		$pages=array();
+		foreach (Page::all() as  $v) {
+			$pages[$v->pagename]=$v->pagedescription;
+		}
+
 		if (isset($_GET['user'])) {
 			$user=$_GET['user'];
 			$userlink='?user='.$user;
@@ -29,7 +30,7 @@ class ChartsController extends BaseController {
 		->with('pages',$pages)
 		->with('user',$user)
 		->with('userlink',$userlink)
-		->with('title','Home');
+		->with('title','Retuning Training Platform v1');
 	}
 	/*
 	|
@@ -37,6 +38,11 @@ class ChartsController extends BaseController {
 	| Content: Chapters with corresponding charts names
 	*/
 	public function getChapters() {
+		$pages=array();
+		foreach (Page::all() as  $v) {
+			$pages[$v->pagename]=$v->pagedescription;
+		}
+
 		if (isset($_GET['user'])) {
 			$user=$_GET['user'];
 			$userlink='?user='.$user;
@@ -47,6 +53,8 @@ class ChartsController extends BaseController {
 		}
 		$chapter=Chapter::orderBy('id')->get();
 		return View::make('charts.chapters')
+
+		->with('pages',$pages)
 		->with('chapter',$chapter)
 		->with('user',$user)
 		->with('userlink',$userlink)
@@ -58,6 +66,10 @@ class ChartsController extends BaseController {
 	| Content: Table with whole data
 	*/
 	public function getData() {
+		$pages=array();
+		foreach (Page::all() as  $v) {
+			$pages[$v->pagename]=$v->pagedescription;
+		}
 		$data='';
 		$column=array(
 			'ChWLDP' ,'ChWLDSP' ,'ChWRT' ,'ChWST'
@@ -106,6 +118,7 @@ class ChartsController extends BaseController {
 		return View::make('charts.data')
 		->with('user',$user)
 		->with('userlink',$userlink)
+		->with('pages',$pages)
 		->with('column',$column)
 		->with('previous',$previous)
 		->with('next',$next)
@@ -113,6 +126,89 @@ class ChartsController extends BaseController {
 		->with('data',$data)
 		->with('title','Manage data');
 	}
+
+	public function getMycharts2() {
+		$pages=array();
+		foreach (Page::all() as  $v) {
+			$pages[$v->pagename]=$v->pagedescription;
+		}
+
+
+		$fields=array(
+			array('ChWLDP',1),array('ChWLDSP',1),array('ChWRT',1),array('ChWST',1)
+			,array('ChWSTSP',1),array('CCV',100),array('ConskWH',1),array('DAT',1)
+			,array('DATSP',1),array('DSP',1),array('DSPSP',1),array('HCVS',100)
+			,array('HWLDP',1),array('HWLDPSP',1),array('HWRT',1),array('HWST',1)
+			,array('HWSTSP',1),array('MAT',1),array('OM',100),array('OADPS',100)
+			,array('OAF',1),array('OAT',1),array('RAT',1),array('SFSpd',1)
+			,array('SFS',1),array('VAVDPSP',100),array('ZDPS',100),array('ZOM',100)
+			,array('ZRVS',100),array('ZT',1),array('ZONE',1),array('DAMPER',1)
+		);
+
+		$setofdata=array(
+		1=>array('ZT','ZRVS','ZOM')
+		,2=>array('ZT','ZRVS','OAT')
+		,3=>array('MAT','OADPS','OAF','OAT','RAT')
+		,4=>array('OAT','OADPS','OAF')
+		,5=>array('OAT','RAT','OADPS')
+		,6=>array('OAT','OADPS')
+		,7=>array('CCV','DATSP','OADPS','OAT')
+		,8=>array('CCV','OADPS','OAT')
+		,9=>array('CCV','OADPS')
+		,10=>array('DAT','MAT','OAT','RAT')
+		,11=>array('CCV','HCVS','OAT')
+		,12=>array('ChWST','OAT')
+		,13=>array('ChWST','CCV','OAT')
+		,14=>array('ChWRT','ChWST','OAT')
+		,15=>array('ChWRT','CCV')
+		,16=>array('HWST','OAT')
+		,17=>array('HWRT','HWST','OAT')
+		,18=>array('HWLDP','HCVS')
+		,19=>array('OAT','OADPS','OAF','OM')
+		,20=>array('OAT','OADPS','OM')
+		,21=>array('DSP','DSPSP')
+		,22=>array('DSP')
+		,23=>array('VAVDPSP')
+		,24=>array('DAT','DATSP')
+		,25=>array('DAT','DATSP','OAT')
+		,26=>array('ZRVS')
+		,27=>array('DSP')
+		,28=>array('SFS')
+		);
+
+		$chartsparamhead1=array('mscol','axislocation','descriptcol','charttype');
+
+		if (isset($_GET['chart'])) {$chooser=$_GET['chart'];} else {$chooser='';}
+
+		if (isset($_GET['user'])) {
+			$user=$_GET['user'];
+			$userlink='?user='.$user;
+		}
+		else {
+			$user='unregistered user';
+			$userlink='';
+		}
+		/*
+		|
+		| Giving Measurement data to $data variable
+		*/
+		$data=Measurement::orderBy('DATE_READING')
+		->orderBy('TIME_READING');
+		$chart=Chart::orderBy('chartname')->get();
+		return View::make('charts.mycharts2')
+		->with('user',$user)
+		->with('userlink',$userlink)
+		->with('pages',$pages)
+		->with('title','Charts')
+		->with('fields',$fields)
+		->with('chooser',$chooser)
+		->with('setofdata',$setofdata)
+		->with('chartsparamhead1',$chartsparamhead1)
+		->with('data',$data)
+		->with('chart',$chart);
+	}
+
+	/*POST requests*/
 
 	public function postDeleterow () {
 		$id=$_POST['id'];
@@ -257,79 +353,7 @@ class ChartsController extends BaseController {
 		->with('chart',$chart);
 	}
 
-	public function getMycharts2() {
-		$fields=array(
-			array('ChWLDP',1),array('ChWLDSP',1),array('ChWRT',1),array('ChWST',1)
-			,array('ChWSTSP',1),array('CCV',100),array('ConskWH',1),array('DAT',1)
-			,array('DATSP',1),array('DSP',1),array('DSPSP',1),array('HCVS',100)
-			,array('HWLDP',1),array('HWLDPSP',1),array('HWRT',1),array('HWST',1)
-			,array('HWSTSP',1),array('MAT',1),array('OM',100),array('OADPS',100)
-			,array('OAF',1),array('OAT',1),array('RAT',1),array('SFSpd',1)
-			,array('SFS',1),array('VAVDPSP',100),array('ZDPS',100),array('ZOM',100)
-			,array('ZRVS',100),array('ZT',1),array('ZONE',1),array('DAMPER',1)
-		);
-
-		$setofdata=array(
-		1=>array('ZT','ZRVS','ZOM')
-		,2=>array('ZT','ZRVS','OAT')
-		,3=>array('MAT','OADPS','OAF','OAT','RAT')
-		,4=>array('OAT','OADPS','OAF')
-		,5=>array('OAT','RAT','OADPS')
-		,6=>array('OAT','OADPS')
-		,7=>array('CCV','DATSP','OADPS','OAT')
-		,8=>array('CCV','OADPS','OAT')
-		,9=>array('CCV','OADPS')
-		,10=>array('DAT','MAT','OAT','RAT')
-		,11=>array('CCV','HCVS','OAT')
-		,12=>array('ChWST','OAT')
-		,13=>array('ChWST','CCV','OAT')
-		,14=>array('ChWRT','ChWST','OAT')
-		,15=>array('ChWRT','CCV')
-		,16=>array('HWST','OAT')
-		,17=>array('HWRT','HWST','OAT')
-		,18=>array('HWLDP','HCVS')
-		,19=>array('OAT','OADPS','OAF','OM')
-		,20=>array('OAT','OADPS','OM')
-		,21=>array('DSP','DSPSP')
-		,22=>array('DSP')
-		,23=>array('VAVDPSP')
-		,24=>array('DAT','DATSP')
-		,25=>array('DAT','DATSP','OAT')
-		,26=>array('ZRVS')
-		,27=>array('DSP')
-		,28=>array('SFS')
-		);
-
-		$chartsparamhead1=array('mscol','axislocation','descriptcol','charttype');
-
-		if (isset($_GET['chart'])) {$chooser=$_GET['chart'];} else {$chooser='';}
-
-		if (isset($_GET['user'])) {
-			$user=$_GET['user'];
-			$userlink='?user='.$user;
-		}
-		else {
-			$user='unregistered user';
-			$userlink='';
-		}
-		/*
-		|
-		| Giving Measurement data to $data variable
-		*/
-		$data=Measurement::orderBy('DATE_READING')
-		->orderBy('TIME_READING');
-		$chart=Chart::orderBy('chartname')->get();
-		return View::make('charts.mycharts2')
-		->with('user',$user)
-		->with('userlink',$userlink)
-		->with('title','Charts')
-		->with('fields',$fields)
-		->with('chooser',$chooser)
-		->with('setofdata',$setofdata)
-		->with('chartsparamhead1',$chartsparamhead1)
-		->with('data',$data)
-		->with('chart',$chart);
-	}
+	
 
 	public function getLog () {
 		return View::make('temporaryloguser')

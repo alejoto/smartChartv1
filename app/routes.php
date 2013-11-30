@@ -6,11 +6,10 @@ Route::get('/', function()
 {
 	//
 	$linktopreffix='/charts/';
-	$pages=array(
-	'chapters'		=>'View course chapters'
-	,'data'			=>'Manage building data'
-	,'mycharts2'	=>'Charts'
-	);
+	$pages=array();
+		foreach (Page::all() as  $v) {
+			$pages[$v->pagename]=$v->pagedescription;
+		}
 
 	if (isset($_GET['user'])) {
 		$user=$_GET['user'];
