@@ -37,7 +37,7 @@ $action=URL::to($action);
 <a href="{{$previous}}"> &lt;&lt; Previous </a> ||
 <a href="{{$next}}">Next &gt;&gt;</a>
 @if($data!='')
-<table class="table table-bordered table-hover table-condensed maureenhome" id='alldata'>
+<table class="table table-bordered table-hover table-condensed maureentable" id='alldata'>
 	<tr>
 		<th>Timestamp</th>
 		<th>Chilled-Water Loop Differential Pressure</th>
