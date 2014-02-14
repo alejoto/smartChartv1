@@ -8,7 +8,7 @@
 	{{HTML::style('assets/css/bootstrap.css');}}
 	{{HTML::style('assets/css/bootstrap-responsive.css');}}
 	{{HTML::style('assets/css/sticky-footer-navbar.css');}}
-	{{HTML::style('assets/css/pnnl.css');}}
+	{{HTML::style('assets/css/brk_orb.css');}}
 	{{HTML::style('assets/css/datepicker.css');}}
 	{{HTML::style('assets/css/bootstrap-timepicker.css');}}
 	
@@ -52,7 +52,7 @@ $linktopreffix='/charts/';
 {{--Scripts--}}
 {{HTML::script('assets/js/jquery-1.10.2.min.js');}}
 {{HTML::script('assets/js/bootstrap.min.js');}}
-{{HTML::script('assets/js/pnnl.js');}}
+{{HTML::script('assets/js/brk_orb.js');}}
 {{HTML::script('assets/js/hmd_valid.js');}}
 {{HTML::script('assets/js/bootstrap-datepicker.js');}}
 {{HTML::script('assets/js/bootstrap-timepicker.js');}}

@@ -39,14 +39,4 @@
 	<div class="span5"><spam class='muted'>Data will be stored as decided by user.</spam></div>
 </div>
 
-{{--Temporaluser::find('3')->dataset--}}
-<br>
-Example for user {{Temporaluser::find('3')->name}} ({{Temporaluser::find('3')->email}}) <br>
-<select name="" id="">
-	@foreach(Temporaluser::find('3')->dataset as $ds)
-	<option value="">{{$ds->name}}</option>
-	@endforeach
-</select>
-
-
 @stop

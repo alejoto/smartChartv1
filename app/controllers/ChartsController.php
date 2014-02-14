@@ -230,6 +230,36 @@ class ChartsController extends BaseController {
 
 	/*POST requests*/
 
+	/*Add a new data set*/
+	public function postDatasetnew () {
+		$ds=$_POST['ds'];
+		$user=$_POST['user'];
+		$dsr=new Dataset;
+		$dsr->name=$ds;
+		$dsr->user_id=$user;
+		$dsr->save();
+		return 1;
+	}
+
+	/*Rename dataset*/
+	public function postDatasetrename () {
+		$name=$_POST['name'];
+		Dataset::find($_POST['id'])->update(
+			//array('name'=>$name)
+			compact('name')
+			);
+		return 1;
+	}
+
+	/*Delet a dataset*/
+	public function postDatasetdelete () {
+		Dataset::find($_POST['id'])->delete();
+		return 1;
+	}
+
+
+	/*Delete measurements register*/
+
 	public function postDeleterow () {
 		$id=$_POST['id'];
 		Measurement::where('data_id','=',$id)->delete();

@@ -1,8 +1,7 @@
 /*
 CSS STYLE SHEET FILE FOR PROJECT DATA MEASUREMENTS
-COMPANY(CLIENT) PACIFIC NORTHWEST NATIONAL LABORATORY
+COMPANY(CLIENT) BREAKING ORBIT
 DATE OF CREATION: NOV / 11 / 2013;
-CREATED BY: BREAKING ORBIT TECHNICAL CONSULTANT
 */
 
 div.uploadfile {
@@ -18,6 +17,10 @@ div.uploadfile input {
     height: 57px !important;
     opacity: 0 !important;
     overflow: hidden !important;
+}
+
+.maureenhide{
+	display:none;
 }
 
 .maureenhome {

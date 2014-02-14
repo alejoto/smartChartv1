@@ -1,10 +1,7 @@
 <?php
 
-
-
 Route::get('/', function()
 {
-	//
 	$linktopreffix='/charts/';
 	$pages=array();
 		foreach (Page::all() as  $v) {
@@ -19,11 +16,7 @@ Route::get('/', function()
 		$user='unregistered user';
 		$userlink='';
 	}
-	return View::make('index')
-	->with('linktopreffix',$linktopreffix)
-	->with('pages',$pages)
-	->with('user',$user)
-	->with('userlink',$userlink)
+	return View::make('index',compact('linktopreffix','pages','user','userlink'))
 	->with('title','Home');
 });
 

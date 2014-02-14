@@ -9,35 +9,54 @@
 			and some other ilustrative cases related to building retuning systems.  In order to import / create new registers you 
 			must select first a dataset.
 		</p></div>
-	<div class="span6">
+	<div class="span8">
 		<h3>
 			<a href="" id='addnewdataset'>
 				+ Add a new data set
 			</a>
 		</h3>
-		<div class="hmdhide"><input type="text"></div>
+		<div class="maureenhide form-inline" id='hidden_dataset_field'>
+			<input type="text" placeholder='+ add new data set name' id='newdatasetinput'>
+			<div class="maureenhide" id="loggeduser">{{$_GET['user']}}</div>
+			<button class="btn" id='confirm_newdataset'><i class="icon-ok"></i></button>
+			<button class="btn" id='cancel_newdataset'><i class="icon-remove"></i></button>
+		</div>
 			
 		@if(Dataset::logged($user)->count()>0)
 			<table class="table table-condensed table-hover">
 				<tr>
-					<th class='span2'>Dataset name</th>
+					<th class='span4'>Dataset name</th>
 					<th class="span2">Nrs of registers</th>
 					<th class="span2">Action</th>
 				</tr>
 				@foreach(Dataset::logged($user)->get() as $d)
-					<tr >
-						<td class='span2'>{{$d->name}}</td>
+					<tr class='dset' id='dset{{$d->id}}'>
+						<td class='span4'>
+							<div id="current_dsetname{{$d->id}}">{{$d->name}}</div>
+							<div class='maureenhide form-inline' id='input_renameds{{$d->id}}'>
+								<input type="text" id="rename_ds{{$d->id}}" class='span6' value='{{$d->name}}'>
+								<button class="btn" id='confirm_renameds{{$d->id}}'><i class="icon-ok"></i></button>
+								<button class="btn" id='cancel_renameds{{$d->id}}'><i class="icon-remove"></i></button>
+							</div>
+						</td>
 						<td class="span2">11</td>
 						<td class="span2">
-							<div class="dropdown">
+							<div class="dropdown" id='groupsofactionsfor_ds{{$d->id}}'>
 								<button class="btn dropdown-toggle" data-toggle="dropdown">action <b class="caret"></b></button>
 								<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
 									<li><a href="">see data table</a></li>
 									<li><a href="">go to data charts</a></li>
 									<li><a href="">import cvs data</a></li>
-									<li><a href="">rename</a></li>
-									<li><a href="">delete</a></li>
+									<li><a href="" id='changename{{$d->id}}'>rename</a></li>
+									<li>
+										<a href="" id='delete_dsrequest{{$d->id}}'>delete</a>
+									</li>
 								</ul>
+							</div>
+							<div class="maureenhide" id="delete_ds_btngroups{{$d->id}}">
+								Confirm deleting
+								<a href="" id='delete_ds{{$d->id}}'>Yes</a>
+								<a href="" id='canceldelete_ds{{$d->id}}'>No</a>
 							</div>
 						</td>
 					</tr>

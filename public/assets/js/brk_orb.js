@@ -167,14 +167,98 @@ chapt_active*/
 		});
 	}
 
-	/*function celledition(id) {
-		$('#').blur(function(e){
+	$('#addnewdataset').click(function(e){
+		e.preventDefault();
+		$(this).hide('fast');
+		$('#hidden_dataset_field').show('fast');
+	});
+
+	$('#cancel_newdataset').click(function(e){
+		e.preventDefault();
+		$('#addnewdataset').show('fast');
+		$('#hidden_dataset_field').hide('fast');
+		$('#newdatasetinput').val('');
+	});
+
+	$('#confirm_newdataset').click(function(e){
+		e.preventDefault();
+		var ds=$('#newdatasetinput').val();
+		var user=$('#loggeduser').html();
+		var base=$('#base').html();
+		$.post(base+'/charts/datasetnew',{ds:ds,user:user},function(d){
+			if (d==1) {
+				location.reload();
+			}
+		});
+	});
+
+	$('.dset').each(function(){
+		var id=$(this).attr('id');
+		id=id.replace('dset','');
+		delete_dsrequest(id);
+		delete_ds(id);
+		canceldelete_ds(id);
+		rename_ds(id);
+		cancel_renameds(id);
+		confirm_renameds(id);
+	});
+
+	function confirm_renameds(id){
+		$('#confirm_renameds'+id).click(function(e){
+			e.preventDefault();
+			var name=$('#rename_ds'+id).val();
 			var base=$('#base').html();
-			$.post(base+'/charts/celledition',{},function(d){
-				//
+			$.post(base+'/charts/datasetrename',{id:id,name:name},function(d){
+				if (d==1) {
+					location.reload();
+				}
 			});
 		});
-	}*/
+	}
+
+	function rename_ds(id){
+		$('#changename'+id).click(function(e){
+			e.preventDefault();
+			$('#current_dsetname'+id).hide('fast');
+			$('#input_renameds'+id).show('fast');
+		});
+	}
+
+	function cancel_renameds(id){
+		$('#cancel_renameds'+id).click(function(e){
+			e.preventDefault();
+			$('#current_dsetname'+id).show('fast');
+			$('#input_renameds'+id).hide('fast');
+		});
+	}
+	function delete_dsrequest(id){
+		$('#delete_dsrequest'+id).click(function(e){
+			e.preventDefault();
+			$('#groupsofactionsfor_ds'+id).hide('fast');
+			$('#delete_ds_btngroups'+id).show('fast');
+		});
+	}
+	function canceldelete_ds(id){
+		$('#canceldelete_ds'+id).click(function(e){
+			e.preventDefault();
+			$('#groupsofactionsfor_ds'+id).show('fast');
+			$('#delete_ds_btngroups'+id).hide('fast');
+		});
+	}
+
+	function delete_ds(id){
+		$('#delete_ds'+id).click(function(e){
+			e.preventDefault();
+			var base=$('#base').html();
+			$.post(base+'/charts/datasetdelete',{id:id},function(d){
+				if (d==1) {
+					location.reload();
+				}
+			});
+			//$('#dset'+id).hide('fast');
+			
+		});
+	}
 
 
 	$('.catcheditable').each(function(){
