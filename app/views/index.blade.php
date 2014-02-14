@@ -5,6 +5,10 @@
 	<div class="offset3 span6">
 		<div class="row">
 			<div class="span6">
+				<h1 class="text-error">Deprecated page</h1>
+				<a href="{{URL::to('/temp')}}">
+					<h2>Logged user simulator</h2>
+				</a>
 				<h1>Welcome, <spam id="wellcome_user">{{$user}}</spam></h1>
 			</div>
 		</div>

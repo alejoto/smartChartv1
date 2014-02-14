@@ -28,3 +28,5 @@ Route::get('/', function()
 });
 
 Route::controller('charts','ChartsController');
+Route::controller('temp','TemporaluserController');
+

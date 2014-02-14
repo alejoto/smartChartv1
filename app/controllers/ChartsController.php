@@ -32,6 +32,26 @@ class ChartsController extends BaseController {
 		->with('userlink',$userlink)
 		->with('title','Retuning Training Platform v1');
 	}
+
+	public function getDS () {
+		if (!isset($_GET['user'])) {
+			return Redirect::to('/temp');
+		}
+		else {
+			$title='Datasets';
+			$userlink='';
+			$user=$_GET['user'];
+			return View::make('charts.datasets',
+				compact(
+					'title'
+					,'userlink'
+					,'user'
+					)
+				);
+		}
+			
+		
+	}
 	/*
 	|
 	| URL: charts/chapters
