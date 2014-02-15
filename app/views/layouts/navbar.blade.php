@@ -6,26 +6,32 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<?php $link_home='/charts'.$userlink; 
-			$linktohome=URL::to($link_home);
+			<?php //$link_home='/charts'.$userlink; 
+			//$linktohome=URL::to($link_home);
 			?>
-			{{link_to($link_home,'Retuning Training Platform v1',$attributes = array('class'=>'brand'))}}
+			<a class='brand' href="{{URL::to('/temp')}}">Retuning Training Platform v1</a>
+			
 			<div class="nav-collapse collapse">
 				<ul class="nav">
 					<li  class="">
-						<a href="{{$linktohome}}">
+						<a href="{{URL::to('/temp')}}">
 							<i class="icon-home icon-white"></i>
 							Home
 						</a>
 						{{--link_to($link_home,'Home')--}}
 					</li>
-					@if(!isset($userlink)||$userlink=='')
-						<li>
-							<a href="{{URL::to('charts/log')}}">
-								YOU ARE NOT LOGGED IN! (click here)
-							</a>
-						</li>
-					@else
+					@if(isset($_GET['user']))
+					<li>
+						<?php 
+						$cplk='/charts/chp?user='.$_GET['user'];
+						$cplk=URL::to($cplk);
+						?>
+						<a href="{{$cplk}}">
+							Chapters
+						</a>
+					</li>
+					@endif
+					@if(isset($userlink)&&isset($pages)&&$userlink=='')
 						@foreach($pages as $k=>$v)
 							<?php $url_address=URL::to($linktopreffix.$k.$userlink) ?>
 							<li class="">

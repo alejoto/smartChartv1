@@ -5,6 +5,10 @@ class Dataset extends Eloquent {
 		return $this->belongsTo('Temporaluser','user_id');
 	}
 
+	public function buildingregister () {
+		return $this->hasMany('Buildingregister');
+	}
+
 	public function scopeLogged ($query,$user) {
 		return $query->where('user_id','=',$user);
 	}

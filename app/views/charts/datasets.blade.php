@@ -39,7 +39,8 @@
 								<button class="btn" id='cancel_renameds{{$d->id}}'><i class="icon-remove"></i></button>
 							</div>
 						</td>
-						<td class="span2">11</td>
+						<td class="span2">{{$d->buildingregister->count()}}
+						</td>
 						<td class="span2">
 							<div class="dropdown" id='groupsofactionsfor_ds{{$d->id}}'>
 								<button class="btn dropdown-toggle" data-toggle="dropdown">action <b class="caret"></b></button>
@@ -65,6 +66,7 @@
 		@else
 		<h2 class="text-error">You do not have any dataset yet.</h2>
 		@endif
+
 	</div>
 </div>
 

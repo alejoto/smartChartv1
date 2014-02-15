@@ -2,7 +2,7 @@
 
 @section('content')
 <h1>Logged user simulator</h1>
-<div>If user is not logged page will redirect to login - subscribe page (not active yet while client send login page URL).</div>
+<div>If user is not logged page will redirect to login/subscribe page (not active yet -unknown login URL-).</div>
 <hr>
 <div>Logged user</div>
 <div class="row-fluid">

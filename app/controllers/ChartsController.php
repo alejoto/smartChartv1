@@ -1,39 +1,13 @@
 <?php
 
 class ChartsController extends BaseController {
+
+
 	/*
-	|
-	| URL: charts/
-	| Content: basic index
+	* Controller for creating, editing and deleting datasets
 	*/
-
-	//
-
-	public function getIndex() {
-		$linktopreffix='/charts/';
-		
-		$pages=array();
-		foreach (Page::all() as  $v) {
-			$pages[$v->pagename]=$v->pagedescription;
-		}
-
-		if (isset($_GET['user'])) {
-			$user=$_GET['user'];
-			$userlink='?user='.$user;
-		}
-		else {
-			$user='unregistered user';
-			$userlink='';
-		}
-		return View::make('index')
-		->with('linktopreffix',$linktopreffix)
-		->with('pages',$pages)
-		->with('user',$user)
-		->with('userlink',$userlink)
-		->with('title','Retuning Training Platform v1');
-	}
-
-	public function getDS () {
+	public function getDS () 
+	{
 		if (!isset($_GET['user'])) {
 			return Redirect::to('/temp');
 		}
@@ -49,14 +23,23 @@ class ChartsController extends BaseController {
 					)
 				);
 		}
-			
-		
 	}
 	/*
 	|
 	| URL: charts/chapters
 	| Content: Chapters with corresponding charts names
 	*/
+	public function getChp () {
+		$title='View chapters';
+		if (!isset($_GET['user'])) {
+			return Redirect::to('/temp');
+		}
+		else {
+			$user=$_GET['user'];
+			return View::make('charts.chp',compact('title','user'));
+		}
+		
+	}
 	public function getChapters() {
 		$pages=array();
 		foreach (Page::all() as  $v) {
@@ -403,14 +386,13 @@ class ChartsController extends BaseController {
 		->with('chart',$chart);
 	}
 
+	/*
+	| Deprecated 
+	*/
+	public function getIndex() 	{ return Redirect::to('/temp'); }//deprecated
+	public function getLog ()  { return Redirect::to('/temp'); }//deprecated
 	
 
-	public function getLog () {
-		return View::make('temporaryloguser')
-		->with('user','')
-		->with('userlink','')
-		->with('title','Log in');
-		
-	}
+	
 	
 }
