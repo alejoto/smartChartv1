@@ -7,7 +7,7 @@ if (isset($_GET['user'])) {
  } else {
  	$user='unregistered user';
  }
- ?>
+?>
 
 
 @if(isset($_GET['user']))

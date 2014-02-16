@@ -63,77 +63,63 @@ chapt_active*/
 
 
 	$('#savenewrow').click(function(e){
-		var DATE_READING=$('#datadate').val();
-		var TIME_READING=$('#datatime').val();
-		var user=$('#user').html().trim();
-		var ts=DATE_READING+' '+TIME_READING;
-		var allmydata=new Array(
-			'ChWLDP'
-			,'ChWLDSP'
-			,'ChWRT'
-			,'ChWST'
-			,'ChWSTSP'
-			,'CCV'
-			,'ConskWH'
-			,'DAT'
-			,'DATSP'
-			,'DSP'
-			,'DSPSP'
-			,'HCVS'
-			,'HWLDP'
-			,'HWLDPSP'
-			,'HWRT'
-			,'HWST'
-			,'HWSTSP'
-			,'MAT'
-			,'OM'
-			,'OADPS'
-			,'OAF'
-			,'OAT'
-			,'RAT'
-			,'SFSpd'
-			,'SFS'
-			,'VAVDPSP'
-			,'ZDPS'
-			,'ZOM'
-			,'ZRVS'
-			,'ZT'
-			,'ZONE'
-			,'DAMPER'
-			);
+		e.preventDefault();
+		var datereading=$('#datadate').val();
+		var timereading=$('#datatime').val();
+		var dataset=$('#dataset').html().trim();
+		var ts=datereading+' '+timereading;
 
-		var datatobesend=new Array();
-		for (var i = 0; i < allmydata.length; i++) {
-			var datakey=allmydata[i];
-			datatobesend[i]=$('#newinput'+datakey).val();
+		var datakeys=new Array; var i=0;
+		$('.datakeys').each(function(){
+			datakeys[i]=$(this).attr('id');
+			i++;
+		});
+
+		var datatobesent=new Array();
+		for (var i = 0; i < datakeys.length; i++) {
+			var datakey=datakeys[i];
+			datatobesent[i]=$('#newinput'+datakey).val();
 		};
 		var datarow='';
-		for (var i = 0; i < allmydata.length; i++) {
-			datarow=datarow+'<td>'+$('#newinput'+allmydata[i]).val()+'</td>';
+		for (var i = 0; i < datakeys.length; i++) {
+			datarow=datarow+'<td>'+$('#newinput'+datakeys[i]).val()+'</td>';
 		};
-		e.preventDefault();
-				
-		var base=$('#base').html();
-		$.post(base+'/charts/anewrow',{
-			user:user
-			,DATE_READING:DATE_READING
-			,TIME_READING:TIME_READING
-			,datatobesend:datatobesend
-			,datakey:allmydata},function(d){
-			if (d==1) {
-				$('#alldata tr:first').after('<tr>'
-					+'<td>'+ts+'</td>'
-					+datarow
-					+'<td>recently added</td>'
-					+'</tr>');
-					for (var i = 0; i < allmydata.length; i++) {
-						$('#newinput'+allmydata[i]).val('');
-					};
-				$('#add_data').hide();
-				$('#cancel_add_new_row_of_data').hide();
-				$('#add_new_row_of_data').show();
-			}
-		});
+		if (datereading.trim()=='') {
+			$('#datadate').focus();
+		}
+		else if (timereading.trim()=='') {
+			$('#datatime').focus();
+		}
+		else {
+			//$('#newbuildingreg_result').html(datakeys);
+			var base=$('#base').html();
+			$.post(base+'/charts/anewrow',{
+				dataset:dataset
+				,datereading:datereading
+				,timereading:timereading
+				,datatobesent:datatobesent
+				,datakeys:datakeys},function(d){
+
+					if (d==0) {
+						$('#newbuildingreg_result').html('<h3>You cannot overwrite existent register from here</h3>');
+						location.href = "#newbuildingreg_result";
+						$(window).scrollLeft((Number($(window).scrollLeft())+0)+'px');
+					}
+				else if (d==1) {
+					$('#alldata tr:first').after('<tr>'
+						+'<td>'+ts+'</td>'
+						+datarow
+						+'<td>recently added</td>'
+						+'</tr>');
+						for (var i = 0; i < datakeys.length; i++) {
+							$('#newinput'+datakeys[i]).val('');
+						};
+					$('#add_data').hide();
+					$('#cancel_add_new_row_of_data').hide();
+					$('#add_new_row_of_data').show();
+				}
+			});
+		}
 	});
 
 	$('#cancel_add_new_row_of_data').click(function(e){
@@ -153,17 +139,25 @@ chapt_active*/
 		});
 		$('#editdata'+id).blur(function(e){
 			e.preventDefault();
-			var editdata=$(this).val();
+			var editdata=$(this).val().trim();
 			var dataid=$(this).attr('dataid');
 			var datacolumn=$(this).attr('datacolumn');
 			$('#editable'+id).hide();
 			$('#edit'+id).show();
-			var base=$('#base').html();
-			$.post(base+'/charts/celledition',{editdata:editdata,dataid:dataid,datacolumn:datacolumn},function(d){
-				$('#edit'+id).html(editdata);
-			});
-			//
-			//$('#edit'+id).html(id);
+			if (editdata==''&&$('#edit'+id).html().trim()=='__') {}
+				else
+			if (editdata!=$('#edit'+id).html().trim() ) {
+				var base=$('#base').html();
+				$.post(base+'/charts/celledition',{editdata:editdata,dataid:dataid,datacolumn:datacolumn},function(d){
+					$('#edit'+id).html(editdata);
+				});
+			}
+			
+			//if (editdata) {};
+			/*if ($('#edit'+id).html.trim()!=editdata) {
+				
+			}*/
+				
 		});
 	}
 

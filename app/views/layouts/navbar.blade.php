@@ -27,6 +27,7 @@
 						$cplk=URL::to($cplk);
 						?>
 						<a href="{{$cplk}}">
+							<i class="icon-list icon-white"></i>
 							Chapters
 						</a>
 					</li>

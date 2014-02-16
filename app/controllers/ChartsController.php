@@ -129,6 +129,17 @@ class ChartsController extends BaseController {
 		->with('data',$data)
 		->with('title','Manage data');
 	}
+	public function getTable () {
+		if (!isset($_GET['user'])) {
+			return Redirect::to('/temp');
+		}
+		else {
+			$title='Data table';
+			$user=$_GET['user'];
+			return View::make('charts.table',compact('title','user'));
+		}
+		
+	}
 
 	public function getMycharts2() {
 		$pages=array();
@@ -244,19 +255,18 @@ class ChartsController extends BaseController {
 	/*Delete measurements register*/
 
 	public function postDeleterow () {
-		$id=$_POST['id'];
-		Measurement::where('data_id','=',$id)->delete();
+		Buildingregister::find($_POST['id'])->delete();
 		return 1;
 	}
 
 	public function postCelledition () {
 		$editdata=$_POST['editdata'];
-		$dataid=$_POST['dataid'];
+		$id=$_POST['dataid'];
 		$datacolumn=$_POST['datacolumn'];
 		$upd=array(
 			$datacolumn=>$editdata
 			);
-		Measurement::where('data_id','=',$dataid)->update($upd);
+		Buildingregister::find($id)->update($upd);
 		return 1;
 	}
 
@@ -317,30 +327,30 @@ class ChartsController extends BaseController {
 	}
 
 	public function postAnewrow() {
-		$user=$_POST['user'];
-		$DATE_READING=$_POST['DATE_READING'];
-		$TIME_READING=$_POST['TIME_READING'];
-		$data=$_POST['datatobesend'];
-		$datakey=$_POST['datakey'];
+		$dataset=$_POST['dataset'];
+		$datereading=$_POST['datereading'];
+		$timereading=$_POST['timereading'];
+		$data=$_POST['datatobesent'];
+		$datakeys=$_POST['datakeys'];
 		$modelkey=array();
 		$modelval=array();
-
-		$newdata_id=Measurement::where('user_id','=',$user)->max('data_id')+1;
-		
-		$newr=new Measurement();
-		$newr->data_id=$newdata_id;
-		$newr->user_id=$user;
-		$newr->DATE_READING=$DATE_READING;
-		$newr->TIME_READING=$TIME_READING;
-		
-		$i=0;
-		foreach ($data as $v) {
-			$newr->$datakey[$i]=$v;
-			$i++;
+		//Data cannot be repeated -same date, time & dataset-. If exists new register will not be created.
+		if (Buildingregister::existent($datereading,$timereading,$dataset)->count()>0) {
+			return 0;
 		}
-		
-		$newr->save();
-		return 1;
+		else {
+			$newr=new Buildingregister;
+			$newr->datereading=$datereading;
+			$newr->timereading=$timereading;
+			$newr->dataset_id=$dataset;
+			$i=0;
+			foreach ($data as $v) {
+				$newr->$datakeys[$i]=$v;
+				$i++;
+			}
+			$newr->save();
+			return 1;
+		}
 	}
 	
 	/*

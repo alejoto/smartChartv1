@@ -6,7 +6,11 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'AddFieldclassToBfieldsTable' => $baseDir . '/app/database/migrations/2014_02_15_202237_add_fieldclass_to_bfields_table.php',
+    'AddPlaceholderToBfieldsTable' => $baseDir . '/app/database/migrations/2014_02_15_203945_add_placeholder_to_bfields_table.php',
     'BaseController' => $baseDir . '/app/controllers/BaseController.php',
+    'Bfield' => $baseDir . '/app/models/Bfield.php',
+    'Buildingregister' => $baseDir . '/app/models/Buildingregister.php',
     'Carbon\\Carbon' => $vendorDir . '/nesbot/carbon/src/Carbon/Carbon.php',
     'Chapter' => $baseDir . '/app/models/Chapter.php',
     'Chart' => $baseDir . '/app/models/Chart.php',
@@ -21,6 +25,7 @@ return array(
     'ClassPreloader\\Parser\\DirVisitor' => $vendorDir . '/classpreloader/classpreloader/src/ClassPreloader/Parser/DirVisitor.php',
     'ClassPreloader\\Parser\\FileVisitor' => $vendorDir . '/classpreloader/classpreloader/src/ClassPreloader/Parser/FileVisitor.php',
     'ClassPreloader\\Parser\\NodeTraverser' => $vendorDir . '/classpreloader/classpreloader/src/ClassPreloader/Parser/NodeTraverser.php',
+    'CreateBfieldsTable' => $baseDir . '/app/database/migrations/2014_02_15_152117_create_bfields_table.php',
     'CreateBuildingregistersTable' => $baseDir . '/app/database/migrations/2014_02_14_171438_create_buildingregisters_table.php',
     'CreateChaptersTable' => $baseDir . '/app/database/migrations/2013_11_08_020047_create_chapters_table.php',
     'CreateChartsTable' => $baseDir . '/app/database/migrations/2013_11_08_024720_create_charts_table.php',
@@ -31,6 +36,7 @@ return array(
     'CreateSetchartsTable' => $baseDir . '/app/database/migrations/2013_11_29_215240_create_setcharts_table.php',
     'CreateTemporalusersTable' => $baseDir . '/app/database/migrations/2014_02_13_143307_create_temporalusers_table.php',
     'CreateUsersTable' => $baseDir . '/app/database/migrations/2013_11_08_224538_create_users_table.php',
+    'Damper' => $baseDir . '/app/models/Damper.php',
     'DatabaseSeeder' => $baseDir . '/app/database/seeds/DatabaseSeeder.php',
     'Dataset' => $baseDir . '/app/models/Dataset.php',
     'Doctrine\\Common\\Annotations\\Annotation' => $vendorDir . '/doctrine/annotations/lib/Doctrine/Common/Annotations/Annotation.php',

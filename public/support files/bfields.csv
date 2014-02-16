@@ -1,0 +1,33 @@
+1,datereading,Date,Date,1,register,2014/02/15 00:00:00,2014/02/15 00:00:00
+2,timereading,Time,Time,1,register,2014/02/15 00:00:00,2014/02/15 00:00:00
+3,dataset_id,data set,data set,0,register,2014/02/15 00:00:00,2014/02/15 00:00:00
+4,a01OM,OM,Occupancy Mode,1,building info,2014/02/15 00:00:00,2014/02/15 00:00:00
+5,a02OAT,OAT,Outdoor-Air Temp (temp),1,building info,2014/02/15 00:00:00,2014/02/15 00:00:00
+6,a03ZT,ZT,Zone Temperature,1,building info,2014/02/15 00:00:00,2014/02/15 00:00:00
+7,a04ZONE,ZONE,Zone,1,building info,2014/02/15 00:00:00,2014/02/15 00:00:00
+8,a05ConskWH,ConskWH,Consumption kWH,1,building info,2014/02/15 00:00:00,2014/02/15 00:00:00
+9,b01ZRVS,ZRVS,Zone Reheat Valve Signal (%),1,Air handle unit,2014/02/15 00:00:00,2014/02/15 00:00:00
+10,b02DAT,DAT,Discharge-Air Temp,1,Air handle unit,2014/02/15 00:00:00,2014/02/15 00:00:00
+11,b03DATSP,DATSP,Discharge-Air Temp Set Point,1,Air handle unit,2014/02/15 00:00:00,2014/02/15 00:00:00
+12,b04DSP,DSP,Duct Static Pressure,1,Air handle unit,2014/02/15 00:00:00,2014/02/15 00:00:00
+13,b05DSPSP,DSPSP,Duct Static Pressure Set Point,1,Air handle unit,2014/02/15 00:00:00,2014/02/15 00:00:00
+14,b06MAT,MAT,Mixed-Air Temp,1,Air handle unit,2014/02/15 00:00:00,2014/02/15 00:00:00
+15,b07OADPS,OADPS,Outdoor-Air Damper Position Signal (%),1,Air handle unit,2014/02/15 00:00:00,2014/02/15 00:00:00
+16,b08OAF,OAF,Outdoor-Air Fraction (%),1,Air handle unit,2014/02/15 00:00:00,2014/02/15 00:00:00
+17,b09RAT,RAT,Return-Air Temp,1,Air handle unit,2014/02/15 00:00:00,2014/02/15 00:00:00
+18,b10SFSpd,SFSpd,Supply-Fan Speed (rpm),1,Air handle unit,2014/02/15 00:00:00,2014/02/15 00:00:00
+19,b11SFS,SFS,Supply Fan Status (on/off),1,Air handle unit,2014/02/15 00:00:00,2014/02/15 00:00:00
+20,b12VAVDPSP,VAVDPSP,VAV Damper Position Set Point (%),1,Air handle unit,2014/02/15 00:00:00,2014/02/15 00:00:00
+21,b13ZDPS,ZDPS,Zone Damper Position Signal (%),1,Air handle unit,2014/02/15 00:00:00,2014/02/15 00:00:00
+22,c01HCVS,HCVS,Heating-Coil Valve Signal (%),1,Hot water system,2014/02/15 00:00:00,2014/02/15 00:00:00
+23,c02HWLDP,HWLDP,Hot-Water Loop Differential Pressure,1,Hot water system,2014/02/15 00:00:00,2014/02/15 00:00:00
+24,c03HWLDPSP,HWLDPSP,Hot-Water Loop Differential Pressure Set Point,1,Hot water system,2014/02/15 00:00:00,2014/02/15 00:00:00
+25,c04HWRT,HWRT,Hot-Water Return Temp,1,Hot water system,2014/02/15 00:00:00,2014/02/15 00:00:00
+26,c05HWST,HWST,Hot-Water Supply Temp,1,Hot water system,2014/02/15 00:00:00,2014/02/15 00:00:00
+27,c06HWSTSP,HWSTSP,Hot-Water Supply Temp Set Point,1,Hot water system,2014/02/15 00:00:00,2014/02/15 00:00:00
+28,d01ChWLDP,ChWLDP,Chilled-Water Loop Differential Pressure,1,Chilled water system,2014/02/15 00:00:00,2014/02/15 00:00:00
+29,d02ChWLDSP,ChWLDSP,Chilled-Water Loop Differential Pressure Set Point,1,Chilled water system,2014/02/15 00:00:00,2014/02/15 00:00:00
+30,d03ChWRT,ChWRT,Chilled-Water Return Temp,1,Chilled water system,2014/02/15 00:00:00,2014/02/15 00:00:00
+31,d04ChWST,ChWST,Chilled-Water Supply Temp,1,Chilled water system,2014/02/15 00:00:00,2014/02/15 00:00:00
+32,d05ChWSTSP,ChWSTSP,Chilled-Water Supply Temp set point,1,Chilled water system,2014/02/15 00:00:00,2014/02/15 00:00:00
+33,d06CCV,CCV,Cooling-Coil Valve Signal (%),1,Chilled water system,2014/02/15 00:00:00,2014/02/15 00:00:00
