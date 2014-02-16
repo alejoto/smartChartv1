@@ -135,8 +135,38 @@ class ChartsController extends BaseController {
 		}
 		else {
 			$title='Data table';
+
+			//previous-next page
+			$dslink='';
+			if (isset($_GET['ds'])) {
+				$dslink='&ds='.$_GET['ds'];
+			}
+
+
+			$page=0;
+			$previous='';
+			$prevpage=0;
+			$nextpag=0;
+			if (isset($_GET['page'])) {
+				$page=$_GET['page'];
+				$nextpag=$page+10;
+				if ($page>0) {
+					$prevpage=$page-10;
+					if ($prevpage<0) {
+						$prevpage=0;
+					}
+				}
+				else $prevpage=0;
+			}
+
+			$previous='charts/table?user='.$_GET['user'].$dslink.'&page='.$prevpage;
+			$previous=URL::to($previous);
+
+			$next='charts/table?user='.$_GET['user'].$dslink.'&page='.$nextpag;
+			$next=URL::to($next);
+
 			$user=$_GET['user'];
-			return View::make('charts.table',compact('title','user'));
+			return View::make('charts.table',compact('title','user','previous','next','page'));
 		}
 		
 	}

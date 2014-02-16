@@ -91,7 +91,6 @@ chapt_active*/
 			$('#datatime').focus();
 		}
 		else {
-			//$('#newbuildingreg_result').html(datakeys);
 			var base=$('#base').html();
 			$.post(base+'/charts/anewrow',{
 				dataset:dataset
@@ -106,17 +105,7 @@ chapt_active*/
 						$(window).scrollLeft((Number($(window).scrollLeft())+0)+'px');
 					}
 				else if (d==1) {
-					$('#alldata tr:first').after('<tr>'
-						+'<td>'+ts+'</td>'
-						+datarow
-						+'<td>recently added</td>'
-						+'</tr>');
-						for (var i = 0; i < datakeys.length; i++) {
-							$('#newinput'+datakeys[i]).val('');
-						};
-					$('#add_data').hide();
-					$('#cancel_add_new_row_of_data').hide();
-					$('#add_new_row_of_data').show();
+					location.reload();
 				}
 			});
 		}
@@ -272,7 +261,8 @@ chapt_active*/
 			var base=$('#base').html();
 			$.post(base+'/charts/deleterow',{id:id},function(d){
 				if (d==1) {
-					$('#datarow'+id).hide('fast');
+					location.reload();
+					//$('#datarow'+id).hide('fast');
 				}
 				
 			});

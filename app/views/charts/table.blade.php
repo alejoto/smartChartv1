@@ -22,10 +22,38 @@ Displaying data table for data set <b>{{$dataset->name}}</b>
 
 (<a href="{{URL::to('/charts/table?user='.$user)}}">Choose another data set</a>)
 <br> <br>
-<a href="#" id='add_new_row_of_data'>ADD ROW</a>
+<a href="#" id='add_new_row_of_data'>+ ADD ROW</a>
 <a href="#" id='cancel_add_new_row_of_data' class='hide'>cancel adding new row</a>
 <div class="hide" id="dataset">{{$_GET['ds']}}</div>
 <div id="newbuildingreg_result" class='text-error'></div>
+<?php  
+$first_row='/charts/table?user='.$user.'&ds='.$_GET['ds'].'&page=0';
+$first_row=URL::to($first_row);
+//$first
+?>
+<a  class='btn' href="{{$first_row}}">
+	<i class="icon-backward"></i>
+	first</a>
+<spam class="btn-group">
+
+	<a class='btn' href="{{$previous}}"> <i class="icon-chevron-left"></i> Previous </a> 
+	<a class='btn' href="{{$next}}">Next <i class="icon-chevron-right"></i></a>
+</spam> 
+<?php  
+$last_rowcount=Buildingregister::activeds($_GET['ds'])->count();
+$last_row=floor($last_rowcount/10);
+if($last_rowcount%10==0) {$last_row=$last_row-1;}
+$last_row=$last_row*10;
+$last_row='/charts/table?user='.$user.'&ds='.$_GET['ds'].'&page='.$last_row;
+$last_row=URL::to($last_row);
+?>
+<a class='btn' href="{{$last_row}}">
+	<i class="icon-forward"></i>
+	last
+</a>
+Displaying from row {{$page+1}} to {{$page+10}} (total registers {{Buildingregister::activeds($_GET['ds'])->count()}})
+
+
 <table class="table table-hover table-condensed" id='alldata'>
 	<tr>
 		<th>Date&time</th>
@@ -50,7 +78,7 @@ Displaying data table for data set <b>{{$dataset->name}}</b>
 			<a href="#" id='savenewrow'>SAVE</a>
 		</td>
 	</tr>
-	@foreach(buildingregister::activeds($_GET['ds'])->get() as $dbl   /*$dataset->buildingregister->sortBy('id')->get() as $dbl*/)
+	@foreach(buildingregister::activeds($_GET['ds'])->take(10)->skip($page)->get() as $dbl )
 		<tr id='datarow{{$dbl->id}}' class='datarow'>
 			<td>{{buildingregister::find($dbl->id)->datereading.' '.buildingregister::find($dbl->id)->timereading}}</td>
 			@foreach(Bfield::display()->get() as $f)
@@ -91,6 +119,20 @@ Displaying data table for data set <b>{{$dataset->name}}</b>
 		</tr>
 	@endforeach
 </table>
+<a  class='btn' href="{{$first_row}}">
+	<i class="icon-backward"></i>
+	first</a>
+<spam class="btn-group">
+	<a class='btn' href="{{$previous}}"> <i class="icon-chevron-left"></i> Previous </a> 
+	<a class='btn' href="{{$next}}">Next <i class="icon-chevron-right"></i></a>
+</spam>
+<a class='btn' href="{{$last_row}}">
+	<i class="icon-forward"></i>
+	last
+</a>
+Displaying from row {{$page+1}} to {{$page+10}} (total registers {{Buildingregister::activeds($_GET['ds'])->count()}})
+<br>
+<br>
 	
 
 
