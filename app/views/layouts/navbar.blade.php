@@ -21,14 +21,36 @@
 						{{--link_to($link_home,'Home')--}}
 					</li>
 					@if(isset($_GET['user']))
+					<?php 
+					$ds_link='/charts/ds?user='.$_GET['user'];
+					$ds_link=URL::to($ds_link);
+					$cplk='/charts/chp?user='.$_GET['user'];
+					$cplk=URL::to($cplk);
+					$tablelink='/charts/table?user='.$_GET['user'];
+					$tablelink=URL::to($tablelink);
+					?>
 					<li>
-						<?php 
-						$cplk='/charts/chp?user='.$_GET['user'];
-						$cplk=URL::to($cplk);
-						?>
+						<a href="{{$ds_link}}">
+							<i class="icon-tasks icon-white"></i>
+							Data sets
+						</a>
+					</li>
+					<li>
+						<a href="{{$tablelink}}">
+							<i class="icon-th icon-white"></i>
+							Tables
+						</a>
+					</li>
+					<li>
 						<a href="{{$cplk}}">
 							<i class="icon-list icon-white"></i>
 							Chapters
+						</a>
+					</li>
+					<li>
+						<a href="">
+							<i class="icon-signal icon-white"></i>
+							Charts
 						</a>
 					</li>
 					@endif

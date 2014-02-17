@@ -1,10 +1,8 @@
 @extends('layouts.base')
 
 @section('content')
-@if(!isset($_GET['ds']))
-Please choose a dataset
-
-<div class="dropdown">
+Choose / change dataset
+<spam class="dropdown">
 	<button class="btn dropdown-toggle" data-toggle="dropdown">Select data set <b class="caret"></b></button>
 	<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
 		@foreach(Dataset::logged($user)->get() as $dl)
@@ -14,44 +12,41 @@ Please choose a dataset
 			</li>
 		@endforeach
 	</ul>
-</div>
+</spam>
+@include('charts.datasetsinclude1')
 
-@else 
+@if(isset($import_result))
+	@if($import_result==0)
+		<h1>Data was succesfully imported</h1>
+	@elseif ($import_result==1) 
+		<h1>No import was done, be sure to choose proper csv file</h1>
+	@endif
+@endif
+
+
+
+
+
+@if (isset($_GET['ds'])) 
+@include('charts.modal_import')
 <?php   $dataset=Dataset::find($_GET['ds']); ?>
-Displaying data table for data set <b>{{$dataset->name}}</b>
+<h3>Current data set <b>{{$dataset->name}}</b></h3>
+<div class="row">
+	<div class="span3">
+		<a href="#" id='add_new_row_of_data'><h4><i class="icon-arrow-right"></i> Add data as single row</h4></a>
+		<a href="#" id='cancel_add_new_row_of_data' class='hide'><h4><i class="icon-remove"></i> cancel adding new row</h4></a>
+		<div class="hide" id="dataset">{{$_GET['ds']}}</div>
+		<div id="newbuildingreg_result" class='text-error'></div>
+	</div>
+	<div class="span4">
+		<a href='#' id='openmodal_modal_import'><h4><i class="icon-folder-open"></i> Add data from a CSV file</h4></a>
+	</div>
+	<div class="span4"></div>
+</div>
+		
 
-(<a href="{{URL::to('/charts/table?user='.$user)}}">Choose another data set</a>)
-<br> <br>
-<a href="#" id='add_new_row_of_data'>+ ADD ROW</a>
-<a href="#" id='cancel_add_new_row_of_data' class='hide'>cancel adding new row</a>
-<div class="hide" id="dataset">{{$_GET['ds']}}</div>
-<div id="newbuildingreg_result" class='text-error'></div>
-<?php  
-$first_row='/charts/table?user='.$user.'&ds='.$_GET['ds'].'&page=0';
-$first_row=URL::to($first_row);
-//$first
-?>
-<a  class='btn' href="{{$first_row}}">
-	<i class="icon-backward"></i>
-	first</a>
-<spam class="btn-group">
+@include('charts.tableinclude1')
 
-	<a class='btn' href="{{$previous}}"> <i class="icon-chevron-left"></i> Previous </a> 
-	<a class='btn' href="{{$next}}">Next <i class="icon-chevron-right"></i></a>
-</spam> 
-<?php  
-$last_rowcount=Buildingregister::activeds($_GET['ds'])->count();
-$last_row=floor($last_rowcount/10);
-if($last_rowcount%10==0) {$last_row=$last_row-1;}
-$last_row=$last_row*10;
-$last_row='/charts/table?user='.$user.'&ds='.$_GET['ds'].'&page='.$last_row;
-$last_row=URL::to($last_row);
-?>
-<a class='btn' href="{{$last_row}}">
-	<i class="icon-forward"></i>
-	last
-</a>
-Displaying from row {{$page+1}} to {{$page+10}} (total registers {{Buildingregister::activeds($_GET['ds'])->count()}})
 
 
 <table class="table table-hover table-condensed" id='alldata'>
@@ -119,25 +114,12 @@ Displaying from row {{$page+1}} to {{$page+10}} (total registers {{Buildingregis
 		</tr>
 	@endforeach
 </table>
-<a  class='btn' href="{{$first_row}}">
-	<i class="icon-backward"></i>
-	first</a>
-<spam class="btn-group">
-	<a class='btn' href="{{$previous}}"> <i class="icon-chevron-left"></i> Previous </a> 
-	<a class='btn' href="{{$next}}">Next <i class="icon-chevron-right"></i></a>
-</spam>
-<a class='btn' href="{{$last_row}}">
-	<i class="icon-forward"></i>
-	last
-</a>
-Displaying from row {{$page+1}} to {{$page+10}} (total registers {{Buildingregister::activeds($_GET['ds'])->count()}})
-<br>
-<br>
-	
-
-
+@include('charts.tableinclude1')
 
 @endif
+
+<br>
+<br>
 
 @stop
 

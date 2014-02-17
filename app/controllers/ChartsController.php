@@ -300,22 +300,85 @@ class ChartsController extends BaseController {
 		return 1;
 	}
 
+	
+
+	public function postUploadcsv () {
+		$ds=$_POST['ds'];//dataset id
+		$user=$_POST['user'];
+		if (isset($_POST['submit'])) {
+			if (is_uploaded_file($_FILES['filename']['tmp_name'])) //verifying not empty uploading
+			{
+				$handle = fopen($_FILES['filename']['tmp_name'], "r");//opening file
+
+				$column='';
+				foreach (Bfield::get() as  $v) {
+					$column[$v->id]=$v->name;
+				}//All column names added to $column array except dataset_id
+
+				
+				while (($data=fgetcsv($handle, 1000, ","))!==false) //Iteration for each row
+				{
+					//Columns to be added: 33
+					//Columns from csv file: all except dataset_id (32)
+					$i=1;
+					foreach ($data as $d) //Iteration for each column
+					{
+
+						$currentcol=$column[$i];
+						if ($column[$i]=='dataset_id') //skipping dataset_id field
+						{
+							$i++;
+						}
+						$import[$column[$i]]=$d;
+
+						//Retrieving date and time of reading for each row
+						//If existent on the DB table plus same dataset 
+						//update will be performed
+						if ($currentcol=='datereading') {$date=$d;}
+						if ($currentcol=='timereading') {$time=$d;}
+						$i++;
+					}
+
+					//Columns to check for update instead of new register:
+					// * timereading
+					// * datereading
+					// * dataset_id
+					$updatable=Buildingregister::existent($date,$time,$ds);
+					if ($updatable->count()>0) //action to be done= update
+					{
+						//$import[colum]=data;
+						$updatable->first()->update($import);
+					}
+					else //action to be done= new register
+					{
+						$row=new Buildingregister;
+						$row->dataset_id=$ds;
+						foreach ($import as $k => $v) {
+							$row->$k=$v;
+						}
+						$row->save();
+					}
+						
+				}
+
+				$import_result= 0;//succesful uploading 
+			}
+			else {
+				$import_result=1;//No file was selected
+			}
+			$title='Data table';
+			return View::make('charts.table',compact('title','user','ds','import_result'));
+		}
+
+		
+	}
+
 	public function postUpload () {
 		$user=$_GET['user'];
 		$column=array(
-			'id','data_id','user_id','entered_at','changed_at'
-			,'DATE_READING','TIME_READING'
-			,'ChWLDP' ,'ChWLDSP' ,'ChWRT' ,'ChWST'
-			,'ChWSTSP' ,'CCV' ,'ConskWH' ,'DAT'
-			,'DATSP' ,'DSP' ,'DSPSP' ,'HCVS'
-			,'HWLDP' ,'HWLDPSP' ,'HWRT' ,'HWST'
-			,'HWSTSP' ,'MAT' ,'OM' ,'OADPS'
-			,'OAF' ,'OAT' ,'RAT' ,'SFSpd'
-			,'SFS' ,'VAVDPSP' ,'ZDPS' ,'ZOM'
-			,'ZRVS' ,'ZT' ,'ZONE' ,'DAMPER'
-			,'created_at','updated_at'
-			);
+			'id','data_id','user_id','entered_at','changed_at','DATE_READING','TIME_READING','ChWLDP' ,'ChWLDSP' ,'ChWRT' ,'ChWST','ChWSTSP' ,'CCV' ,'ConskWH' ,'DAT','DATSP' ,'DSP' ,'DSPSP' ,'HCVS','HWLDP' ,'HWLDPSP' ,'HWRT' ,'HWST','HWSTSP' ,'MAT' ,'OM' ,'OADPS','OAF' ,'OAT' ,'RAT' ,'SFSpd','SFS' ,'VAVDPSP' ,'ZDPS' ,'ZOM','ZRVS' ,'ZT' ,'ZONE' ,'DAMPER','created_at','updated_at');
 		if (isset($_POST['submit'])) {
+
 			if (is_uploaded_file($_FILES['filename']['tmp_name'])) {
 			}
 			$handle = fopen($_FILES['filename']['tmp_name'], "r");
@@ -431,8 +494,4 @@ class ChartsController extends BaseController {
 	*/
 	public function getIndex() 	{ return Redirect::to('/temp'); }//deprecated
 	public function getLog ()  { return Redirect::to('/temp'); }//deprecated
-	
-
-	
-	
 }

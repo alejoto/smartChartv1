@@ -10,17 +10,8 @@
 			must select first a dataset.
 		</p></div>
 	<div class="span8">
-		<h3>
-			<a href="" id='addnewdataset'>
-				+ Add a new data set
-			</a>
-		</h3>
-		<div class="maureenhide form-inline" id='hidden_dataset_field'>
-			<input type="text" placeholder='+ add new data set name' id='newdatasetinput'>
-			<div class="maureenhide" id="loggeduser">{{$_GET['user']}}</div>
-			<button class="btn" id='confirm_newdataset'><i class="icon-ok"></i></button>
-			<button class="btn" id='cancel_newdataset'><i class="icon-remove"></i></button>
-		</div>
+		@include('charts.datasetsinclude1')
+
 			
 		@if(Dataset::logged($user)->count()>0)
 			<table class="table table-condensed table-hover">

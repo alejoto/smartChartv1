@@ -14,7 +14,7 @@ if (isset($_GET['user'])) {
 <?php 
 $action='charts/upload?user='.$user;
 $action=URL::to($action);
- ?>
+?>
 <form enctype='multipart/form-data' action="{{$action}}" method='post'>
 	<div class="row">
 		<div class="span2">
@@ -24,7 +24,7 @@ $action=URL::to($action);
 			Upload csv file 
 			<input class="uploadfile" type='file' name='filename'>
 			<input type="hidden" value='{{$user}}'>
-			<input class='btn' type='submit' name='submit' value='Upload'>
+			<input class='btn' type='submit' name='submit' value='Upload' id='upload_button'>
 		</div>
 	</div>	
 </form>

@@ -111,12 +111,36 @@ chapt_active*/
 		}
 	});
 
+	$('#dataset_to_receive_csv').change(function(e){
+		e.preventDefault();
+		if ($(this).val()!='' ) {
+			$('#upload_group').show('fast');
+		}
+		else {
+			$('#upload_group').hide('fast');
+		}
+	});
+
+
+	$('#upload_button').click(function(e){
+		//e.preventDefault();
+		$(this).hide();
+		$('#uploading_csv_div').show('fast');
+		$('#import_form').submit();
+	});
+
 	$('#cancel_add_new_row_of_data').click(function(e){
 		e.preventDefault();
 		$('#add_data').hide('fast');
 		$(this).hide();
 		$('#add_new_row_of_data').show();
 	});
+
+	$('#openmodal_modal_import').click(function(e){
+		e.preventDefault();
+		$('#modal_import').modal('show');
+	});
+
 
 	function showeditabledata(id) {
 		$('#edit'+id).click(function(e){
