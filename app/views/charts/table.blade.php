@@ -46,7 +46,7 @@ $import=[];
 </div>
 		
 
-@include('charts.tableinclude1')
+@include('charts.tableinclude1'){{--Buttons for navigating through data--}}
 
 
 

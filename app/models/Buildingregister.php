@@ -6,9 +6,9 @@ class Buildingregister extends Eloquent {
 	}
 
 	public function scopeActiveds ($query,$ds) {
-		return $query->whereDataset_id($ds)
-				->orderBy('datereading')
-				->orderBy('timereading')
+		return $query	->whereDataset_id($ds)
+						->orderBy('datereading')
+						->orderBy('timereading')
 		;
 	}
 
@@ -16,6 +16,8 @@ class Buildingregister extends Eloquent {
 		return $query	->where('datereading','=',$date)
 						->where('timereading','=',$time)
 						->where('dataset_id','=',$dataset)
+						->orderBy('datereading')
+						->orderBy('timereading')
 		;
 	}
 	protected $guarded = array();

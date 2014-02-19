@@ -22,12 +22,16 @@
 					</li>
 					@if(isset($_GET['user']))
 					<?php 
-					$ds_link='/charts/ds?user='.$_GET['user'];
+					$u='?user='.$_GET['user'];
+					$pfx='/charts/';
+					$ds_link=$pfx.'ds'.$u;
 					$ds_link=URL::to($ds_link);
-					$cplk='/charts/chp?user='.$_GET['user'];
+					$cplk=$pfx.'chp'.$u;
 					$cplk=URL::to($cplk);
-					$tablelink='/charts/table?user='.$_GET['user'];
+					$tablelink=$pfx.'table'.$u;
 					$tablelink=URL::to($tablelink);
+					$chartlink=$pfx.'charts'.$u;
+					$chartlink=URL::to($chartlink);
 					?>
 					<li>
 						<a href="{{$ds_link}}">
@@ -48,7 +52,7 @@
 						</a>
 					</li>
 					<li>
-						<a href="">
+						<a href="{{$chartlink}}">
 							<i class="icon-signal icon-white"></i>
 							Charts
 						</a>

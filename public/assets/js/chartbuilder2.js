@@ -15,9 +15,10 @@ function createnewchart3(jsondata,y_axis,x_axis,thecharts,target){
     | CHART CONSTRUCTION
     | 
     */
-
+    var base=$('#base').html();
+    
     var chart = new AmCharts.AmSerialChart();//Creating new chart object
-    chart.pathToImages = "http://www.amcharts.com/lib/3/images/";//path containing images of scrollbar
+    chart.pathToImages = base+'assets/js/amcharts_3.1.1/images';//path containing images of scrollbar
     chart.dataProvider = chartData;
     chart.categoryField = y_axis;
     chart.addListener("dataUpdated", zoomChart);

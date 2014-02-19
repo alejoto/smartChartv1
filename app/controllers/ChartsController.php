@@ -171,6 +171,17 @@ class ChartsController extends BaseController {
 		
 	}
 
+	public function getCharts () {
+		if (!isset($_GET['user'])) {
+			return Redirect::to('temp');
+		}
+		else {
+			$user=$_GET['user'];
+			$title='Charts';
+			return View::make('charts.mycharts3',compact('title','user'));
+		}
+	}
+
 	public function getMycharts2() {
 		$pages=array();
 		foreach (Page::all() as  $v) {
