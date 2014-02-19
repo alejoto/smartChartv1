@@ -321,6 +321,7 @@ class ChartsController extends BaseController {
 					//Columns to be added: 33
 					//Columns from csv file: all except dataset_id (32)
 					$i=1;
+					$import=[];
 					foreach ($data as $d) //Iteration for each column
 					{
 
@@ -329,35 +330,65 @@ class ChartsController extends BaseController {
 						{
 							$i++;
 						}
-						$import[$column[$i]]=$d;
+
+						
 
 						//Retrieving date and time of reading for each row
 						//If existent on the DB table plus same dataset 
 						//update will be performed
-						if ($currentcol=='datereading') {$date=$d;}
-						if ($currentcol=='timereading') {$time=$d;}
+						if ($currentcol=='datereading') {
+							$date=$d;//setting $date variable for checking if register exists 
+							if ($date!='') {
+								$import[$column[$i]]=$date;//Adding date to array 
+							}
+						}
+						if ($currentcol=='timereading') {
+							$time=$d;//setting $time variable for checking if register exists 
+							if ($time!='') {
+								$import[$column[$i]]=$time;//Adding time to array 
+							}
+						}
+						if ($i>2&&($date==''||$time==''))//cleaning $import array if date and or time have no value
+						{
+							unset($import);//cleaning import array
+							$import=[];//cleaning import array
+							$date='';//resetting variable as empty
+							$time='';//resetting variable as empty
+						}
+
+						if ($i>2&&$date!=''&&$time!='') //skipping row with no date and or time
+						{
+							if ($d!='') //skipping empty fields
+							{
+								$import[$column[$i]]=$d; //adding value to array for creating or updating
+							}
+						}
+						
+
 						$i++;
 					}
-
-					//Columns to check for update instead of new register:
-					// * timereading
-					// * datereading
-					// * dataset_id
-					$updatable=Buildingregister::existent($date,$time,$ds);
-					if ($updatable->count()>0) //action to be done= update
+					if (count($import)>0)//skipping empty rows (for data with no date or time).
 					{
-						//$import[colum]=data;
-						$updatable->first()->update($import);
-					}
-					else //action to be done= new register
-					{
-						$row=new Buildingregister;
-						$row->dataset_id=$ds;
-						foreach ($import as $k => $v) {
-							$row->$k=$v;
+						//Columns to check for update instead of new register:
+						// * timereading
+						// * datereading
+						// * dataset_id
+						$updatable=Buildingregister::existent($date,$time,$ds);
+						if ($updatable->count()>0) //action to be done= update
+						{
+							//$import[colum]=data;
+							$updatable->first()->update($import);
 						}
-						$row->save();
-					}
+						else //action to be done= new register
+						{
+							$row=new Buildingregister;
+							$row->dataset_id=$ds;
+							foreach ($import as $k => $v) {
+								$row->$k=$v;
+							}
+							$row->save();
+						}
+					}	
 						
 				}
 
