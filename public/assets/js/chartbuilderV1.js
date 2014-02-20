@@ -15,8 +15,9 @@ function createnewchart2(jsondata,y_axis,x_axis,thecharts,target){
     | CHART CONSTRUCTION
     | 
     */
-
+    var base=$('#base').html();
     var chart = new AmCharts.AmSerialChart();//Creating new chart object
+    //not working properly = chart.pathToImages = base+'assets/js/amcharts_3.1.1/images/';
     chart.pathToImages = "http://www.amcharts.com/lib/3/images/";//path containing images of scrollbar
     chart.dataProvider = chartData;
     chart.categoryField = y_axis;

@@ -4,7 +4,7 @@
 
 $l='';
 ?>
-<div id="param1" class='hide'>
+<div id="param1" class='hider'>
 	<?php 
 	//
 	if (isset($_GET['chart'])&&isset($setofdata[$chooser])) {
@@ -19,7 +19,7 @@ $l='';
 			$l='|';
 		}
 	}
-	 ?>
+	?>
 </div>
 
 

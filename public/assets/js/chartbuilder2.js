@@ -1,5 +1,5 @@
 function createnewchart3(jsondata,y_axis,x_axis,thecharts,target){
-
+//DEPRECATED: should be erased
     /*
     | RETRIEVING DATA FROM HTML TAG 
     | @param "chartData" receives data to be charted

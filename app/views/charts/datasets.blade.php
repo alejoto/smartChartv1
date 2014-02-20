@@ -37,7 +37,7 @@
 								<button class="btn dropdown-toggle" data-toggle="dropdown">action <b class="caret"></b></button>
 								<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
 									<li><a href="{{URL::to('/charts/table?user='.$user.'&ds='.$d->id)}}">see data table</a></li>
-									<li><a href="">go to data charts</a></li>
+									<li><a href="{{URL::to('/charts/charts?user='.$user.'&ds='.$d->id)}}">go to data charts</a></li>
 									<li><a href="">import cvs data</a></li>
 									<li><a href="" id='changename{{$d->id}}'>rename</a></li>
 									<li>

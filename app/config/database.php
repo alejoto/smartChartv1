@@ -65,10 +65,10 @@ return array(
 
 		'mysql2' => array(
 			'driver'    => 'mysql',
-			'host'      => 'localhost',
-			'database'  => 'healmy5_martyyo_ecam',
-			'username'  => 'healmy5_ecamuser',
-			'password'  => 'QKAa3uWy6ppV',
+			'host'      => 'https://box885.bluehost.com:2083',
+			'database'  => 'localth8_retuning',
+			'username'  => 'localth8_alex',
+			'password'  => 'adelle81',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',

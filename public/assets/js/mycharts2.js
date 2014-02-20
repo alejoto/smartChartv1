@@ -1,4 +1,4 @@
-
+//DEPRECATED: should be erased
 AmCharts.ready(function () {
 
 var confdataset=$('#param1').html().trim();

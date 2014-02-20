@@ -46,7 +46,7 @@ if (isset($_GET['user'])) {
 
 <div id="mindate" class='hide'>{{$mindate}}</div>
 <div id="maxdate" class='hide'>{{$maxdate}}</div>
-<div id="dparameters" class='hide'>
+<div id="dparameters" class='hider'>
 	{{--Number of chart--}}
 	@if(isset($_GET['chart']))
 		{{$_GET['chart']}}

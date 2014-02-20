@@ -2,11 +2,7 @@
 
 @section('content')
 Choose / change dataset 
-<?php $import=[1,2,3];
-unset($import);
-$import=[];
-?>
-{{count($import)}}
+
 <spam class="dropdown">
 	<button class="btn dropdown-toggle" data-toggle="dropdown">Select data set <b class="caret"></b></button>
 	<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
