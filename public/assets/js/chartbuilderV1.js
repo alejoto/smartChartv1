@@ -154,6 +154,6 @@ function createnewchart2(jsondata,y_axis,x_axis,thecharts,target){
 
     function zoomChart() {
     // different zoom methods can be used - zoomToIndexes, zoomToDates, zoomToCategoryValues
-    //chart.zoomToIndexes(10, 40);
+    chart.zoomToIndexes(0, 40);
 }
 }

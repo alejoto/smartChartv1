@@ -11,6 +11,9 @@
 				</li>
 			@endforeach
 		</ul>
+		@if(isset($_GET['ds']))
+		Current data set <b>{{Dataset::find($_GET['ds'])->name}}</b>
+		@endif
 	</spam>
 </div>
 	
@@ -56,16 +59,24 @@
 					<ul class="nav nav-pills nav-stacked">
 						@foreach(Chart::orderBy('id')->get() as $ch)
 							<li>
-								<a href="">
+								<?php
+								$param='';
+								$gnu='';
+								foreach (Chart::find($ch->id)->bfield as $cf) {
+									$param=$param.$gnu.$cf->name.'|'.$cf->axis.'|'.$cf->tooltip.'|'.$cf->charttype;
+									$gnu='~';
+								}
+								?>
+								<a href="" class='chart_type' id='chart_type{{$ch->id}}' param='{{$param}}'>
 									{{$ch->chartname}}
 								</a>
 							</li>
 						@endforeach
 					</ul>
 					<br>
-					<a href="" class='chart_type' id='chart_type1' param='a01OM|right|occupancy mode|column~a02OAT|left|Outer temperature|line'>type 1</a>
+					<a href="" class='chart_type' id='chart_type200' param='a01OM|right|occupancy mode|column~a02OAT|left|Outer temperature|line'>type 1</a>
 					<br>
-					<a href="" class='chart_type' id='chart_type2' param='a03ZT|left|zone temperature|line~a01OM|right|occupancy mode|column'>type 2</a>
+					<a href="" class='chart_type' id='chart_type210' param='a03ZT|left|zone temperature|line~a01OM|right|occupancy mode|column'>type 2</a>
 				</div>
 				<div class="offset4 span8 affix">
 					<h1>some title</h1>
@@ -73,28 +84,26 @@
 				</div>
 			</div>
 		</div>
-		<div class="row-fluid">
-			<div class="offset1 span1">
-				<div>chart</div>
-				
-			</div>
-		</div>
+		
 		@if(isset($_GET['ct']))
 		<?php $gnu=''; ?>
-		<div id="parameters2">
+		<div id="parameters">
 		@foreach(Chart::find($_GET['ct'])->bfield as $cf)
 			{{$gnu.$cf->name}}|{{$cf->axis}}|{{$cf->tooltip}}|{{$cf->charttype}}
 			<?php $gnu='~'; ?>
 		@endforeach
 		</div>
-			<div id="parameters">
-										<?php $r=Bfield::find(4); ?>
-										{{$r->name}}|{{$r->axis}}|{{$r->tooltip}}|{{$r->charttype}}~a02OAT|left|Outer temperature|line
-									</div>
 		@endif
 			
 	@else 
-		Please select a dataset first
+	<div class="container">
+		<div class="row">
+			<div class="span12">
+				Please select a dataset first
+			</div>
+		</div>
+	</div>
+		
 
 	@endif
 @stop
@@ -118,13 +127,15 @@
 			e.preventDefault();
 			var param=$(this).attr('param');
 			param=param.split('~');
-			param[0]=param[0].split('|');
-			param[1]=param[1].split('|');
+			for (var i = 0; i < param.length; i++){
+				param[i]=param[i].trim();
+				param[i]=param[i].split('|');
+			}
 			createnewchart2('data_as_json','time',{"leftaxis":"Temperature (F)","rightaxis":"Percent (%)"},param,'chartdiv');
 		});
 	}
 	$(window).on('load', function() {
-		var param=$('#parameters2').html().trim();
+		var param=$('#parameters').html().trim();
 		param=param.split('~');
 		for (var i = 0; i < param.length; i++) {
 			param[i]=param[i].trim();//important! this trim removes an unnecesary space after the gnu that messes the chart

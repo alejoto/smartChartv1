@@ -24,7 +24,7 @@
 			<ul class='nav nav-pills nav-stacked'>
 				@foreach($v->chart as $v2)
 					<?php 
-					$chart_url='charts/mycharts/pending&chart='.$v2->id;
+					$chart_url='charts/charts?user='.$user.'&ds='.$_GET['ds'].'&ct='.$v2->id;
 					$chart_url=URL::to($chart_url); 
 					?>
 					<li><a href="{{$chart_url}}">{{$v2->chartname}}</a></li>
