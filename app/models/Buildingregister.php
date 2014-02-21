@@ -32,9 +32,6 @@ class Buildingregister extends Eloquent {
 						->max('datereading')
 		;
 	}
-	
-	
-
 
 	protected $guarded = array();
 

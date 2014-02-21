@@ -1,5 +1,5 @@
 $(function(){
-	$('#timepicker_from').timepicker({
+	/*$('#timepicker_from').timepicker({
 		template: 'dropdown',
 		showSeconds: true,
 		minuteStep: 30,
@@ -19,7 +19,7 @@ $(function(){
 		disableFocus: true,
 		defaultTime: '20:00:00',
 		showMeridian: false
-	});
+	});*/
 
 	var mindate=$('#mindate').text();
 	var maxdate= $('#maxdate').text();

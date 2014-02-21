@@ -16,13 +16,13 @@
 		@if(Dataset::logged($user)->count()>0)
 			<table class="table table-condensed table-hover">
 				<tr>
-					<th class='span4'>Dataset name</th>
+					<th class='span3'>Dataset name</th>
 					<th class="span2">Nrs of registers</th>
-					<th class="span2">Action</th>
+					<th class="span3">Action</th>
 				</tr>
 				@foreach(Dataset::logged($user)->get() as $d)
 					<tr class='dset' id='dset{{$d->id}}'>
-						<td class='span4'>
+						<td class='span3'>
 							<div id="current_dsetname{{$d->id}}">{{$d->name}}</div>
 							<div class='maureenhide form-inline' id='input_renameds{{$d->id}}'>
 								<input type="text" id="rename_ds{{$d->id}}" class='span6' value='{{$d->name}}'>
@@ -32,13 +32,12 @@
 						</td>
 						<td class="span2">{{$d->buildingregister->count()}}
 						</td>
-						<td class="span2">
+						<td class="span3">
 							<div class="dropdown" id='groupsofactionsfor_ds{{$d->id}}'>
 								<button class="btn dropdown-toggle" data-toggle="dropdown">action <b class="caret"></b></button>
 								<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
 									<li><a href="{{URL::to('/charts/table?user='.$user.'&ds='.$d->id)}}">see data table</a></li>
 									<li><a href="{{URL::to('/charts/charts?user='.$user.'&ds='.$d->id)}}">go to data charts</a></li>
-									<li><a href="">import cvs data</a></li>
 									<li><a href="" id='changename{{$d->id}}'>rename</a></li>
 									<li>
 										<a href="" id='delete_dsrequest{{$d->id}}'>delete</a>
@@ -46,9 +45,14 @@
 								</ul>
 							</div>
 							<div class="maureenhide" id="delete_ds_btngroups{{$d->id}}">
-								Confirm deleting
-								<a href="" id='delete_ds{{$d->id}}'>Yes</a>
-								<a href="" id='canceldelete_ds{{$d->id}}'>No</a>
+								Destroy whole dataset? ({{$d->buildingregister->count()}} registers)
+								<br>
+								<a href="" id='delete_ds{{$d->id}}'>Yes</a> | 
+								<a href="" id='canceldelete_ds{{$d->id}}'>Cancel</a>
+							</div>
+							<div id="deleting_dataset{{$d->id}}" class="hide">
+								<img src="{{URL::to('assets/img/progressBar.gif')}}" alt="">
+								Deleting data set...
 							</div>
 						</td>
 					</tr>

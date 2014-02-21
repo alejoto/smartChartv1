@@ -8,4 +8,5 @@
 	<div class="maureenhide" id="loggeduser">{{$_GET['user']}}</div>
 	<button class="btn" id='confirm_newdataset'><i class="icon-ok"></i></button>
 	<button class="btn" id='cancel_newdataset'><i class="icon-remove"></i></button>
+	<div class="maureenhide text-error" id="newdatasetmssg"></div>
 </div>

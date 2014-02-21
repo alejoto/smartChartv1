@@ -16,15 +16,12 @@
 		@endif
 	</spam>
 </div>
-	
-
 	@if(isset($_GET['ds']))
 		<?php 
 		$ds=$_GET['ds'];
 		$comma='';
 		$verifier='';
 		?>
-		
 		<div id="data_as_json" class='hide'>[
 			@foreach(Buildingregister::activeds($ds)->get() as $br)
 				@if($verifier	!=	$br->datereading.' '.$br->timereading)
@@ -49,6 +46,7 @@
 			<div class="row">
 				<div class="span3">
 					<div class='text-right'>
+						
 						CHOOSE DATE RANGE <br>
 						From <input type="text" class='span2' id='datepicker_from'>
 						<br>
@@ -73,13 +71,15 @@
 							</li>
 						@endforeach
 					</ul>
-					<br>
-					<a href="" class='chart_type' id='chart_type200' param='a01OM|right|occupancy mode|column~a02OAT|left|Outer temperature|line'>type 1</a>
-					<br>
-					<a href="" class='chart_type' id='chart_type210' param='a03ZT|left|zone temperature|line~a01OM|right|occupancy mode|column'>type 2</a>
 				</div>
 				<div class="offset4 span8 affix">
-					<h1>some title</h1>
+					<h1 id='chart_title'>
+					@if(isset($_GET['ct']))
+						{{Chart::find($_GET['ct'])->chartname}}
+					@else
+						Select a chart type (left menu)
+					@endif
+					</h1>
 					<div id="chartdiv" style="width: 640px; height: 400px;background-color:#fff"></div>
 				</div>
 			</div>
@@ -113,6 +113,7 @@
 	<script src="{{URL::to('assets/js/amcharts_3.1.1/amcharts/amcharts.js')}}" type="text/javascript"></script>
 	<script src="{{URL::to('assets/js/amcharts_3.1.1/amcharts/serial.js')}}" type="text/javascript"></script>
 	<script src="{{URL::to('assets/js/chartbuilderV1.js')}}" type="text/javascript"></script>
+	<script src="{{URL::to('assets/js/otherfunctions_charts.js')}}" type="text/javascript"></script>
 
 	<script type="text/javascript">
 
@@ -125,6 +126,8 @@
 	function charttype(id){
 		$('#chart_type'+id).click(function(e){
 			e.preventDefault();
+			$('#chart_title').html($(this).html().trim());
+
 			var param=$(this).attr('param');
 			param=param.split('~');
 			for (var i = 0; i < param.length; i++){

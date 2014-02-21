@@ -185,15 +185,19 @@ chapt_active*/
 		$('#addnewdataset').show('fast');
 		$('#hidden_dataset_field').hide('fast');
 		$('#newdatasetinput').val('');
+		$('#newdatasetmssg').html('');
 	});
 
 	$('#confirm_newdataset').click(function(e){
 		e.preventDefault();
-		var ds=$('#newdatasetinput').val();
+		var ds=$('#newdatasetinput').val().trim();
 		var user=$('#loggeduser').html();
 		var base=$('#base').html();
 		$.post(base+'/charts/datasetnew',{ds:ds,user:user},function(d){
-			if (d==1) {
+			if (d==0) {
+				$('#newdatasetmssg').html('Data set name cannot be repeated, choose another name').show('fast');
+			}
+			else if (d==1) {
 				location.reload();
 			}
 		});
@@ -257,12 +261,13 @@ chapt_active*/
 		$('#delete_ds'+id).click(function(e){
 			e.preventDefault();
 			var base=$('#base').html();
+			$('#delete_ds_btngroups'+id).hide();
+			$('#deleting_dataset'+id).show();
 			$.post(base+'/charts/datasetdelete',{id:id},function(d){
 				if (d==1) {
 					location.reload();
 				}
 			});
-			//$('#dset'+id).hide('fast');
 			
 		});
 	}

@@ -10,8 +10,15 @@ class Dataset extends Eloquent {
 	}
 
 	public function scopeLogged ($query,$user) {
-		return $query->where('user_id','=',$user);
+		return $query->whereUser_id($user);
 	}
+
+	public function scopeRepeated ($query,$user,$ds) {
+		return $query	->whereUser_id($user)
+						->whereName($ds)
+		;
+	}
+	
 	protected $guarded = array();
 
 	public static $rules = array();
