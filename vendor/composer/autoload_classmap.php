@@ -6,6 +6,8 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'AddAxisToBfieldsTable' => $baseDir . '/app/database/migrations/2014_02_20_222957_add_axis_to_bfields_table.php',
+    'AddCharttypeToBfieldsTable' => $baseDir . '/app/database/migrations/2014_02_20_223053_add_charttype_to_bfields_table.php',
     'AddFieldclassToBfieldsTable' => $baseDir . '/app/database/migrations/2014_02_15_202237_add_fieldclass_to_bfields_table.php',
     'AddPlaceholderToBfieldsTable' => $baseDir . '/app/database/migrations/2014_02_15_203945_add_placeholder_to_bfields_table.php',
     'BaseController' => $baseDir . '/app/controllers/BaseController.php',
@@ -891,6 +893,7 @@ return array(
     'Patchwork\\TurkishUtf8' => $vendorDir . '/patchwork/utf8/class/Patchwork/TurkishUtf8.php',
     'Patchwork\\Utf8' => $vendorDir . '/patchwork/utf8/class/Patchwork/Utf8.php',
     'Patchwork\\Utf8\\Bootup' => $vendorDir . '/patchwork/utf8/class/Patchwork/Utf8/Bootup.php',
+    'PivotBfieldChartTable' => $baseDir . '/app/database/migrations/2014_02_20_230806_pivot_bfield_chart_table.php',
     'Predis\\Autoloader' => $vendorDir . '/predis/predis/lib/Predis/Autoloader.php',
     'Predis\\BasicClientInterface' => $vendorDir . '/predis/predis/lib/Predis/BasicClientInterface.php',
     'Predis\\Client' => $vendorDir . '/predis/predis/lib/Predis/Client.php',

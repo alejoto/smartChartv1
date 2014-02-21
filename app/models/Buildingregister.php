@@ -13,13 +13,29 @@ class Buildingregister extends Eloquent {
 	}
 
 	public function scopeExistent ($query,$date,$time,$dataset) {
-		return $query	->where('datereading','=',$date)
-						->where('timereading','=',$time)
-						->where('dataset_id','=',$dataset)
+		return $query	->whereDatereading($date)
+						->whereTimereading($time)
+						->whereDataset_id($dataset)
 						->orderBy('datereading')
 						->orderBy('timereading')
 		;
 	}
+
+	public function scopeMindate ($query,$ds) {
+		return $query	->whereDataset_id($ds)
+						->min('datereading')
+		;
+	}
+
+	public function scopeMaxdate ($query,$ds) {
+		return $query	->whereDataset_id($ds)
+						->max('datereading')
+		;
+	}
+	
+	
+
+
 	protected $guarded = array();
 
 	public static $rules = array();
