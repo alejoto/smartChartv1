@@ -100,45 +100,6 @@ class ChartsController extends BaseController {
 		}
 	}
 
-	/*public function getMycharts() {
-		$fields=array(
-			array('ChWLDP',1),array('ChWLDSP',1),array('ChWRT',1),array('ChWST',1)
-			,array('ChWSTSP',1),array('CCV',100),array('ConskWH',1),array('DAT',1)
-			,array('DATSP',1),array('DSP',1),array('DSPSP',1),array('HCVS',100)
-			,array('HWLDP',1),array('HWLDPSP',1),array('HWRT',1),array('HWST',1)
-			,array('HWSTSP',1),array('MAT',1),array('OM',100),array('OADPS',100)
-			,array('OAF',1),array('OAT',1),array('RAT',1),array('SFSpd',1)
-			,array('SFS',1),array('VAVDPSP',100),array('ZDPS',100),array('ZOM',100)
-			,array('ZRVS',100),array('ZT',1),array('ZONE',1),array('DAMPER',1)
-		);
-
-
-		if (isset($_GET['user'])) {
-			$user=$_GET['user'];
-			$userlink='?user='.$user;
-		}
-		else {
-			$user='unregistered user';
-			$userlink='';
-		}
-		
-		
-		 //Giving Measurement data to $data variable
-		
-		$data=Measurement::orderBy('DATE_READING')
-		->orderBy('TIME_READING');
-		$chart=Chart::orderBy('chartname')->get();
-		return View::make('charts.mycharts')
-		->with('user',$user)
-		->with('userlink',$userlink)
-		->with('title','Charts')
-		->with('fields',$fields)
-		->with('data',$data)
-		->with('chart',$chart);
-	}*/
-
-	
-
 	/*POST requests*/
 
 	/*Add a new data set*/
@@ -210,81 +171,83 @@ class ChartsController extends BaseController {
 					$column[$v->id]=$v->name;
 				}//All column names added to $column array except dataset_id
 
-				
+				$r=1;
 				while (($data=fgetcsv($handle, 1000, ","))!==false) //Iteration for each row
 				{
-					//Columns to be added: 33
-					//Columns from csv file: all except dataset_id (32)
-					$i=1;
-					$import=array();
-					foreach ($data as $d) //Iteration for each column
-					{
-
-						$currentcol=$column[$i];
-						if ($column[$i]=='dataset_id') //skipping dataset_id field
+					if ($r>1) {
+						//Columns to be added: 33
+						//Columns from csv file: all except dataset_id (32)
+						$i=1;
+						$import=array();
+						foreach ($data as $d) //Iteration for each column
 						{
-							$i++;
-						}
+							if ($i<34) {
+								$currentcol=$column[$i];
+								if ($column[$i]=='dataset_id') //skipping dataset_id field
+								{
+									$i++;
+								}
 
-						
+								//Retrieving date and time of reading for each row
+								//If existent on the DB table plus same dataset 
+								//update will be performed
+								if ($currentcol=='datereading') {
+									$date=$d;//setting $date variable for checking if register exists 
+									if ($date!='') {
+										$import[$column[$i]]=$date;//Adding date to array 
+									}
+								}
+								if ($currentcol=='timereading') {
+									$time=$d;//setting $time variable for checking if register exists 
+									if ($time!='') {
+										$import[$column[$i]]=$time;//Adding time to array 
+									}
+								}
+								if ($i>2&&($date==''||$time==''))//cleaning $import array if date and or time have no value
+								{
+									unset($import);//cleaning import array
+									$import=array();//cleaning import array
+									$date='';//resetting variable as empty
+									$time='';//resetting variable as empty
+								}
 
-						//Retrieving date and time of reading for each row
-						//If existent on the DB table plus same dataset 
-						//update will be performed
-						if ($currentcol=='datereading') {
-							$date=$d;//setting $date variable for checking if register exists 
-							if ($date!='') {
-								$import[$column[$i]]=$date;//Adding date to array 
-							}
+								if ($i>2&&$date!=''&&$time!='') //skipping row with no date and or time
+								{
+									if ($d!='') //skipping empty fields
+									{
+										if ($column[1]!='Date') {
+											$import[$column[$i]]=$d; //adding value to array for creating or updating
+										}
+										
+									}
+								}
+								$i++;
+							}	
 						}
-						if ($currentcol=='timereading') {
-							$time=$d;//setting $time variable for checking if register exists 
-							if ($time!='') {
-								$import[$column[$i]]=$time;//Adding time to array 
-							}
-						}
-						if ($i>2&&($date==''||$time==''))//cleaning $import array if date and or time have no value
+						if (count($import)>0)//skipping empty rows (for data with no date or time).
 						{
-							unset($import);//cleaning import array
-							$import=array();//cleaning import array
-							$date='';//resetting variable as empty
-							$time='';//resetting variable as empty
-						}
-
-						if ($i>2&&$date!=''&&$time!='') //skipping row with no date and or time
-						{
-							if ($d!='') //skipping empty fields
+							//Columns to check for update instead of new register:
+							// * timereading
+							// * datereading
+							// * dataset_id
+							$updatable=Buildingregister::existent($date,$time,$ds);
+							if ($updatable->count()>0) //action to be done= update
 							{
-								$import[$column[$i]]=$d; //adding value to array for creating or updating
+								//$import[colum]=data;
+								$updatable->first()->update($import);
+							}
+							else //action to be done= new register
+							{
+								$row=new Buildingregister;
+								$row->dataset_id=$ds;
+								foreach ($import as $k => $v) {
+									$row->$k=$v;
+								}
+								$row->save();
 							}
 						}
-						
-
-						$i++;
-					}
-					if (count($import)>0)//skipping empty rows (for data with no date or time).
-					{
-						//Columns to check for update instead of new register:
-						// * timereading
-						// * datereading
-						// * dataset_id
-						$updatable=Buildingregister::existent($date,$time,$ds);
-						if ($updatable->count()>0) //action to be done= update
-						{
-							//$import[colum]=data;
-							$updatable->first()->update($import);
-						}
-						else //action to be done= new register
-						{
-							$row=new Buildingregister;
-							$row->dataset_id=$ds;
-							foreach ($import as $k => $v) {
-								$row->$k=$v;
-							}
-							$row->save();
-						}
-					}	
-						
+					}		
+				$r++;
 				}
 
 				$import_result= 0;//succesful uploading 
@@ -295,8 +258,6 @@ class ChartsController extends BaseController {
 			$title='Data table';
 			return View::make('charts.table',compact('title','user','ds','import_result'));
 		}
-
-		
 	}
 
 	public function postUpload () {
