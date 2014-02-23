@@ -91,12 +91,12 @@
 												<select name="" id="chartoption{{$ch->id}}_{{$change->id}}" class='span1 selecttypechart{{$ch->id}}'>
 													<option value="{{$params}}column" {{$columntype}}>column</option>
 													<option value="{{$params}}line" {{$linetype}}>line</option>
+													<option value="{{$params}}dots">dots</option>
 												</select>
 											</a>
 										</li>
 									@endforeach
 								</ul>
-								<div id="target_change{{$ch->id}}">t</div>
 							</li>
 						@endforeach
 					</ul>
@@ -105,6 +105,7 @@
 					<h1 id='chart_title'>
 					@if(isset($_GET['ct']))
 						{{Chart::find($_GET['ct'])->chartname}}
+						<div class="hide" id="chartidfromchapter">{{$_GET['ct']}}</div>
 					@else
 						Select a chart type (left menu)
 					@endif
@@ -138,7 +139,7 @@
 
 	<script src="{{URL::to('assets/js/amcharts_3.1.1/amcharts/amcharts.js')}}" type="text/javascript"></script>
 	<script src="{{URL::to('assets/js/amcharts_3.1.1/amcharts/serial.js')}}" type="text/javascript"></script>
-	<script src="{{URL::to('assets/js/chartbuilderV1.js')}}" type="text/javascript"></script>
+	<script src="{{URL::to('assets/js/chartbuilderV3.js')}}" type="text/javascript"></script>
 	<script src="{{URL::to('assets/js/otherfunctions_charts.js')}}" type="text/javascript"></script>
 	<script type="text/javascript">
 
@@ -188,13 +189,12 @@
 			}
 			//$('#target_change'+id).html(param);
 			createnewchart2('data_as_json','time',{"leftaxis":"Temperature (F)","rightaxis":"Percent (%)"},param,'chartdiv');
-			
-
-
 		});
 	}
 
 	$(window).on('load', function() {
+		var id=$('#chartidfromchapter').html();
+		$('#chartgroup'+id).show('fast');
 		var param=$('#parameters').html().trim();
 		param=param.split('~');
 		for (var i = 0; i < param.length; i++) {
