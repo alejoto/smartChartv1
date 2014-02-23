@@ -26,14 +26,18 @@
 			@foreach(Buildingregister::activeds($ds)->get() as $br)
 				@if($verifier	!=	$br->datereading.' '.$br->timereading)
 					<?php //Fixing date to default amCharts format YYYY/MM/DD
-					$date=str_replace('-','/',$br->datereading); 
-
+					$date=str_replace('-','/',$br->datereading);
 					?>
 					{{$comma}}{"time":"{{$date.' '.$br->timereading}}"
 					@foreach(Bfield::display()->get() as $d)
-
-						<?php $bcolumn=$d->name; ?>
-						,"{{$bcolumn}}":"{{$br->$bcolumn}}"
+						<?php 
+						$bcolumn=$d->name;
+						$bvalue=$br->$bcolumn;
+						if ($bcolumn=='a01OM'||$bcolumn=='b11SFS') {
+							$bvalue=$bvalue*100;
+						}
+						?>
+						,"{{$bcolumn}}":"{{$bvalue}}"
 					@endforeach
 				@endif
 				}
@@ -46,7 +50,6 @@
 			<div class="row">
 				<div class="span3">
 					<div class='text-right'>
-						
 						CHOOSE DATE RANGE <br>
 						From <input type="text" class='span2' id='datepicker_from'>
 						<br>
@@ -68,6 +71,31 @@
 								<a href="" class='chart_type' id='chart_type{{$ch->id}}' param='{{$param}}'>
 									{{$ch->chartname}}
 								</a>
+								
+								<ul class='unstyled text-right hide chartgroup' id='chartgroup{{$ch->id}}'>
+									@foreach(Chart::find($ch->id)->bfield as $change)
+									<?php
+									$linetype='';
+									$columntype='';
+									if ($change->charttype=='column') {
+										$columntype='selected';
+									}
+									else {
+										$linetype='selected';
+									}
+									?>
+										<li>
+											<a class='chartchange{{$ch->id}}' id='chart{{$change->id}}' >
+												{{$change->tooltip}} 
+												<select name="" id="chartoption{{$ch->id}}_{{$change->id}}" class='span1'>
+													<option value="" {{$columntype}}>column</option>
+													<option value="" {{$linetype}}>line</option>
+												</select>
+											</a>
+										</li>
+									@endforeach
+								</ul>
+								<div id="target_change{{$ch->id}}"></div>
 							</li>
 						@endforeach
 					</ul>
@@ -94,7 +122,6 @@
 		@endforeach
 		</div>
 		@endif
-			
 	@else 
 	<div class="container">
 		<div class="row">
@@ -103,8 +130,6 @@
 			</div>
 		</div>
 	</div>
-		
-
 	@endif
 @stop
 
@@ -114,18 +139,24 @@
 	<script src="{{URL::to('assets/js/amcharts_3.1.1/amcharts/serial.js')}}" type="text/javascript"></script>
 	<script src="{{URL::to('assets/js/chartbuilderV1.js')}}" type="text/javascript"></script>
 	<script src="{{URL::to('assets/js/otherfunctions_charts.js')}}" type="text/javascript"></script>
-
 	<script type="text/javascript">
 
 	$('.chart_type').each(function(){
 		var id=$(this).attr('id');
 		id=id.replace('chart_type','');
 		charttype(id);
+		$('.chartchange'+id).each(function(){
+			var sub_id=$(this).attr('id');
+			sub_id=sub_id.replace('chart','');
+			changecharttype(id,sub_id);
+		});
 	});
 	
 	function charttype(id){
 		$('#chart_type'+id).click(function(e){
 			e.preventDefault();
+			$('.chartgroup').hide('fast');
+			$('#chartgroup'+id).show('fast');
 			$('#chart_title').html($(this).html().trim());
 
 			var param=$(this).attr('param');
@@ -137,6 +168,19 @@
 			createnewchart2('data_as_json','time',{"leftaxis":"Temperature (F)","rightaxis":"Percent (%)"},param,'chartdiv');
 		});
 	}
+
+	/*$('#chartoption1_9').on('change click',function(e){
+		e.preventDefault();
+		$(this).hide('fast');
+	});*/
+
+	function changecharttype(id,sub_id){
+		$('#chartoption'+id+'_'+sub_id).on('change click',function(e){
+			e.preventDefault();
+			$(this).hide('fast');
+		});
+	}
+
 	$(window).on('load', function() {
 		var param=$('#parameters').html().trim();
 		param=param.split('~');
