@@ -83,19 +83,20 @@
 									else {
 										$linetype='selected';
 									}
+									$params=$change->name.'|'.$change->axis.'|'.$change->tooltip.'|';
 									?>
 										<li>
 											<a class='chartchange{{$ch->id}}' id='chart{{$change->id}}' >
 												{{$change->tooltip}} 
-												<select name="" id="chartoption{{$ch->id}}_{{$change->id}}" class='span1'>
-													<option value="" {{$columntype}}>column</option>
-													<option value="" {{$linetype}}>line</option>
+												<select name="" id="chartoption{{$ch->id}}_{{$change->id}}" class='span1 selecttypechart{{$ch->id}}'>
+													<option value="{{$params}}column" {{$columntype}}>column</option>
+													<option value="{{$params}}line" {{$linetype}}>line</option>
 												</select>
 											</a>
 										</li>
 									@endforeach
 								</ul>
-								<div id="target_change{{$ch->id}}"></div>
+								<div id="target_change{{$ch->id}}">t</div>
 							</li>
 						@endforeach
 					</ul>
@@ -169,15 +170,27 @@
 		});
 	}
 
-	/*$('#chartoption1_9').on('change click',function(e){
-		e.preventDefault();
-		$(this).hide('fast');
-	});*/
-
 	function changecharttype(id,sub_id){
-		$('#chartoption'+id+'_'+sub_id).on('change click',function(e){
+		$('#chartoption'+id+'_'+sub_id).on('change',function(e){
 			e.preventDefault();
-			$(this).hide('fast');
+			var typechart=$(this).val();
+			var alltypechart=$('.selecttypechart'+id);
+			var param='';
+			var gnu='';
+			$('.selecttypechart'+id).each(function(){
+				param=param+gnu+$(this).val();
+				gnu='~';
+			});
+			param=param.split('~');
+			for (var i = 0; i < param.length; i++){
+				param[i]=param[i].trim();
+				param[i]=param[i].split('|');
+			}
+			//$('#target_change'+id).html(param);
+			createnewchart2('data_as_json','time',{"leftaxis":"Temperature (F)","rightaxis":"Percent (%)"},param,'chartdiv');
+			
+
+
 		});
 	}
 
