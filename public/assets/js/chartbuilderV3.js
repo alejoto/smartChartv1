@@ -165,6 +165,18 @@ function createnewchart2(jsondata,y_axis,x_axis,thecharts,target){
 
     function zoomChart() {
     // different zoom methods can be used - zoomToIndexes, zoomToDates, zoomToCategoryValues
-    chart.zoomToIndexes(0, 40);
-}
+    var startDateString = $('#datepicker_from').val();
+    var endDateString = $('#datepicker_to').val()+" 23:00:00";
+    var initialdate=new Date(startDateString);
+    var finishindate=new Date(endDateString);
+    chart.zoomToDates(initialdate, finishindate);
+    }
+
+    $('#datepicker_from').on('change blur',function(e){
+        zoomChart();
+    });
+
+    $('#datepicker_to').on('change blur',function(e){
+        zoomChart();
+    });
 }

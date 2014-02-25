@@ -21,13 +21,13 @@ $(function(){
 		showMeridian: false
 	});*/
 
-	var mindate=$('#mindate').text();
+	/*var mindate=$('#mindate').text();
 	var maxdate= $('#maxdate').text();
 
 	var startdate = new Date(mindate);
-	var enddate = new Date(maxdate);
+	var enddate = new Date(maxdate);*/
 	 
-	var checkin = $('#datepicker_from').datepicker({
+	/*var checkin = $('#datepicker_from').datepicker({
 		format : 	'yyyy/mm/dd',
 	  onRender: function(date) {
 	    return date.valueOf() <= startdate.valueOf() || date.valueOf()>=enddate.valueOf()  ? 'disabled' : '';
@@ -40,24 +40,24 @@ $(function(){
 	  }
 	  checkin.hide();
 	  $('#datepicker_to')[0].focus();
-	}).data('datepicker');
+	}).data('datepicker');*/
 
-	var checkout = $('#datepicker_to').datepicker({
+	/*var checkout = $('#datepicker_to').datepicker({
 		format : 	'yyyy/mm/dd',
 	  onRender: function(date) {
 	    return date.valueOf() <= startdate.valueOf() || date.valueOf()>enddate.valueOf() ? 'disabled' : '';
 	  }
 	}).on('changeDate', function(ev) {
 	  checkout.hide();
-	}).data('datepicker');
+	}).data('datepicker');*/
 
-	$('#datepicker_to').on('change blur',function(e){
+	/*$('#datepicker_to').on('change blur',function(e){
 		//e.preventDefault();
 		var enddate=$('#datepicker_to').html().trim;
 		var startdate=$('#datepicker_from').html().trim;
 		if (enddate<startdate) {
 			$('#datepicker_to').html('');
 		}
-	});
+	});*/
 });
 

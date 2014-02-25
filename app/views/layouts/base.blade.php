@@ -24,11 +24,7 @@ if ($title=='Charts') {
 }
 
 $linktopreffix='/charts/';
-/*$pages=array(
-	'chapters'	=>'View course chapters'
-	,'data'		=>'Manage building data'
-	,'mycharts2'	=>'Charts'
-	);*/
+
 ?>
 
     <body class='maureenhome'>
