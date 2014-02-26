@@ -73,10 +73,9 @@
 				<div class="pull-right nav-collapse collapse">
 					<ul class="nav">
 						<li>
-							<a href="{{URL::to('charts/log')}}">
+							<a href="#">
 								<i class="icon-user icon-white"></i>
-								<b>Logged in as {{$user}}</b>
-								(change user)
+								<b>Logged in as user {{$user}}</b>
 							</a>
 						</li>
 					</ul>

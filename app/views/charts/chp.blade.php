@@ -3,7 +3,7 @@
 @section('content')
 <h1>Chapters</h1>
 @if(isset($_GET['ds']))
-<h3 class="text-info">See charts for dataset <b>{{Dataset::find($_GET['ds'])->name}}</b>
+<h3 class="text-info">See charts for data set <b>{{Dataset::find($_GET['ds'])->name}}</b>
 	<a href="{{URL::to('charts/chp?user='.$user)}}">(Choose another data set)</a>
 </h3>
 
@@ -37,7 +37,7 @@
 @endforeach
 
 @else 
-Please choose a dataset first 
+Please choose a data set first 
 <div class="dropdown">
 	<button class="btn dropdown-toggle" data-toggle="dropdown">Select data set <b class="caret"></b></button>
 	<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">

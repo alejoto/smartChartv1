@@ -56,7 +56,7 @@
 						To <input type="text" class='span2' id='datepicker_to' value='{{Buildingregister::maxdate($ds)}}'>
 					</div>
 					<hr>
-					type of charts
+					All Charts by Name
 					<ul class="nav nav-pills nav-stacked">
 						@foreach(Chart::orderBy('id')->get() as $ch)
 							<li>
@@ -128,7 +128,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="span12">
-				Please select a dataset first
+				Please select a data set first
 			</div>
 		</div>
 	</div>

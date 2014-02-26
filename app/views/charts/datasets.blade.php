@@ -1,13 +1,14 @@
 @extends('layouts.base')
 
 @section('content')
-<h1>Datasets</h1>
+<h1>Data Sets</h1>
 <div class="row-fluid">
 	<div class="span3">
 		<h3 class='text-info'>What are data sets?</h3>
-		<p class='text-info'>Data sets are groups of data describing particular contexts such as different climatic seasons, calibration errors 
-			and some other ilustrative cases related to building retuning systems.  In order to import / create new registers you 
-			must select first a dataset.
+		<p class='text-info'>A data set is any group of data about which you would like to view the charts in this module.  
+			Data sets can represent a specific timeframe, a specific location such as a building or a site, or a 
+			combination of both.  Before importing any data, you must first create a data set.  Each data set you
+			create must have a unique name.
 		</p></div>
 	<div class="span8">
 		@include('charts.datasetsinclude1')
@@ -16,8 +17,8 @@
 		@if(Dataset::logged($user)->count()>0)
 			<table class="table table-condensed table-hover">
 				<tr>
-					<th class='span3'>Dataset name</th>
-					<th class="span2">Nrs of registers</th>
+					<th class='span3'>Data set name</th>
+					<th class="span2">Number of rows</th>
 					<th class="span3">Action</th>
 				</tr>
 				@foreach(Dataset::logged($user)->get() as $d)
@@ -45,7 +46,7 @@
 								</ul>
 							</div>
 							<div class="maureenhide" id="delete_ds_btngroups{{$d->id}}">
-								Destroy whole dataset? ({{$d->buildingregister->count()}} registers)
+								Destroy whole data set? ({{$d->buildingregister->count()}} rows)
 								<br>
 								<a href="" id='delete_ds{{$d->id}}'>Yes</a> | 
 								<a href="" id='canceldelete_ds{{$d->id}}'>Cancel</a>
@@ -59,7 +60,7 @@
 				@endforeach
 			</table>
 		@else
-		<h2 class="text-error">You do not have any dataset yet.</h2>
+		<h2 class="text-error">You have not yet created any data sets.</h2>
 		@endif
 
 	</div>
