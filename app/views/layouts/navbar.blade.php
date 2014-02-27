@@ -9,17 +9,10 @@
 			<?php //$link_home='/charts'.$userlink; 
 			//$linktohome=URL::to($link_home);
 			?>
-			<a class='brand' href="{{URL::to('/temp')}}">Retuning Training Platform v1</a>
+			<a class='brand' href="#">Retuning Training Platform v1</a>
 			
 			<div class="nav-collapse collapse">
 				<ul class="nav">
-					<li  class="">
-						<a href="{{URL::to('/temp')}}">
-							<i class="icon-home icon-white"></i>
-							Home
-						</a>
-						{{--link_to($link_home,'Home')--}}
-					</li>
 					@if(isset($_GET['user']))
 					<?php 
 					$u='?user='.$_GET['user'];
