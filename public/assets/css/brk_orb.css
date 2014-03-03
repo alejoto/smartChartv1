@@ -4,6 +4,10 @@ COMPANY(CLIENT) BREAKING ORBIT
 DATE OF CREATION: NOV / 11 / 2013;
 */
 
+@media print{
+	.noprint{display: none;}
+}
+
 div.uploadfile {
     width: 157px;
     height: 57px;
@@ -44,3 +48,4 @@ div.uploadfile input {
 	color:#dbdacc;
 	background: #112e2f;
 }
+
