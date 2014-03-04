@@ -1,6 +1,6 @@
 @extends('layouts.base')
 @section('content')
-<div class="container">
+<div class="container noprint">
 	<spam class="dropdown">
 		<button class="btn dropdown-toggle" data-toggle="dropdown">Select data set <b class="caret"></b></button>
 		<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
@@ -48,7 +48,7 @@
 			<div id="mindate" class='hide'>{{Buildingregister::mindate($ds)}}</div>
 			<div id="maxdate" class='hide'>{{Buildingregister::maxdate($ds)}}</div>	
 			<div class="row">
-				<div class="span3">
+				<div class="span3 noprint">
 					<div class='text-right'>
 						CHOOSE DATE RANGE <br>
 						From <input type="text" class='span2' id='datepicker_from' value='{{Buildingregister::mindate($ds)}}'>
@@ -112,6 +112,11 @@
 					</h1>
 					<div id="chartdiv" style="width: 640px; height: 400px;background-color:#fff"></div>
 				</div>
+				<div class="offset11 span1 affix noprint">
+					<button class="btn" id='printchart'>
+						<i class="icon-print"></i>
+						Print</button>
+				</div>
 			</div>
 		</div>
 		
@@ -142,17 +147,10 @@
 	<script src="{{URL::to('assets/js/chartbuilderV3.js')}}" type="text/javascript"></script>
 	<script src="{{URL::to('assets/js/datechooserv1.js')}}" type="text/javascript"></script>
 	<script type="text/javascript">
-
-
-
-	
-	
-	
-
-	
-
-	
-	
+	$('#printchart').click(function(e){
+		e.preventDefault();
+		window.print();
+	});
 	</script>
 @stop
 
