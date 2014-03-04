@@ -1,7 +1,7 @@
 @extends('layouts.base')
 
 @section('content')
-Choose / change dataset 
+Choose / change data set 
 
 <spam class="dropdown">
 	<button class="btn dropdown-toggle" data-toggle="dropdown">Select data set <b class="caret"></b></button>
@@ -20,7 +20,7 @@ Choose / change dataset
 	@if($import_result==0)
 		<h1>Data was succesfully imported</h1>
 	@elseif ($import_result==1) 
-		<h1>No import was done, be sure to choose proper csv file</h1>
+		<h1>No import was done, be sure to choose a properly formatted csv file</h1>
 	@endif
 @endif
 
