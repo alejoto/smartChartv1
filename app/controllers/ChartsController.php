@@ -260,7 +260,7 @@ class ChartsController extends BaseController {
 		}
 	}
 
-	public function postUpload () {
+	/*public function postUpload () {
 		$user=$_GET['user'];
 		$column=array(
 			'id','data_id','user_id','entered_at','changed_at','DATE_READING','TIME_READING','ChWLDP' ,'ChWLDSP' ,'ChWRT' ,'ChWST','ChWSTSP' ,'CCV' ,'ConskWH' ,'DAT','DATSP' ,'DSP' ,'DSPSP' ,'HCVS','HWLDP' ,'HWLDPSP' ,'HWRT' ,'HWST','HWSTSP' ,'MAT' ,'OM' ,'OADPS','OAF' ,'OAT' ,'RAT' ,'SFSpd','SFS' ,'VAVDPSP' ,'ZDPS' ,'ZOM','ZRVS' ,'ZT' ,'ZONE' ,'DAMPER','created_at','updated_at');
@@ -304,7 +304,7 @@ class ChartsController extends BaseController {
 			$back='charts/data?user='.$user;
 			return Redirect::to($back);
 		}
-	}
+	}*/
 
 	public function postAnewrow() {
 		$dataset=$_POST['dataset'];
