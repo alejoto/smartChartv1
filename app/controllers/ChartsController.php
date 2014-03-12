@@ -273,25 +273,45 @@ class ChartsController extends BaseController {
 					if ($r!=0) {//Skipping first (header) row
 						$i=0;
 						$day='';
+						$usable='';
 						foreach ($data as $d) {
-							if ($i!=0||$i!=1||$i!=3||$i!=100||$i!=101) {
+							if ($i!=0||$i!=1||$i!=100||$i!=101) {
 								if ($i==2) {
 									$day=$day.$d;
 								}
-								$time=date('H:i:s',($i-3)*900);
-
-								$updatable=Buildingregister::existent($day,$time,$ds)->count();//checking if data already exist
-
-								//saving if no exist
-								if ($updatable==0&&$i>3) {
-									$bur=new Buildingregister;
-									$bur->dataset_id=$ds;
-									$bur->datereading=$day;
-									$bur->timereading=$time;
-									$bur->a07kWusage=$d;
-									$bur->save();
+								if ($i==3) {
+									$usable=$usable.$d;
 								}
+								$time=date('H:i:s',($i-4)*900);
+
+								
+								if ($d>3) {
+									$updatable=Buildingregister::existent($day,$time,$ds);//checking if data already exist
 									
+
+									$update=array(
+										'a07kWusage'=>$d
+									);//in case of updatable>0
+
+									//saving if no exist
+									if ($updatable->count()==0&&$usable=='KW') {
+										$bur=new Buildingregister;
+										$bur->dataset_id=$ds;
+										$bur->datereading=$day;
+										$bur->timereading=$time;
+										$bur->a07kWusage=$d;
+										$bur->save();
+									}
+									else {
+										if ($updatable->count()>0) {
+											$u_id=$updatable->first()->id;
+											if ($usable=='KW') {
+												Buildingregister::find($u_id)->update($update);
+											}
+										}
+									}
+										
+								}
 							}
 							
 							$i++;
@@ -299,7 +319,70 @@ class ChartsController extends BaseController {
 					}
 					$r++;//incrementing in order to skip first (header) row
 				}
-				return $day;
+				return Redirect::to('charts/table?user='.$user.'&ds='.$ds);
+			}
+		}
+	}
+
+	public function postUploadcsvdemand (){
+		$ds=$_POST['ds'];//dataset id
+		$user=$_POST['user'];
+		if (isset($_POST['submit'])){
+			if (is_uploaded_file($_FILES['filename']['tmp_name'])){
+				$handle = fopen($_FILES['filename']['tmp_name'], "r");//opening file
+				$r=1;
+				while (($data=fgetcsv($handle, 1000, ","))!==false) //Iteration for each row
+				{
+					if ($r!=0) {//Skipping first (header) row
+						$i=0;
+						$day='';
+						$usable='';
+						foreach ($data as $d) {
+							if ($i!=0||$i!=1||$i!=100||$i!=101) {
+								if ($i==2) {
+									$day=$day.$d;
+								}
+								if ($i==3) {
+									$usable=$usable.$d;
+								}
+								$time=date('H:i:s',($i-4)*900);
+
+								
+								if ($d>3) {
+									$updatable=Buildingregister::existent($day,$time,$ds);//checking if data already exist
+									
+
+									$update=array(
+										'a06kWdemand'=>$d
+									);//in case of updatable>0
+
+									//saving if no exist
+									if ($updatable->count()==0&&$usable=='KW') {
+										$bur=new Buildingregister;
+										$bur->dataset_id=$ds;
+										$bur->datereading=$day;
+										$bur->timereading=$time;
+										$bur->a06kWdemand=$d;
+										$bur->save();
+									}
+									else {
+										if ($updatable->count()>0) {
+											$u_id=$updatable->first()->id;
+											if ($usable=='KW') {
+												Buildingregister::find($u_id)->update($update);
+											}
+										}
+									}
+										
+								}
+							}
+							
+							$i++;
+						}
+					}
+					$r++;//incrementing in order to skip first (header) row
+				}
+				return Redirect::to('charts/table?user='.$user.'&ds='.$ds);
 			}
 		}
 	}
