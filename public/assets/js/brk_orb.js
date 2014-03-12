@@ -279,6 +279,58 @@ chapt_active*/
 		showeditabledata(id);
 	});
 
+	/*
+	| 
+	| Proceedure for showing / hiding options for uploading csv files
+	|
+	|*/
+
+	$('#dataset_csv_target').change(function(e){
+		//e.preventDefault();
+		$('#import_form_as_generaltemplate').hide();
+		$('#import_form_as_kwusage').hide();
+		$('#import_form_as_kwdemand').hide();
+		var ds=$(this).val();
+
+		$('#dataset_to_receive_csv').val(ds);
+		$('#dataset_to_receive_csvusage').val(ds);
+		$('#dataset_to_receive_csvdemand').val(ds);
+		
+		if (ds==0) {$('#csvfileoptions').hide('fast');}
+		else {$('#csvfileoptions').show('fast');}
+	});
+
+	/*
+	|
+	| Proceedure for showing "general template", "kw usage" and "kw demand" uploading form
+	|
+	*/
+	$('#upload_as_general_template_button').click(function(e){
+		e.preventDefault();
+		$('#import_form_as_generaltemplate').show();
+		$('#import_form_as_kwusage').hide();
+		$('#import_form_as_kwdemand').hide();
+	});
+
+	$('#upload_as_kwusage_button').click(function(e){
+		e.preventDefault();
+		$('#import_form_as_generaltemplate').hide();
+		$('#import_form_as_kwusage').show();
+		$('#import_form_as_kwdemand').hide();
+	});
+
+	$('#upload_as_kwdemand_button').click(function(e){
+		e.preventDefault();
+		$('#import_form_as_generaltemplate').hide();
+		$('#import_form_as_kwusage').hide();
+		$('#import_form_as_kwdemand').show();
+	});
+
+
+	/*
+	| Deleting row from table
+	| 
+	*/
 	function deleterequest(id) {
 		$('#delete'+id).click(function(e){
 			e.preventDefault();

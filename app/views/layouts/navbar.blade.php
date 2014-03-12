@@ -23,6 +23,9 @@
 					@if(isset($_GET['user']))
 					<?php 
 					$u='?user='.$_GET['user'];
+					if (isset($_GET['ds'])) {
+						$u=$u.'&ds='.$_GET['ds'];
+					}
 					$pfx='/charts/';
 					$ds_link=$pfx.'ds'.$u;
 					$ds_link=URL::to($ds_link);

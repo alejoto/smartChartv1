@@ -6,6 +6,8 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'AddA06kWdemandToBuildingregistersTable' => $baseDir . '/app/database/migrations/2014_03_10_163158_add_a06kwdemand_to_buildingregisters_table.php',
+    'AddA07kWusageToBuildingregistersTable' => $baseDir . '/app/database/migrations/2014_03_10_165512_add_a07kwusage_to_buildingregisters_table.php',
     'AddAxisToBfieldsTable' => $baseDir . '/app/database/migrations/2014_02_20_222957_add_axis_to_bfields_table.php',
     'AddCharttypeToBfieldsTable' => $baseDir . '/app/database/migrations/2014_02_20_223053_add_charttype_to_bfields_table.php',
     'AddFieldclassToBfieldsTable' => $baseDir . '/app/database/migrations/2014_02_15_202237_add_fieldclass_to_bfields_table.php',
