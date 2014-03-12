@@ -1,4 +1,4 @@
-<div id='modal_import' class="modal hider fader" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div id='modal_import' class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 		<h4>Import data from CSV file</h4>
@@ -38,8 +38,6 @@
 						
 						
 					<form enctype='multipart/form-data' action="{{$action}}" method='post' id='import_form_as_generaltemplate' class='hide'>
-						 
-						<br>Pass parameters to three empty forms of ds!!!
 						
 						<div class="" id="upload_group">
 						<h4>Importing data from general template csv file</h4>

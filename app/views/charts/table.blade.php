@@ -1,7 +1,8 @@
 @extends('layouts.base')
 
 @section('content')
-Choose / change data set 
+
+Choose / change dataset 
 
 <spam class="dropdown">
 	<button class="btn dropdown-toggle" data-toggle="dropdown">Select data set <b class="caret"></b></button>

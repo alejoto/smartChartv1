@@ -174,14 +174,15 @@ class ChartsController extends BaseController {
 				$r=1;
 				while (($data=fgetcsv($handle, 1000, ","))!==false) //Iteration for each row
 				{
-					if ($r>1) {
-						//Columns to be added: 33
+					if ($r>1) //Skipping first (header) row
+					{
+						//Columns to be added: 35
 						//Columns from csv file: all except dataset_id (32)
 						$i=1;
 						$import=array();
 						foreach ($data as $d) //Iteration for each column
 						{
-							if ($i<34) {
+							if ($i<36) {
 								$currentcol=$column[$i];
 								if ($column[$i]=='dataset_id') //skipping dataset_id field
 								{
@@ -247,7 +248,7 @@ class ChartsController extends BaseController {
 							}
 						}
 					}		
-				$r++;
+				$r++;//Iteration for skipping first row
 				}
 
 				$import_result= 0;//succesful uploading 
@@ -260,51 +261,50 @@ class ChartsController extends BaseController {
 		}
 	}
 
-	/*public function postUpload () {
-		$user=$_GET['user'];
-		$column=array(
-			'id','data_id','user_id','entered_at','changed_at','DATE_READING','TIME_READING','ChWLDP' ,'ChWLDSP' ,'ChWRT' ,'ChWST','ChWSTSP' ,'CCV' ,'ConskWH' ,'DAT','DATSP' ,'DSP' ,'DSPSP' ,'HCVS','HWLDP' ,'HWLDPSP' ,'HWRT' ,'HWST','HWSTSP' ,'MAT' ,'OM' ,'OADPS','OAF' ,'OAT' ,'RAT' ,'SFSpd','SFS' ,'VAVDPSP' ,'ZDPS' ,'ZOM','ZRVS' ,'ZT' ,'ZONE' ,'DAMPER','created_at','updated_at');
-		if (isset($_POST['submit'])) {
+	public function postUploadcsvusage (){
+		$ds=$_POST['ds'];//dataset id
+		$user=$_POST['user'];
+		if (isset($_POST['submit'])){
+			if (is_uploaded_file($_FILES['filename']['tmp_name'])){
+				$handle = fopen($_FILES['filename']['tmp_name'], "r");//opening file
+				$r=1;
+				while (($data=fgetcsv($handle, 1000, ","))!==false) //Iteration for each row
+				{
+					if ($r!=0) {//Skipping first (header) row
+						$i=0;
+						$day='';
+						foreach ($data as $d) {
+							if ($i!=0||$i!=1||$i!=3||$i!=100||$i!=101) {
+								if ($i==2) {
+									$day=$day.$d;
+								}
+								$time=date('H:i:s',($i-3)*900);
 
-			if (is_uploaded_file($_FILES['filename']['tmp_name'])) {
-			}
-			$handle = fopen($_FILES['filename']['tmp_name'], "r");
-			
-			while (($data=fgetcsv($handle, 1000, ","))!==false) {
-				$savingdata=array();
-				$longdata='';
-				$i=0;
-				$maxdata_id=Measurement::where('user_id','=',$user)->max('data_id')+1;
-				$addrow=new Measurement();
-				foreach ($data as $k => $v) {
-					if ($column[$i]=='user_id') {
-						$addrow->$column[$i]=$user;
+								$updatable=Buildingregister::existent($day,$time,$ds)->count();//checking if data already exist
+
+								//saving if no exist
+								if ($updatable==0&&$i>3) {
+									$bur=new Buildingregister;
+									$bur->dataset_id=$ds;
+									$bur->datereading=$day;
+									$bur->timereading=$time;
+									$bur->a07kWusage=$d;
+									$bur->save();
+								}
+									
+							}
+							
+							$i++;
+						}
 					}
-					else if($column[$i]=='data_id') {
-						$addrow->$column[$i]=$maxdata_id;
-					}
-					else if ($column[$i]=='id') {
-						$addrow->$column[$i]='';
-					}
-					else if ($column[$i]=='created_at') {
-						$addrow->$column[$i]='';
-					}
-					else if ($column[$i]=='updated_at') {
-						$addrow->$column[$i]='';
-					}
-					else {
-						$addrow->$column[$i]=$v;
-					}
-					$longdata=$longdata.'$newobject->'.$column[$i].'='.$v.';';
-					$i++;
+					$r++;//incrementing in order to skip first (header) row
 				}
-				$addrow->save();
+				return $day;
 			}
-			fclose($handle);
-			$back='charts/data?user='.$user;
-			return Redirect::to($back);
 		}
-	}*/
+	}
+
+	
 
 	public function postAnewrow() {
 		$dataset=$_POST['dataset'];
