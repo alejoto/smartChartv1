@@ -1,6 +1,6 @@
 @extends('layouts.base')
 @section('content')
-<div class="container">
+<div class="container-fluid">
 	<div class="row-fluid">
 		@if(isset($_GET['ds']))
 			@include('charts.json')
@@ -14,9 +14,8 @@
 		|           |                           |          |
 		|-----------|---------------------------|----------|
 		--}}
-		<div class="span2">
+		<div class="span3">
 			@if(isset($_GET['ds']))
-			
 				Building <b>{{Dataset::find($_GET['ds'])->name}}</b>
 			@endif
 			<div class="noprint">
@@ -30,75 +29,10 @@
 							</li>
 						@endforeach
 					</ul>
-					@if(isset($_GET['ds']))
-					@endif
 				</div>
-			</div>
-		</div>
-		{{--End of left side--}}
-
-		{{--
-		|-----------|---------------------------|----------|
-		|           |                           |          |
-		|           |    center                 |          |
-		|           |    frame                  |          |
-		|           |                           |          |
-		|           |                           |          |
-		|-----------|---------------------------|----------|
-		--}}
-		<div class="offset2 span6 affix">
-			ifx
-		</div>
-		{{--End of center frame--}}
-
-		{{--
-		|-----------|---------------------------|----------|
-		|           |                           |          |
-		|           |                           |  right   |
-		|           |                           |  frame   |
-		|           |                           |          |
-		|           |                           |          |
-		|-----------|---------------------------|----------|
-		--}}
-		<div class="offset9 span2 affix noprint">
-			@if(isset($_GET['ds']))
-				<div id="mindate" class='hide'>{{Buildingregister::mindate($ds)}}</div>
-				<div id="maxdate" class='hide'>{{Buildingregister::maxdate($ds)}}</div>
-				<div class='noprint'>
-					DATE RANGE 
-				</div>
-				<div class='noprint'>
-					From <br><input type="text" class='span6' id='datepicker_from' value='{{Buildingregister::mindate($ds)}}'>
-				</div>
-				<div class='noprint'>
-					To 
-					<br>
-					<input type="text" class='span6' id='datepicker_to' value='{{Buildingregister::maxdate($ds)}}'>
-				</div>
-				
-				
-				<br>
-				
-				<a class="btn btn-large noprint" id='printchart'>
-				<i class="icon-print"></i>
-				Print</a>
-			@endif
-		</div>
-		{{--End of right frame--}}
-	</div>
-</div>
-
-
-
-	@if(isset($_GET['ds']))
-
-		<div class="container">
-				
-			<div class="row">
-				<div class="span3 noprint">
-					
-					<hr>
-					type of charts
+				@if(isset($_GET['ds']))
+				<hr>
+				<h4>type of charts</h4>
 					<ul class="nav nav-pills nav-stacked">
 						@foreach(Chart::orderBy('id')->get() as $ch)
 							<li>
@@ -130,7 +64,7 @@
 										<li>
 											<a class='chartchange{{$ch->id}}' id='chart{{$change->id}}' >
 												{{$change->tooltip}} 
-												<select name="" id="chartoption{{$ch->id}}_{{$change->id}}" class='span1 selecttypechart{{$ch->id}}'>
+												<select name="" id="chartoption{{$ch->id}}_{{$change->id}}" class='span4 selecttypechart{{$ch->id}}'>
 													<option value="{{$params}}column" {{$columntype}}>column</option>
 													<option value="{{$params}}line" {{$linetype}}>line</option>
 													<option value="{{$params}}dots">points</option>
@@ -142,29 +76,81 @@
 							</li>
 						@endforeach
 					</ul>
-				</div>
-				<div class="offset3 span8 affix">
-					<h1 id='chart_title'>
-					@if(isset($_GET['ct']))
-						{{Chart::find($_GET['ct'])->chartname}}
-						<div class="hide" id="chartidfromchapter">{{$_GET['ct']}}</div>
-					@else
-						Select a chart type (left menu)
-					@endif
-					</h1>
-					<div id="chartdiv" style="width: 640px; height: 400px;background-color:#fff"></div>
-				</div>
+				@endif
 			</div>
 		</div>
-		
-		@if(isset($_GET['ct']))
-		<?php $gnu=''; ?>
-		<div id="parameters">
-		@foreach(Chart::find($_GET['ct'])->bfield as $cf)
-			{{$gnu.$cf->name}}|{{$cf->axis}}|{{$cf->tooltip}}|{{$cf->charttype}}
-			<?php $gnu='~'; ?>
-		@endforeach
+		{{--End of left side--}}
+
+		{{--
+		|-----------|---------------------------|----------|
+		|           |                           |          |
+		|           |    center                 |          |
+		|           |    frame                  |          |
+		|           |                           |          |
+		|           |                           |          |
+		|-----------|---------------------------|----------|
+		--}}
+		<div class="offset3 span7 affix">
+			<h1 id='chart_title'>
+			@if(isset($_GET['ct']))
+				{{Chart::find($_GET['ct'])->chartname}}
+				<div class="hide" id="chartidfromchapter">{{$_GET['ct']}}</div>
+			@else
+				Select a chart type (left menu)
+			@endif
+			</h1>
+			<div id="chartdiv" style="width: 640px; height: 400px;background-color:#fff"></div>
 		</div>
+		{{--End of center frame--}}
+
+		{{--
+		|-----------|---------------------------|----------|
+		|           |                           |          |
+		|           |                           |  right   |
+		|           |                           |  frame   |
+		|           |                           |          |
+		|           |                           |          |
+		|-----------|---------------------------|----------|
+		--}}
+		<div class="offset10 span2 affix noprint">
+			@if(isset($_GET['ds']))
+				<div id="mindate" class='hide'>{{Buildingregister::mindate($ds)}}</div>
+				<div id="maxdate" class='hide'>{{Buildingregister::maxdate($ds)}}</div>
+				<div class='noprint'>
+					DATE RANGE 
+				</div>
+				<div class='noprint'>
+					From <br><input type="text" class='span6' id='datepicker_from' value='{{Buildingregister::mindate($ds)}}'>
+				</div>
+				<div class='noprint'>
+					To 
+					<br>
+					<input type="text" class='span6' id='datepicker_to' value='{{Buildingregister::maxdate($ds)}}'>
+				</div>
+				
+				
+				<br>
+				
+				<a class="btn btn-large noprint" id='printchart'>
+				<i class="icon-print"></i>
+				Print</a>
+			@endif
+		</div>
+		{{--End of right frame--}}
+	</div>
+</div>
+
+
+	{{--Charts parameters--}}
+	@if(isset($_GET['ds']))
+		@if(isset($_GET['ct']))
+			<?php $gnu=''; ?>
+			<div id="parameters">
+			@foreach(Chart::find($_GET['ct'])->bfield as $cf)
+				{{$gnu.$cf->name}}|{{$cf->axis}}|{{$cf->tooltip}}|{{$cf->charttype}}
+				<?php $gnu='~'; ?>
+			@endforeach
+			</div>
 		@endif
 	@else 
 	<div class="container">
