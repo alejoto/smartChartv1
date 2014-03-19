@@ -23,13 +23,23 @@ div.uploadfile input {
     overflow: hidden !important;
 }
 
+.whitebox{
+	background-color: #fff;
+	width: 100%;
+	padding: 10px;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+}
+
 .maureenhide{
 	display:none;
 }
 
 .maureenhome {
 	background: #dbdacc;
-	/*background-image:url(../img/blackcloudsandtrees.jpg) ;*/
+	background-image:url(../img/tuningbg.png) ;
+	/**/
 	/*background-size: cover;*/
 	min-height: 630px;
 	/*position: relative;*/

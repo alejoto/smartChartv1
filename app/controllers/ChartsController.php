@@ -94,11 +94,29 @@ class ChartsController extends BaseController {
 			return Redirect::to('temp');
 		}
 		else {
+			$ds='';
 			$user=$_GET['user'];
 			$title='Charts';
-			return View::make('charts.mycharts3',compact('title','user'));
+			if (isset($_GET['ds'])) {
+				$ds=$_GET['ds'];
+				if (Dataset::active($_GET['ds'])->first()->buildingregister->count()==0) 
+				{
+					return Redirect::to(URL::to('charts/table?user='.$_GET['user'].'&ds='.$_GET['ds']));
+				}
+				else
+				{
+					
+					return View::make('charts.mycharts3',compact('title','user','ds'));
+				}
+			} 
+			else {
+				return View::make('charts.mycharts3',compact('title','user','ds'));
+			}
+					
 		}
 	}
+
+	
 
 	/*POST requests*/
 

@@ -190,17 +190,24 @@ chapt_active*/
 
 	$('#confirm_newdataset').click(function(e){
 		e.preventDefault();
+		$('#newdatasetmssg').hide('fast');
 		var ds=$('#newdatasetinput').val().trim();
 		var user=$('#loggeduser').html();
-		var base=$('#base').html();
-		$.post(base+'/charts/datasetnew',{ds:ds,user:user},function(d){
-			if (d==0) {
-				$('#newdatasetmssg').html('Data set name cannot be repeated, choose another name').show('fast');
-			}
-			else if (d==1) {
-				location.reload();
-			}
-		});
+		if (ds.length>3) {
+			var base=$('#base').html();
+			$.post(base+'/charts/datasetnew',{ds:ds,user:user},function(d){
+				if (d==0) {
+					$('#newdatasetmssg').html('Data set name cannot be repeated, choose another name').show('fast');
+				}
+				else if (d==1) {
+					location.reload();
+				}
+			});
+		}
+		else {
+			$('#newdatasetmssg').html('Length name must be greater to three characters').show('fast');
+		}
+			
 	});
 
 	$('.dset').each(function(){
@@ -212,6 +219,8 @@ chapt_active*/
 		rename_ds(id);
 		cancel_renameds(id);
 		confirm_renameds(id);
+		datatable(id);
+		datachartpage(id);
 	});
 
 	function confirm_renameds(id){
@@ -233,6 +242,42 @@ chapt_active*/
 			$('#current_dsetname'+id).hide('fast');
 			$('#input_renameds'+id).show('fast');
 		});
+		$('#changename'+id).tooltip({
+			title:'Rename',
+			placement:'right'
+		});
+		$('#changename'+id).mouseover(function(e){
+			$(this).removeClass('icon-white');
+		});
+		$('#changename'+id).mouseout(function(e){
+			$(this).addClass('icon-white');
+		});
+	}
+
+	function datatable(id){
+		$('#datatable'+id).tooltip({
+			title:'Table',
+			placement:'right'
+		});
+		$('#datatable'+id).mouseover(function(e){
+			$(this).removeClass('icon-white');
+		});
+		$('#datatable'+id).mouseout(function(e){
+			$(this).addClass('icon-white');
+		});
+	}
+
+	function datachartpage(id){
+		$('#datachartpage'+id).tooltip({
+			title:'Charts',
+			placement:'right'
+		});
+		$('#datachartpage'+id).mouseover(function(e){
+			$(this).removeClass('icon-white');
+		});
+		$('#datachartpage'+id).mouseout(function(e){
+			$(this).addClass('icon-white');
+		});
 	}
 
 	function cancel_renameds(id){
@@ -247,6 +292,16 @@ chapt_active*/
 			e.preventDefault();
 			$('#groupsofactionsfor_ds'+id).hide('fast');
 			$('#delete_ds_btngroups'+id).show('fast');
+		});
+		$('#delete_dsrequest'+id).tooltip({
+			title:'Delete',
+			placement:'right'
+		});
+		$('#delete_dsrequest'+id).mouseover(function(e){
+			$(this).removeClass('icon-white');
+		});
+		$('#delete_dsrequest'+id).mouseout(function(e){
+			$(this).addClass('icon-white');
 		});
 	}
 	function canceldelete_ds(id){

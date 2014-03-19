@@ -2,7 +2,6 @@
 
 @section('content')
 
- {{$bcheck->first()->id}}
 Choose / change dataset 
 
 <spam class="dropdown">
