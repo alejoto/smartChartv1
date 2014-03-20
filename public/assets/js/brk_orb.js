@@ -51,7 +51,7 @@ chapt_active*/
 	/*----------------------------
 	|
 	|
-	| 3. javascripts for data view
+	| 3. javascripts for table view
 	*/
 	$('#add_new_row_of_data').click(function(e){
 		e.preventDefault();
@@ -59,7 +59,6 @@ chapt_active*/
 		$(this).hide();
 		$('#cancel_add_new_row_of_data').show();
 	});
-
 
 
 	$('#savenewrow').click(function(e){
@@ -111,6 +110,13 @@ chapt_active*/
 		}
 	});
 
+	$('#change_building_from_modal').click(function(e){
+		e.preventDefault();
+		$(this).hide();
+		$('#building_dataset_modal').hide();
+		$('#available_buildings_from_modal').show();
+	});
+
 	$('#dataset_to_receive_csv').change(function(e){
 		e.preventDefault();
 		if ($(this).val()!='' ) {
@@ -138,7 +144,7 @@ chapt_active*/
 
 	$('#openmodal_modal_import').click(function(e){
 		e.preventDefault();
-		$('#modal_import').modal('show');
+		$('#modal_import2').modal('show');
 	});
 
 
@@ -221,6 +227,7 @@ chapt_active*/
 		confirm_renameds(id);
 		datatable(id);
 		datachartpage(id);
+		openmodal_modal_import(id);
 	});
 
 	function confirm_renameds(id){
@@ -239,8 +246,8 @@ chapt_active*/
 	function rename_ds(id){
 		$('#changename'+id).click(function(e){
 			e.preventDefault();
-			$('#current_dsetname'+id).hide('fast');
-			$('#input_renameds'+id).show('fast');
+			$('#current_dsetname'+id).hide();
+			$('#input_renameds'+id).show();
 		});
 		$('#changename'+id).tooltip({
 			title:'Rename',
@@ -283,10 +290,33 @@ chapt_active*/
 	function cancel_renameds(id){
 		$('#cancel_renameds'+id).click(function(e){
 			e.preventDefault();
-			$('#current_dsetname'+id).show('fast');
-			$('#input_renameds'+id).hide('fast');
+			$('#current_dsetname'+id).show();
+			$('#input_renameds'+id).hide();
 		});
 	}
+
+	function openmodal_modal_import(id){
+		$('#openmodal_modal_import'+id).click(function(e){
+			e.preventDefault();
+			var building=$(this).attr('building');
+			$('#building_dataset_modal').html(building);
+			$('#modal_import2').modal('show');
+			$('#change_building_from_modal').hide();
+			$('#dataset_from_modal').val(id);
+		});
+		$('#openmodal_modal_import'+id).tooltip({
+			title:'Import CSV file',
+			placement:'right'
+		});
+		$('#openmodal_modal_import'+id).mouseover(function(e){
+			$(this).removeClass('icon-white');
+		});
+		$('#openmodal_modal_import'+id).mouseout(function(e){
+			$(this).addClass('icon-white');
+		});
+		
+	}
+
 	function delete_dsrequest(id){
 		$('#delete_dsrequest'+id).click(function(e){
 			e.preventDefault();
@@ -342,17 +372,10 @@ chapt_active*/
 
 	$('#dataset_csv_target').change(function(e){
 		//e.preventDefault();
-		$('#import_form_as_generaltemplate').hide();
-		$('#import_form_as_kwusage').hide();
-		$('#import_form_as_kwdemand').hide();
-		var ds=$(this).val();
-
-		$('#dataset_to_receive_csv').val(ds);
-		$('#dataset_to_receive_csvusage').val(ds);
-		$('#dataset_to_receive_csvdemand').val(ds);
-		
-		if (ds==0) {$('#csvfileoptions').hide('fast');}
-		else {$('#csvfileoptions').show('fast');}
+		var selectedtext=$("#dataset_csv_target option:selected").text();
+		$('#building_dataset_modal').html(selectedtext).show();
+		$('#change_building_from_modal').show();
+		$('#available_buildings_from_modal').hide();
 	});
 
 	/*

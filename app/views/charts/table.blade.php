@@ -2,10 +2,10 @@
 
 @section('content')
 
-Choose / change dataset 
+Choose / change building 
 
 <spam class="dropdown">
-	<button class="btn dropdown-toggle" data-toggle="dropdown">Select data set <b class="caret"></b></button>
+	<button class="btn dropdown-toggle" data-toggle="dropdown">Select building <b class="caret"></b></button>
 	<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
 		@foreach(Dataset::logged($user)->get() as $dl)
 			<?php $lk='ds='.$dl->id; 
@@ -26,9 +26,24 @@ Choose / change dataset
 @endif
 
 @if (isset($_GET['ds'])) 
-@include('charts.modal_import')
+@include('charts.modal_import2')
 <?php   $dataset=Dataset::find($_GET['ds']); ?>
-<h3>Current data set <b>{{$dataset->name}}</b></h3>
+<h3>Current building <b>{{$dataset->name}}</b></h3>
+@if(isset($_GET['mssg']))
+	@if($_GET['mssg']==2)
+		<div class="row-fluid">
+			<div class="alert alert-error span6">
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
+				<h4>
+					Sorry, no charts available as choosen building has no data.  Please choose a different building or add / import data to current one.
+				</h4>
+			</div>
+		</div>
+	@endif
+@endif
+		
+	
+
 <div class="row">
 	<div class="span3">
 		<a href="#" id='add_new_row_of_data'><h4><i class="icon-arrow-right"></i> Add data as single row</h4></a>

@@ -4,19 +4,27 @@
 <div class="row-fluid">
 	<div class="offset3 span6">
 		<h1>Building datasets</h1>
+		@if(isset($_GET['mssg']))
+			@if($_GET['mssg']==1)
+				<div class="alert alert-error">
+					<button type="button" class="close" data-dismiss="alert">&times;</button>
+					SORRY, YOU FORGOT SELECTING A FILE WHILE IMPORTING. PLEASE CHOOSE A CSV FILE WHEN IMPORTING DATA. TRY AGAIN.
+				</div>
+			@endif
+		@endif
 	</div>
 </div>
+
+
+		
 <div class="row-fluid">
 	<div class="offset3 span6 whitebox">
-
 		@include('charts.datasetsinclude1')
-
-			
 		@if(Dataset::logged($user)->count()>0)
 			<table class="table table-condensed table-hover">
 				<tr>
-					<th class='span9'>Building</th>
-					<th class="span3">Action</th>
+					<th class='span9 muted'>BUILDING</th>
+					<th class="span3 muted">Action</th>
 				</tr>
 				@foreach(Dataset::logged($user)->get() as $d)
 					<tr class='dset' id='dset{{$d->id}}'>
@@ -53,17 +61,19 @@
 								
 								<i class="icon-edit icon-white" id='changename{{$d->id}}'></i>
 								<i class="icon-trash icon-white" id='delete_dsrequest{{$d->id}}'></i>
+								<i class="icon-upload icon-white" id="openmodal_modal_import{{$d->id}}" building='{{$d->name}}'></i>
 							</div>
 							<div id="deleting_dataset{{$d->id}}" class="hide">
 								<img src="{{URL::to('assets/img/progressBar.gif')}}" alt="">
-								Deleting data set...
+								Deleting whole building dataset...
 							</div>
 						</td>
 					</tr>
 				@endforeach
 			</table>
+			@include('charts.modal_import2')
 		@else
-		<h2 class="text-error">You do not have any dataset yet.</h2>
+		<h2 class="text-error">Please add the name of the building that will contain data.</h2>
 		@endif
 
 	</div>

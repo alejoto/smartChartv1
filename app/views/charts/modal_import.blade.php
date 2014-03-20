@@ -1,4 +1,4 @@
-<div id='modal_import' class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div id='modal_import' class="modal hider fader" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 		<h4>Import data from CSV file</h4>
@@ -26,7 +26,7 @@
 							<option value="{{$dlog->id}}">{{$dlog->name}}</option>
 						@endforeach
 					</select>
-					<div id="csvfileoptions" class="hide">
+					<div id="csvfileoptions" class="hider">
 						<ul class="unstyled " id="">
 							<li>
 								<a href="" id='upload_as_general_template_button'>CSV from main template</a>

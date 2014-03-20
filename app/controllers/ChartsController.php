@@ -64,7 +64,7 @@ class ChartsController extends BaseController {
 			$page=0;
 			$previous='';
 			$prevpage=0;
-			$nextpag=0;
+			$nextpag=10;
 			if (isset($_GET['page'])) {
 				$page=$_GET['page'];
 				$nextpag=$page+10;
@@ -101,7 +101,7 @@ class ChartsController extends BaseController {
 				$ds=$_GET['ds'];
 				if (Dataset::active($_GET['ds'])->first()->buildingregister->count()==0) 
 				{
-					return Redirect::to(URL::to('charts/table?user='.$_GET['user'].'&ds='.$_GET['ds']));
+					return Redirect::to(URL::to('charts/table?user='.$_GET['user'].'&ds='.$_GET['ds'].'&mssg=2'));
 				}
 				else
 				{
@@ -114,6 +114,16 @@ class ChartsController extends BaseController {
 			}
 					
 		}
+	}
+
+	public function getWz () {
+		if (!isset($_GET['user'])) {
+			return Redirect::to('temp');
+		}else {
+			$user=$_GET['user'];
+			return Redirect::to('charts/ds?user='.$user);
+		}
+			
 	}
 
 	
@@ -172,6 +182,18 @@ class ChartsController extends BaseController {
 			);
 		Buildingregister::find($id)->update($upd);
 		return 1;
+	}
+
+	public function postWz () {
+		$user=$_POST['user'];
+		$ds=$_POST['dataset'];
+		$title='Import wizard';
+		if (is_uploaded_file($_FILES['filename']['tmp_name'])) {
+			return View::make('charts.wizardimport',compact('user','ds','title'));
+		}
+		else {
+			return Redirect::to('charts/ds?user='.$user.'&mssg=1');
+		} 
 	}
 
 	

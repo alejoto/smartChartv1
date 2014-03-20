@@ -4,7 +4,7 @@
 	</a>
 </h4>
 <div class="maureenhide form-inline" id='hidden_dataset_field'>
-	<input type="text" placeholder='+ add new data set name' id='newdatasetinput' class='span7'>
+	<input type="text" placeholder='+ add new building name' id='newdatasetinput' class='span7'>
 	<div class="maureenhide" id="loggeduser">{{$_GET['user']}}</div>
 	<i class="icon-ok" id='confirm_newdataset'></i>
 	<i class="icon-remove" id='cancel_newdataset'></i>
