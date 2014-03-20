@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 20, 2014 at 01:26 AM
+-- Generation Time: Mar 20, 2014 at 01:57 AM
 -- Server version: 5.5.36
 -- PHP Version: 5.2.17
 
@@ -19,6 +19,25 @@ SET time_zone = "+00:00";
 --
 -- Database: `localth8_ecam`
 --
+DROP DATABASE `localth8_ecam`;
+CREATE DATABASE `localth8_ecam` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `localth8_ecam`;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `bfield_chart`
+--
+
+DROP TABLE IF EXISTS `bfield_chart`;
+CREATE TABLE IF NOT EXISTS `bfield_chart` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `bfield_id` int(10) unsigned NOT NULL,
+  `chart_id` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `bfield_chart_bfield_id_index` (`bfield_id`),
+  KEY `bfield_chart_chart_id_index` (`chart_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=73 ;
 
 -- --------------------------------------------------------
 
@@ -42,22 +61,6 @@ CREATE TABLE IF NOT EXISTS `bfields` (
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=36 ;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `bfield_chart`
---
-
-DROP TABLE IF EXISTS `bfield_chart`;
-CREATE TABLE IF NOT EXISTS `bfield_chart` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `bfield_id` int(10) unsigned NOT NULL,
-  `chart_id` int(10) unsigned NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `bfield_chart_bfield_id_index` (`bfield_id`),
-  KEY `bfield_chart_chart_id_index` (`chart_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=73 ;
 
 -- --------------------------------------------------------
 
