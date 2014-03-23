@@ -23,13 +23,26 @@ div.uploadfile input {
     overflow: hidden !important;
 }
 
+.whitebox{
+	background-color: #112e2f;
+	width: 100%;
+	padding: 10px;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+}
+.whitetext{
+	color:#CCE0CC;
+}
+
 .maureenhide{
 	display:none;
 }
 
 .maureenhome {
 	background: #dbdacc;
-	/*background-image:url(../img/blackcloudsandtrees.jpg) ;*/
+	background-image:url(../img/tuningbg.png) ;
+	/**/
 	/*background-size: cover;*/
 	min-height: 630px;
 	/*position: relative;*/
@@ -47,5 +60,10 @@ div.uploadfile input {
 .footer,#footer {
 	color:#dbdacc;
 	background: #112e2f;
+}
+
+.maureenmodal{
+	background: #dbdacc;
+	background-image:url(../img/tuningbg.png) ;
 }
 

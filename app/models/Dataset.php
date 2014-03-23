@@ -18,6 +18,12 @@ class Dataset extends Eloquent {
 						->whereName($ds)
 		;
 	}
+
+	public function scopeActive ($query,$id) {
+		return $query	->whereId($id)
+		;
+	}
+	
 	
 	protected $guarded = array();
 

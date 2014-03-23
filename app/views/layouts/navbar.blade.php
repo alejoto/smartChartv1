@@ -32,7 +32,7 @@
 					<li>
 						<a href="{{$ds_link}}">
 							<i class="icon-tasks icon-white"></i>
-							Data sets
+							Building (data sets)
 						</a>
 					</li>
 					<li>
