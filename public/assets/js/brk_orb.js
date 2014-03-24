@@ -542,10 +542,53 @@ chapt_active*/
 		}
 	});
 
+	function sortcolumns(id){
+		$('#selectable'+id).change(function(e){
+			e.preventDefault();
+			var selectedval=$(this).val();
+			var position=$(this).attr('position');
+			var removecolumnto=$(this).attr('columnto');
+			if (selectedval=='') {
+				$(this).css({"background-color":"#fff"});
+				var removecolumnto=$(this).attr('columnto');
+				$('#'+removecolumnto).html('');
+				$(this).attr('columnto','');
+			} else {
+				var sortable=$('#sortable'+selectedval).html().trim();
+				if (removecolumnto!=sortable) {
+					$('#'+removecolumnto).html('');
+					$(this).attr('columnto','');
+				}
+				if (sortable=='') {
+					$('#sortable'+selectedval).html(position);
+					$(this).css({"background-color":"#66FF66"});
+					$(this).attr('columnto','sortable'+selectedval);
+				}
+			}
+		});
+	}
+
 	$('.selectable').each(function(){
 		var id=$(this).attr('id');
 		id=id.replace('selectable','');
-		//Put here functions for html elements with mentioned class
+		sortcolumns(id);
+	});
+
+	$('#send_to_db_from_notemplatecsv').click(function(e){
+		e.preventDefault();
+		var header=$('#order_of_columns').text().trim();
+		var values=$('#sortable_data').text().trim();
+		var user=$('#user_fromwizard').html();
+		var ds=$('#datasetfromwizard').html();
+		var base=$('#base').html();
+		$('#uploading_csv_notemplate').show();
+		$(this).hide('fast');
+		$.post(base+'/charts/wizard2',{header:header,values:values,ds:ds},function(d){
+			//$('#send_to_db_from_notemplatecsv').html(d);
+			if (d==1) {
+				window.location.href=base+'/charts/ds?user='+user;
+			}
+		});
 	});
 	
 });

@@ -243,19 +243,25 @@ $checker[0]=='Channel Id'
 
 <?php
 }
-else
+else //UNSPECIFIC "NO TEMPLATE-RELATED" CSV FILE
 {?>
 	Columns found on csv file : 
 	<?php $comma=''; ?>
-	@foreach($data as $d)
-		{{$comma.$d}}
+	@foreach($data as $d) {{-- Displaying available headers to be uploaded --}}
+		{{$comma.str_replace(' ','_',$d)}}
 		<?php $comma=','; ?>
 	@endforeach
 	
-	<div class="hider">
+	<div id="order_of_columns" class='hide'> {{-- Sequence of columns in order to properly save data from csv file --}}
+	<?php $comma=''; ?>
+	@foreach($data as $d)
+		{{$comma}}<spam id="sortable{{$d}}"></spam>
+		<?php $comma=','; ?>
+	@endforeach
+	</div>
+	
+	<div id='sortable_data' class="hide" >
 	<?php 
-	echo '<br>';
-	//echo $data[0];
 	$gnu='';
 	while (($data1=fgetcsv($handle, 2000, ","))!==false) {
 		?>
@@ -286,17 +292,20 @@ else
 				$mssg='skip';
 				$hide='hide';}
 			?>
-			<div class="row {{$hide}} selectable{{$mssg}}">
-				<div class="span6 text-right">{{$b->tooltip}}</div>
-				<div class="span6">
-					<select name="" id="selectable{{$b->id}}" class='span12 selectable'>
-						<option value="">{{$mssg}}</option>
-						@foreach($checker as $v)
-							<option value="{{$v}}">{{$v}}</option>
-						@endforeach
-					</select>
+			@if($b->name!='dataset_id')
+				<div class="row {{$hide}} selectable{{$mssg}}">
+					<div class="span6 text-right">{{$b->tooltip}}</div>
+					<div class="span6">
+						<select name="" id="selectable{{$b->id}}" class='span12 selectable' position='{{$b->name}}' columnto>
+							<option value="">{{$mssg}}</option>
+							@foreach($checker as $v)
+								<option value="{{$v}}">{{$v}}</option>
+							@endforeach
+						</select>
+					</div>
 				</div>
-			</div>
+			@endif
+				
 				 
 			@if($i==11)
 				</div>
@@ -309,7 +318,11 @@ else
 		 } ?>
 		<div class="row-fluid">
 			<div class="offset2 span8 ">
-				<button class="btn span12 hide selectableskip">Start uploading</button>
+				<button id='send_to_db_from_notemplatecsv' class="btn span12 hide selectableskip">Start uploading</button>
+				<div id="uploading_csv_notemplate" class="hide">
+					<img src="{{URL::to('assets/img/progressBar.gif')}}" alt="">
+					Wait while file is being processed
+				</div>
 			</div>
 		</div>
 		
