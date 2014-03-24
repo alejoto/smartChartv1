@@ -35,7 +35,9 @@ Choose / change building
 			<div class="alert alert-error span6">
 				<button type="button" class="close" data-dismiss="alert">&times;</button>
 				<h4>
-					Sorry, no charts available as choosen building has no data.  Please choose a different building or add / import data to current one.
+					Sorry, no charts available as choosen building has no data.  
+					<br>
+					Please add / import data or choose a different building.
 				</h4>
 			</div>
 		</div>

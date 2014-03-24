@@ -14,16 +14,16 @@
 		@endif
 	</div>
 </div>
-
-
-		
+@if(isset($_GET['user']))
+<div id="user_dataset" class='hide'>{{$_GET['user']}}</div>
+@endif
 <div class="row-fluid">
 	<div class="offset3 span6 whitebox">
 		@include('charts.datasetsinclude1')
 		@if(Dataset::logged($user)->count()>0)
-			<table class="table table-condensed table-hover">
+			<table class="table table-condensed table-hovermaureen">
 				<tr>
-					<th class='span9 muted'>BUILDING</th>
+					<th class='span9 muted'>DATASET</th>
 					<th class="span3 muted">Action</th>
 				</tr>
 				@foreach(Dataset::logged($user)->get() as $d)
@@ -35,7 +35,7 @@
 									({{$d->buildingregister->count()}} registers)
 								</spam>
 							</div>
-							<div class="maureenhide" id="delete_ds_btngroups{{$d->id}}">
+							<div class="maureenhide muted" id="delete_ds_btngroups{{$d->id}}">
 								Destroy whole dataset? ({{$d->buildingregister->count()}} registers)
 								<br>
 								<a href="" id='delete_ds{{$d->id}}'>Yes</a> | 
@@ -43,8 +43,8 @@
 							</div>
 							<div class='maureenhide form-inline' id='input_renameds{{$d->id}}'>
 								<input type="text" id="rename_ds{{$d->id}}" class='span9' value='{{$d->name}}'>
-								<i class="icon-ok" id='confirm_renameds{{$d->id}}'></i>
-								<i class="icon-remove" id='cancel_renameds{{$d->id}}'></i>
+								<i class="icon-ok icon-white maureenpointer" id='confirm_renameds{{$d->id}}'></i>
+								<i class="icon-remove icon-white maureenpointer" id='cancel_renameds{{$d->id}}'></i>
 							</div>
 						</td>
 						<td class="span3"> 
@@ -63,7 +63,7 @@
 								<i class="icon-trash icon-white" id='delete_dsrequest{{$d->id}}'></i>
 								<i class="icon-upload icon-white" id="openmodal_modal_import{{$d->id}}" building='{{$d->name}}'></i>
 							</div>
-							<div id="deleting_dataset{{$d->id}}" class="hide">
+							<div id="deleting_dataset{{$d->id}}" class="hide muted">
 								<img src="{{URL::to('assets/img/progressBar.gif')}}" alt="">
 								Deleting whole building dataset...
 							</div>

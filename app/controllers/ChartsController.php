@@ -196,8 +196,80 @@ class ChartsController extends BaseController {
 		} 
 	}
 
-	
+	public function postWizard1 () {
+		$ds=$_POST['ds'];
+		$data=$_POST['data'];
 
+
+		//columns adjustment
+		$k=0;
+		$column=array();
+		foreach (Bfield::all() as $f) {
+		 	if ($f->name!='dataset_id') {
+		 		$column[$k]=$f->name;
+		 		$k++;
+		 	}
+		}
+
+		$data=explode('~',$data);//First array conversion
+		$i=0;
+		foreach ($data as $d) {
+			$data[$i]=explode(',', $d);//Second array conversion
+			//
+			$j=0;
+			if (isset($_POST['usage'])) {
+				$data[$i][8]=$data[$i][7];
+				$data[$i][7]='';
+			}
+
+			//Checking if dataset id, date and time already exist.
+			//If yes data will be updated, otherwise a new register will be created
+
+			$date=$data[$i][0];
+			$time=date('H:i:s',strtotime($data[$i][1]));//Time conversion as h:m:s 24hrs format
+			$updatable=Buildingregister::existent($date,$time,$ds);
+
+			if ($updatable->count()==0) //Saving as new register if data does not exist
+			{
+				$register=new Buildingregister;
+				$register->dataset_id=$ds;
+				foreach ($column as $c) {
+					if ($c=='timereading') {
+						$data[$i][$j]=date('H:i:s',strtotime($data[$i][$j])) //Time conversion as h:m:s 24hrs format
+						;
+					}
+					$register->$c=trim($data[$i][$j]);
+					$j++;
+				}
+				$register->save();
+			}
+			else {//update as register already exist
+				$id=$updatable->first()->id;
+				$update=array();
+				foreach ($column as $c) {
+					if ($c=='timereading') {
+						$data[$i][$j]=date('H:i:s',strtotime($data[$i][$j])) //Time conversion as h:m:s 24hrs format
+						;
+					}
+					if (trim($data[$i][$j])!='') {//updating only values with no empty data
+						$update[$c]=trim($data[$i][$j]);
+					}
+					
+					$j++;
+				}
+				Buildingregister::find($id)->update($update);
+				unset($update);//cleaning import array for new data update
+			}
+			$i++;
+		}
+		return //var_dump($update)
+		1
+		;
+	}
+/*
+
+		
+*/
 	public function postUploadcsv () {
 		$ds=$_POST['ds'];//dataset id
 		$user=$_POST['user'];
@@ -312,45 +384,34 @@ class ChartsController extends BaseController {
 				{
 					if ($r!=0) {//Skipping first (header) row
 						$i=0;
-						$day='';
-						$usable='';
+						$day=$data[2];
+						$usable=$data[3];;
 						foreach ($data as $d) {
-							if ($i!=0||$i!=1||$i!=100||$i!=101) {
-								if ($i==2) {
-									$day=$day.$d;
-								}
-								if ($i==3) {
-									$usable=$usable.$d;
-								}
+							if ($i>3&&$i<100&&$usable=='KW') {
 								$time=date('H:i:s',($i-4)*900);
-
+								$updatable=Buildingregister::existent($day,$time,$ds);//checking if data already exist
 								
-								if ($d>3) {
-									$updatable=Buildingregister::existent($day,$time,$ds);//checking if data already exist
-									
 
-									$update=array(
-										'a07kWusage'=>$d
-									);//in case of updatable>0
+								$update=array(
+									'a07kWusage'=>$d
+								);//in case of updatable>0
 
-									//saving if no exist
-									if ($updatable->count()==0&&$usable=='KW') {
-										$bur=new Buildingregister;
-										$bur->dataset_id=$ds;
-										$bur->datereading=$day;
-										$bur->timereading=$time;
-										$bur->a07kWusage=$d;
-										$bur->save();
-									}
-									else {
-										if ($updatable->count()>0) {
-											$u_id=$updatable->first()->id;
-											if ($usable=='KW') {
-												Buildingregister::find($u_id)->update($update);
-											}
+								//saving if no exist
+								if ($updatable->count()==0&&$usable=='KW') {
+									$bur=new Buildingregister;
+									$bur->dataset_id=$ds;
+									$bur->datereading=$day;
+									$bur->timereading=$time;
+									$bur->a07kWusage=$d;
+									$bur->save();
+								}
+								else {
+									if ($updatable->count()>0) {
+										$u_id=$updatable->first()->id;
+										if ($usable=='KW') {
+											Buildingregister::find($u_id)->update($update);
 										}
 									}
-										
 								}
 							}
 							

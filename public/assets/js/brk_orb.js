@@ -184,6 +184,7 @@ chapt_active*/
 		e.preventDefault();
 		$(this).hide('fast');
 		$('#hidden_dataset_field').show('fast');
+		$('#newdatasetinput').focus();
 	});
 
 	$('#cancel_newdataset').click(function(e){
@@ -345,12 +346,14 @@ chapt_active*/
 	function delete_ds(id){
 		$('#delete_ds'+id).click(function(e){
 			e.preventDefault();
+			var user=$('#user_dataset').text();
 			var base=$('#base').html();
 			$('#delete_ds_btngroups'+id).hide();
 			$('#deleting_dataset'+id).show();
 			$.post(base+'/charts/datasetdelete',{id:id},function(d){
 				if (d==1) {
-					location.reload();
+					window.location.href=base+'/charts/ds?user='+user;
+					//"location.reload()" can't be used because it recalls recently deleted datasets.
 				}
 			});
 			
@@ -383,6 +386,8 @@ chapt_active*/
 	| Proceedure for showing "general template", "kw usage" and "kw demand" uploading form
 	|
 	*/
+
+	
 	$('#upload_as_general_template_button').click(function(e){
 		e.preventDefault();
 		$('#import_form_as_generaltemplate').show();
@@ -446,5 +451,102 @@ chapt_active*/
 	|
 	| 4. javascripts for charts view
 	*/
+
+
+	/*----------------------------
+	|
+	|
+	| 5. Wizard import
+	*/
+
+
+	$('#upload_to_db1').click(function(e){
+		e.preventDefault();
+		var template=$('#generaltemplate_data').text().trim();
+		var user=$('#user_fromwizard').html();
+		var ds=$('#datasetfromwizard').html();
+		var base=$('#base').html();
+		$('#upload_to_db1').hide();
+		$('#skip_template_choose_fields').hide();
+		$('#uploading_csv_wizard_template').show();
+		$.post(base+'/charts/wizard1',{ds:ds,data:template},function(d){
+			if (d==1) {
+				window.location.href=base+'/charts/ds?user='+user;
+			}
+			
+		});
+	});
+
+	$('#skip_template_choose_fields').click(function(e){
+		e.preventDefault();
+		$('#choose_fields').show();
+		$('#no_choose_as_it_comes_from_template').hide();
+	})
+
+	$('#cancel_choosing_each_target_column').click(function(e){
+		e.preventDefault();
+		$('#choose_fields').hide();
+		$('#no_choose_as_it_comes_from_template').show();
+	});
+
+	$('#upload_as_kw_demand').click(function(e){
+		e.preventDefault();
+		var template=$('#kw_template_data').text().trim();
+		var user=$('#user_fromwizard').html();
+		var ds=$('#datasetfromwizard').html();
+		$('#upload_as_kw_demand').hide('fast');
+		$('#uploading_csv_wizard_template').show();
+		var base=$('#base').html();
+		$.post(base+'/charts/wizard1',{ds:ds,data:template},function(d){
+			if (d==1) {
+				window.location.href=base+'/charts/ds?user='+user;
+			}
+		});
+	});
+
+	$('#upload_as_kw_usage').click(function(e){
+		e.preventDefault();
+		$('.kw_previous_commas').show();
+		var template=$('#kw_template_data').text().trim();
+		var user=$('#user_fromwizard').html();
+		var ds=$('#datasetfromwizard').html();
+		$('#upload_as_kw_demand').hide('fast');
+		$('#uploading_csv_wizard_template').show();
+		var base=$('#base').html();
+		$.post(base+'/charts/wizard1',{ds:ds,data:template,usage:1},function(d){
+			if (d==1) {
+				window.location.href=base+'/charts/ds?user='+user;
+			}
+		});
+	});
+
+	$('#selectable1').change(function(){
+		var datereading=$('#selectable1').val();
+		var timereading=$('#selectable2').val();
+		if (datereading!=''&&timereading!='') {
+			$('.selectableskip').show();
+		}
+		else {
+			$('.selectableskip').hide();
+		}
+	});
+
+	$('#selectable2').change(function(){
+		var datereading=$('#selectable1').val();
+		var timereading=$('#selectable2').val();
+		if (datereading!=''&&timereading!='') {
+			$('.selectableskip').show();
+		}
+		else {
+			$('.selectableskip').hide();
+		}
+	});
+
+	$('.selectable').each(function(){
+		var id=$(this).attr('id');
+		id=id.replace('selectable','');
+		//Put here functions for html elements with mentioned class
+	});
+	
 });
 	
