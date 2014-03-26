@@ -266,10 +266,66 @@ class ChartsController extends BaseController {
 		1
 		;
 	}
-/*
 
-		
-*/
+	public function postWizard2 () {
+		$header=$_POST['header'];
+		$header=explode(',', $header);
+		$values=$_POST['values'];
+		$values=explode('~', $values);
+		$ds=$_POST['ds'];
+		$idt=0;//idt= iterator for date and time
+		foreach ($header as $h) {
+			if (trim($h)=='datereading') {
+				$dp=$idt;
+			}
+			else if (trim($h)=='timereading') {
+				$tp=$idt;
+			}
+			$idt++;
+		}
+		$i=0;
+		foreach ($values as $v) {
+			$values[$i]=explode(',', $v);
+			$j=0;
+			//update if exists
+			$date=trim($values[$i][$dp]);
+			$time=trim($values[$i][$tp]);
+			$time=strtotime($time);//string to time as decimal number
+			$time=date('H:i:s',$time);//Time conversion as h:m:s 24hrs format
+			$updatable=Buildingregister::existent($date,$time,$ds);
+			if ($updatable->count()==0) {
+				$register=new Buildingregister;
+				$register->dataset_id=$ds;
+				foreach ($header as $h) {
+					$h=trim($h);
+					if ($h!='') {
+						$register->$h=trim($values[$i][$j]);
+					}
+					$j++;
+				}
+				$register->save();
+			}
+			else {
+				$update=array();
+				$iu=0;//iu=iterator for update
+				foreach ($header as $h) {
+					$h=trim($h);
+					if ($h!='') {
+						$update[$h]=trim($values[$i][$iu]);
+						//$update['test1']='test2';
+					}
+					$iu++;
+				}
+				$updatable->first()->update($update);
+			}
+			$i++;
+		}
+		return 1//$time
+		//1
+		;//$values[$i][$j];
+	}
+
+
 	public function postUploadcsv () {
 		$ds=$_POST['ds'];//dataset id
 		$user=$_POST['user'];
