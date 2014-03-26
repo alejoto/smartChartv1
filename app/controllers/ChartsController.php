@@ -1,4 +1,25 @@
 <?php
+class dateformatfix{
+	//public $fixeddate;
+	public function fixdate($date,$format){
+		$fixeddate=str_replace('/','-',$date);//unify data syntax separator as '-'.
+		$dateclean=explode('-',$fixeddate);//separating each date component
+		$preformatdate=array();
+		$i=0;
+		foreach ($format as $f) {
+			$preformatdate[$f]=$dateclean[$i];
+			$i++;
+		}
+		// Adding "20" if date year digits = 2
+		if (strlen($preformatdate['y'])==2) {
+			$preformatdate['y']='20'.$preformatdate['y'];
+		}
+		$conversion1=strtotime($preformatdate['y'].'-'.$preformatdate['m'].'-'.$preformatdate['d']);
+		$conversion2=date('Y-m-d',$conversion1);
+
+		return $conversion2;
+	}
+}
 
 class ChartsController extends BaseController {
 
@@ -267,19 +288,33 @@ class ChartsController extends BaseController {
 		;
 	}
 
+
+	/*
+	|
+	| Function name: postWizard2
+	| Actions: create / update row for header
+	*/
 	public function postWizard2 () {
-		$header=$_POST['header'];
+		$header=$_POST['header'];//csv data header names
 		$header=explode(',', $header);
-		$values=$_POST['values'];
+
+		$values=$_POST['values'];//csv data values
 		$values=explode('~', $values);
-		$ds=$_POST['ds'];
+
+		$ds=$_POST['ds'];//building dataset which values belong to
+
+		$df=$_POST['df'];//date column format
+		$df=explode(',',$df);
+
+		$tf=$_POST['tf'];//time format
+
 		$idt=0;//idt= iterator for date and time
 		foreach ($header as $h) {
 			if (trim($h)=='datereading') {
-				$dp=$idt;
+				$dp=$idt;//$dp = date position inside array
 			}
 			else if (trim($h)=='timereading') {
-				$tp=$idt;
+				$tp=$idt;//$tp = time position inside array
 			}
 			$idt++;
 		}
@@ -289,6 +324,8 @@ class ChartsController extends BaseController {
 			$j=0;
 			//update if exists
 			$date=trim($values[$i][$dp]);
+			$convert=new dateformatfix;
+			$date=$convert->fixdate($date,$df);
 			$time=trim($values[$i][$tp]);
 			$time=strtotime($time);//string to time as decimal number
 			$time=date('H:i:s',$time);//Time conversion as h:m:s 24hrs format
@@ -299,7 +336,13 @@ class ChartsController extends BaseController {
 				foreach ($header as $h) {
 					$h=trim($h);
 					if ($h!='') {
-						$register->$h=trim($values[$i][$j]);
+						if ($h=='datereading') {
+							$register->$h=$date;
+						}
+						else {
+							$register->$h=trim($values[$i][$j]);
+						}
+						
 					}
 					$j++;
 				}
@@ -311,8 +354,11 @@ class ChartsController extends BaseController {
 				foreach ($header as $h) {
 					$h=trim($h);
 					if ($h!='') {
-						$update[$h]=trim($values[$i][$iu]);
-						//$update['test1']='test2';
+						if ($h=='datereading') {
+							$update[$h]=$date;
+						} else {
+							$update[$h]=trim($values[$i][$iu]);
+						}
 					}
 					$iu++;
 				}
@@ -320,12 +366,10 @@ class ChartsController extends BaseController {
 			}
 			$i++;
 		}
-		return 1//$time
-		//1
-		;//$values[$i][$j];
+		return 1;
 	}
 
-
+/*deprecated
 	public function postUploadcsv () {
 		$ds=$_POST['ds'];//dataset id
 		$user=$_POST['user'];
@@ -427,8 +471,9 @@ class ChartsController extends BaseController {
 			$title='Data table';
 			return View::make('charts.table',compact('title','user','ds','import_result'));
 		}
-	}
+	}*/
 
+	/* Deprecated
 	public function postUploadcsvusage (){
 		$ds=$_POST['ds'];//dataset id
 		$user=$_POST['user'];
@@ -479,8 +524,9 @@ class ChartsController extends BaseController {
 				return Redirect::to('charts/table?user='.$user.'&ds='.$ds);
 			}
 		}
-	}
+	}*/
 
+/* Deprecated
 	public function postUploadcsvdemand (){
 		$ds=$_POST['ds'];//dataset id
 		$user=$_POST['user'];
@@ -542,7 +588,7 @@ class ChartsController extends BaseController {
 				return Redirect::to('charts/table?user='.$user.'&ds='.$ds);
 			}
 		}
-	}
+	}*/
 
 	
 
