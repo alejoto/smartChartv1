@@ -198,7 +198,7 @@ $checker[0]=='Channel Id'
 					<img src="{{URL::to('assets/img/progressBar.gif')}}" alt="">
 					Wait while file is being processed
 					<br>
-					<a href="{{URL::to('/charts/ds/'.$user)}}">Go to datasets</a>
+					<a href="{{URL::to('/charts/ds?user='.$user)}}">Go to datasets</a>
 				</div>
 				<div id="kw_template_data" class='hide'>
 				<?php  
