@@ -4,10 +4,32 @@
 <div class="row-fluid">
 	<div class="offset3 span6">
 		<h1>CSV Import module</h1>
-		<div class="hide" id="user_fromwizard">{{$user}}</div>
-		<div class="hide" id="datasetfromwizard">{{$ds}}</div>
 	</div>
 </div>
+<div class="row-fluid">
+	<div class="span12">Date and time format: before uploading data please choose proper format inside your csv file</div>
+</div>
+<div class="row-fluid">
+	<div class="span2 text-right">Date format</div>
+	<div class="span2"> 
+		<select name="" id="dateformat_import" class="span8"> 
+			<option value="m,d,y">mm dd yyyy (example 01-31-2011)</option>
+			<option value="d,m,y">dd mm yyyy (example 31-01-2011)</option> 
+			<option value="y,m,d">yyyy mm dd (example 2011-01-31)</option>
+			<option value="y,d,m">yyyy dd mm (example 2011-31-01)</option>
+		</select> 
+	</div>
+	<div class="span2 hide text-right">Time format</div>
+	<div class="span2 hide"> 
+		<select name="" id="timeformat_import" class="span8"> 
+			<option value="ampm">HH:mm 24h</option>
+			<option value="militar">hh:mm am/pm</option>
+		</select>
+	</div>
+</div>
+
+<div class="hide" id="user_fromwizard">{{$user}}</div>
+<div class="hide" id="datasetfromwizard">{{$ds}}</div>
 
 <?php 
 $handle = fopen($_FILES['filename']['tmp_name'], "r");
@@ -100,12 +122,21 @@ $checker[0]=='Date'
 				} ?>
 			</div>
 			<br><br>
-			<button class="btn span11" id='skip_template_choose_fields'>I want to select columns where each field will be saved</button>
+			<button class="btn span11 hide" id='skip_template_choose_fields'>I want to select columns where each field will be saved</button>
 			<br>
 			<br>
 		</div>
 	</div>
 	<div class="hide" id='choose_fields'>
+
+		<div id="order_of_columns" class='hider'> {{-- Sequence of columns in order to properly save data from csv file --}}
+		<?php $comma=''; ?>
+		@foreach($checker as $d)
+		<?php $d=str_replace(' ', '_', $d); ?>
+			{{$comma}}<spam id="sortable{{$d}}"></spam>
+			<?php $comma=','; ?>
+		@endforeach
+		</div>
 		<hr>
 		<button class="btn" id="cancel_choosing_each_target_column">Cancel</button>
 		<br> <br>
@@ -196,9 +227,7 @@ $checker[0]=='Channel Id'
 							$gnu='~';
 						}
 						$i++;
-						
 					}
-					
 				}
 				?>
 				</div>
@@ -222,7 +251,7 @@ $checker[0]=='Channel Id'
 							$time=date('H:i:s',($i-4)*900);
 							?>
 							@if(trim($d)!='')
-								{{$gnu.$data[2]}},{{$time}},,,,, ,<spam class="hide kw_previous_commas">,</spam>{{$d}},,,,,,,,, ,, ,, ,,, ,,, ,,,, ,,,
+								{{$gnu.$data[2]}},{{$time}}, , , , , ,<spam class="hide kw_previous_commas">,</spam>{{$d}} , , , , , , , , , , , , , , , , , , , , , , , , , ,
 							@endif
 							
 							<?php 
@@ -245,12 +274,18 @@ $checker[0]=='Channel Id'
 }
 else //UNSPECIFIC "NO TEMPLATE-RELATED" CSV FILE
 {?>
+	<h4>
 	Columns found on csv file : 
-	<?php $comma=''; ?>
+	<?php $comma=''; $i_data=0;?>
 	@foreach($data as $d) {{-- Displaying available headers to be uploaded --}}
 		{{$comma.str_replace(' ','_',$d)}}
-		<?php $comma=','; ?>
+		<?php 
+		$comma=','; 
+		$data[$i_data]=str_replace(' ','_',$data[$i_data]);
+		$i_data++;
+		?>
 	@endforeach
+	</h4>
 	
 	<div id="order_of_columns" class='hide'> {{-- Sequence of columns in order to properly save data from csv file --}}
 	<?php $comma=''; ?>
@@ -260,7 +295,7 @@ else //UNSPECIFIC "NO TEMPLATE-RELATED" CSV FILE
 	@endforeach
 	</div>
 	
-	<div id='sortable_data' class="hide" >
+	<div id='generaltemplate_data' class="hide" >
 	<?php 
 	$gnu='';
 	while (($data1=fgetcsv($handle, 2000, ","))!==false) {

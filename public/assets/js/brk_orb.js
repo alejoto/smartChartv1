@@ -576,14 +576,16 @@ chapt_active*/
 
 	$('#send_to_db_from_notemplatecsv').click(function(e){
 		e.preventDefault();
+		var df=$('#dateformat_import').val();
+		var tf=$('#timeformat_import').val();
 		var header=$('#order_of_columns').text().trim();
-		var values=$('#sortable_data').text().trim();
+		var values=$('#generaltemplate_data').text().trim();
 		var user=$('#user_fromwizard').html();
 		var ds=$('#datasetfromwizard').html();
 		var base=$('#base').html();
 		$('#uploading_csv_notemplate').show();
 		$(this).hide('fast');
-		$.post(base+'/charts/wizard2',{header:header,values:values,ds:ds},function(d){
+		$.post(base+'/charts/wizard2',{header:header,values:values,ds:ds,df:df,tf:tf},function(d){
 			//$('#send_to_db_from_notemplatecsv').html(d);
 			if (d==1) {
 				window.location.href=base+'/charts/ds?user='+user;
