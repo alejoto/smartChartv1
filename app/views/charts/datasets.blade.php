@@ -73,7 +73,7 @@
 			</table>
 			@include('charts.modal_import2')
 		@else
-		<h2 class="text-error">Please add the name of the building that will contain data.</h2>
+		<h2 class="text-error">Please create a new dataset before importing any data.</h2>
 		@endif
 
 	</div>

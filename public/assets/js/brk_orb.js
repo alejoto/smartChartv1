@@ -204,7 +204,7 @@ chapt_active*/
 			var base=$('#base').html();
 			$.post(base+'/charts/datasetnew',{ds:ds,user:user},function(d){
 				if (d==0) {
-					$('#newdatasetmssg').html('Data set name cannot be repeated, choose another name').show('fast');
+					$('#newdatasetmssg').html('Dataset name cannot be repeated, please choose another name').show('fast');
 				}
 				else if (d==1) {
 					location.reload();
@@ -212,7 +212,7 @@ chapt_active*/
 			});
 		}
 		else {
-			$('#newdatasetmssg').html('Length name must be greater to three characters').show('fast');
+			$('#newdatasetmssg').html('The dataset name must be longer than three characters').show('fast');
 		}
 			
 	});
