@@ -32,11 +32,11 @@
 							<div class='' id="current_dsetname{{$d->id}}">
 								<b class="text-info">{{$d->name}}</b>
 								<spam class="muted">
-									({{$d->buildingregister->count()}} registers)
+									({{$d->buildingregister->count()}} rows)
 								</spam>
 							</div>
 							<div class="maureenhide muted" id="delete_ds_btngroups{{$d->id}}">
-								Destroy whole dataset? ({{$d->buildingregister->count()}} registers)
+								Destroy whole dataset? ({{$d->buildingregister->count()}} rows)
 								<br>
 								<a href="" id='delete_ds{{$d->id}}'>Yes</a> | 
 								<a href="" id='canceldelete_ds{{$d->id}}'>Cancel</a>

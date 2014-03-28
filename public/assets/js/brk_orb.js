@@ -99,7 +99,7 @@ chapt_active*/
 				,datakeys:datakeys},function(d){
 
 					if (d==0) {
-						$('#newbuildingreg_result').html('<h3>You cannot overwrite existent register from here</h3>');
+						$('#newbuildingreg_result').html('<h3>You cannot overwrite existing row from here</h3>');
 						location.href = "#newbuildingreg_result";
 						$(window).scrollLeft((Number($(window).scrollLeft())+0)+'px');
 					}

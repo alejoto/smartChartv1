@@ -7,11 +7,11 @@
                     <div class="span12">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                         <h4>
-                            Import data for building
+                            Import data to dataset
                             <b id='building_dataset_modal'> {{Dataset::find($_GET['ds'])->name}} </b>
                             <a href="" id='change_building_from_modal'>(change)</a>
                             <spam id="available_buildings_from_modal" class="hide">
-                                CHOOSE BUILDING 
+                                CHOOSE DATASET 
                                 @if(isset($_GET['user']))
                                 <select name="dataset_csv_target" id="dataset_csv_target" class='span4'>
                                     <option value="0"></option>
@@ -31,7 +31,7 @@
         		<div class="span12">
         			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
         			<h4>
-        				Import data for building
+        				Import data to dataset
         				<b id='building_dataset_modal'></b>
         			</h4>
         		</div>
