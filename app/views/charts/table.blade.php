@@ -90,7 +90,8 @@ Choose / change building
 	</tr>
 	@foreach(buildingregister::activeds($_GET['ds'])->take(10)->skip($page)->get() as $dbl )
 		<tr id='datarow{{$dbl->id}}' class='datarow'>
-			<td>{{buildingregister::find($dbl->id)->datereading.' '.buildingregister::find($dbl->id)->timereading}}</td>
+			<?php $dateconversion=strtotime(buildingregister::find($dbl->id)->datereading); ?>
+			<td>{{date('m-d-Y',$dateconversion).' '.buildingregister::find($dbl->id)->timereading}}</td>
 			@foreach(Bfield::display()->get() as $f)
 			<?php $field=$f->name; ?>
 				{{--$dbl->$field--}}

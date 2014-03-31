@@ -121,6 +121,9 @@ $checker[0]=='Date'
 					$gnu='~';
 				} ?>
 			</div>
+			<a href="{{URL::to('charts/ds?user='.$user)}}" class="btn btn-danger canceluploading span11 " >
+					<i class="icon-remove icon-white"></i>
+					Cancel uploading data</a>
 			<br><br>
 			<button class="btn span11 hide" id='skip_template_choose_fields'>I want to select columns where each field will be saved</button>
 			<br>
@@ -200,6 +203,11 @@ $checker[0]=='Channel Id'
 					<br>
 					<a href="{{URL::to('/charts/ds/'.$user)}}">Go to datasets</a>
 				</div>
+				<br>
+				<a href="{{URL::to('charts/ds?user='.$user)}}" class="btn btn-danger canceluploading span6 " >
+					<i class="icon-remove icon-white"></i>
+					Cancel uploading data</a>
+
 				<div id="kw_template_data" class='hide'>
 				<?php  
 				$k=0;
@@ -358,6 +366,14 @@ else //UNSPECIFIC "NO TEMPLATE-RELATED" CSV FILE
 					<img src="{{URL::to('assets/img/progressBar.gif')}}" alt="">
 					Wait while file is being processed
 				</div>
+			</div>
+		</div>
+		<br>
+		<div class="row-fluid">
+			<div class="offset2 span8">
+				<a href="{{URL::to('charts/ds?user='.$user)}}" class="btn btn-danger canceluploading span12 " >
+					<i class="icon-remove icon-white"></i>
+					Cancel uploading data</a>
 			</div>
 		</div>
 		
