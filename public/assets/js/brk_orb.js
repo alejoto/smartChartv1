@@ -466,6 +466,7 @@ chapt_active*/
 		var user=$('#user_fromwizard').html();
 		var ds=$('#datasetfromwizard').html();
 		var base=$('#base').html();
+		$('.canceluploading').hide();
 		$('#upload_to_db1').hide();
 		$('#skip_template_choose_fields').hide();
 		$('#uploading_csv_wizard_template').show();
@@ -494,6 +495,7 @@ chapt_active*/
 		var template=$('#kw_template_data').text().trim();
 		var user=$('#user_fromwizard').html();
 		var ds=$('#datasetfromwizard').html();
+		$('.canceluploading').hide();
 		$('#upload_as_kw_demand').hide('fast');
 		$('#uploading_csv_wizard_template').show();
 		var base=$('#base').html();
@@ -510,6 +512,7 @@ chapt_active*/
 		var template=$('#kw_template_data').text().trim();
 		var user=$('#user_fromwizard').html();
 		var ds=$('#datasetfromwizard').html();
+		$('.canceluploading').hide();
 		$('#upload_as_kw_demand').hide('fast');
 		$('#uploading_csv_wizard_template').show();
 		var base=$('#base').html();
@@ -585,6 +588,7 @@ chapt_active*/
 		var base=$('#base').html();
 		$('#uploading_csv_notemplate').show();
 		$(this).hide('fast');
+		$('.canceluploading').hide();
 		$.post(base+'/charts/wizard2',{header:header,values:values,ds:ds,df:df,tf:tf},function(d){
 			//$('#send_to_db_from_notemplatecsv').html(d);
 			if (d==1) {
