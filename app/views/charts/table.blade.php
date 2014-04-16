@@ -73,6 +73,7 @@ Choose / change dataset
 		</th>
 	@endforeach
 	<th>Delete</th>
+	<th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
 	</tr>
 	<tr class="hide" id="add_data">
 		<td>
@@ -87,6 +88,7 @@ Choose / change dataset
 		<td>
 			<a href="#" id='savenewrow'>SAVE</a>
 		</td>
+		<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
 	</tr>
 	@foreach(buildingregister::activeds($_GET['ds'])->take(10)->skip($page)->get() as $dbl )
 		<tr id='datarow{{$dbl->id}}' class='datarow'>
@@ -127,6 +129,7 @@ Choose / change dataset
 					<a href="#" id='nodelete{{$dbl->id}}'>no</a>
 				</div>
 			</td>
+			<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
 		</tr>
 	@endforeach
 </table>
