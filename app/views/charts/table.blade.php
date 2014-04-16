@@ -56,7 +56,10 @@ Choose / change dataset
 	<div class="span4">
 		<a href='#' id='openmodal_modal_import'><h4><i class="icon-folder-open"></i> Add data from a CSV file</h4></a>
 	</div>
-	<div class="span4"></div>
+	<div class="span4">
+		<?php $legend=URL::to('/legend.html'); ?>
+		<a href="{{$legend}}" target="_blank"><h4>view a legend for the column headers</h4></a>
+	</div>
 </div>
 		
 
