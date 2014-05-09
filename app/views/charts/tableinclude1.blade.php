@@ -32,4 +32,4 @@ $first_row=URL::to($first_row);
 	<i class="icon-forward"></i>
 	last
 </a>
-Displaying from row {{$page+1}} to {{$page+10}} (total registers {{Buildingregister::activeds($_GET['ds'])->count()}})
+Displaying from row {{$page+1}} to {{$page+10}} (total rows {{Buildingregister::activeds($_GET['ds'])->count()}})

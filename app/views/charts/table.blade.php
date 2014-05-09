@@ -2,7 +2,7 @@
 
 @section('content')
 
-Choose / change dataset 
+Choose / change dataset to view its data &nbsp;&nbsp;
 
 <spam class="dropdown">
 	<button class="btn dropdown-toggle" data-toggle="dropdown">Select dataset <b class="caret"></b></button>

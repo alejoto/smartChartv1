@@ -8,7 +8,7 @@
 			@if($_GET['mssg']==1)
 				<div class="alert alert-error">
 					<button type="button" class="close" data-dismiss="alert">&times;</button>
-					SORRY, YOU FORGOT SELECTING A FILE WHILE IMPORTING. PLEASE CHOOSE A CSV FILE WHEN IMPORTING DATA. TRY AGAIN.
+					ERROR: you did not select a file to import. Please choose a CSV file from which to import data.
 				</div>
 			@endif
 		@endif
@@ -22,6 +22,13 @@
 		@include('charts.datasetsinclude1')
 		@if(Dataset::logged($user)->count()>0)
 			<table class="table table-condensed table-hovermaureen">
+				<tr>
+					<td class='span9 muted' colspan='2'><i>A dataset contains a single grouping of building data from which
+						you will create and view charts.  For ease of use, you may wish to
+						name your dataset with the description of the data that you will be importing
+						in to it &mdash; e.g. "Building One January Data."</i>
+					</td>
+				</tr>
 				<tr>
 					<th class='span9 muted'>DATASET</th>
 					<th class="span3 muted">Action</th>
@@ -50,7 +57,7 @@
 						<td class="span3"> 
 							<div  id='groupsofactionsfor_ds{{$d->id}}'>
 								<a href="{{URL::to('/charts/table?user='.$user.'&ds='.$d->id)}}"><i 
-									class="icon-calendar icon-white"  
+									class="icon-th icon-white"  
 									id='datatable{{$d->id}}'></i>
 								</a>
 								<a href="{{URL::to('/charts/charts?user='.$user.'&ds='.$d->id)}}"> <i 
@@ -74,6 +81,15 @@
 			@include('charts.modal_import2')
 		@else
 		<h2 class="text-error">Please create a new dataset before importing any data.</h2>
+		<table class="table table-condensed table-hovermaureen">
+				<tr>
+					<td class='span9 muted' colspan='2'><i>A dataset contains a single grouping of building data from which
+						you will create and view charts.  For ease of use, you may wish to
+						name your dataset with the description of the data that you will be importing
+						in to it &mdash; e.g. "Building One January Data."</i>
+					</td>
+				</tr>
+		</table>
 		@endif
 
 	</div>
