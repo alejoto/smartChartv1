@@ -2,10 +2,10 @@
 
 @section('content')
 
-Choose / change building 
+Choose / change dataset to view its data &nbsp;&nbsp;
 
 <spam class="dropdown">
-	<button class="btn dropdown-toggle" data-toggle="dropdown">Select building <b class="caret"></b></button>
+	<button class="btn dropdown-toggle" data-toggle="dropdown">Select dataset <b class="caret"></b></button>
 	<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
 		@foreach(Dataset::logged($user)->get() as $dl)
 			<?php $lk='ds='.$dl->id; 
@@ -21,23 +21,23 @@ Choose / change building
 	@if($import_result==0)
 		<h1>Data was succesfully imported</h1>
 	@elseif ($import_result==1) 
-		<h1>No import was done, be sure to choose proper csv file</h1>
+		<h1>No import was done, be sure to choose a properly formatted csv file</h1>
 	@endif
 @endif
 
 @if (isset($_GET['ds'])) 
 @include('charts.modal_import2')
 <?php   $dataset=Dataset::find($_GET['ds']); ?>
-<h3>Current building <b>{{$dataset->name}}</b></h3>
+<h3>Current dataset <b>{{$dataset->name}}</b></h3>
 @if(isset($_GET['mssg']))
 	@if($_GET['mssg']==2)
 		<div class="row-fluid">
 			<div class="alert alert-error span6">
 				<button type="button" class="close" data-dismiss="alert">&times;</button>
 				<h4>
-					Sorry, no charts available as choosen building has no data.  
+					Sorry, no charts available as choosen dataset has no data.  
 					<br>
-					Please add / import data or choose a different building.
+					Please add / import data or choose a different dataset.
 				</h4>
 			</div>
 		</div>
@@ -56,7 +56,10 @@ Choose / change building
 	<div class="span4">
 		<a href='#' id='openmodal_modal_import'><h4><i class="icon-folder-open"></i> Add data from a CSV file</h4></a>
 	</div>
-	<div class="span4"></div>
+	<div class="span4">
+		<?php $legend=URL::to('/legend.html'); ?>
+		<a href="{{$legend}}" target="_blank"><h4>view a legend for the column headers</h4></a>
+	</div>
 </div>
 		
 
@@ -73,6 +76,7 @@ Choose / change building
 		</th>
 	@endforeach
 	<th>Delete</th>
+	<th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
 	</tr>
 	<tr class="hide" id="add_data">
 		<td>
@@ -87,6 +91,7 @@ Choose / change building
 		<td>
 			<a href="#" id='savenewrow'>SAVE</a>
 		</td>
+		<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
 	</tr>
 	@foreach(buildingregister::activeds($_GET['ds'])->take(10)->skip($page)->get() as $dbl )
 		<tr id='datarow{{$dbl->id}}' class='datarow'>
@@ -127,6 +132,7 @@ Choose / change building
 					<a href="#" id='nodelete{{$dbl->id}}'>no</a>
 				</div>
 			</td>
+			<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
 		</tr>
 	@endforeach
 </table>

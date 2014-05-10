@@ -7,7 +7,7 @@
 	</div>
 </div>
 <div class="row-fluid">
-	<div class="span12">Date and time format: before uploading data please choose proper format inside your csv file</div>
+	<div class="span12">Date and time format: before uploading data please choose the date format as it appears in your csv file</div>
 </div>
 <div class="row-fluid">
 	<div class="span2 text-right">Date format</div>
@@ -201,7 +201,7 @@ $checker[0]=='Channel Id'
 					<img src="{{URL::to('assets/img/progressBar.gif')}}" alt="">
 					Wait while file is being processed
 					<br>
-					<a href="{{URL::to('/charts/ds/'.$user)}}">Go to datasets</a>
+					<a href="{{URL::to('/charts/ds?user='.$user)}}">Go to datasets</a>
 				</div>
 				<br>
 				<a href="{{URL::to('charts/ds?user='.$user)}}" class="btn btn-danger canceluploading span6 " >
@@ -283,7 +283,7 @@ $checker[0]=='Channel Id'
 else //UNSPECIFIC "NO TEMPLATE-RELATED" CSV FILE
 {?>
 	<h4>
-	Columns found on csv file : 
+	Columns found in csv file : 
 	<?php $comma=''; $i_data=0;?>
 	@foreach($data as $d) {{-- Displaying available headers to be uploaded --}}
 		{{$comma.str_replace(' ','_',$d)}}

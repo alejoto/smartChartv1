@@ -5,8 +5,8 @@
 @if(isset($_GET['ds']))
 <div class="row-fluid">
 	<div class="offset2 span8">
-		<h3>Chart chapters for building <b class="text-info">{{Dataset::find($_GET['ds'])->name}}</b>
-			<a href="{{URL::to('charts/chp?user='.$user)}}">(Choose another building)</a>
+		<h3>Chart chapters for dataset <b class="text-info">{{Dataset::find($_GET['ds'])->name}}</b>
+			<a href="{{URL::to('charts/chp?user='.$user)}}">(Choose another dataset)</a>
 		</h3>
 	</div>
 </div>
@@ -50,9 +50,9 @@
 	
 
 @else 
-Please choose a building first 
+Please choose a dataset first 
 <div class="dropdown">
-	<button class="btn dropdown-toggle" data-toggle="dropdown">Select building <b class="caret"></b></button>
+	<button class="btn dropdown-toggle" data-toggle="dropdown">Select dataset <b class="caret"></b></button>
 	<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
 		@foreach(Dataset::logged($user)->get() as $dl)
 			<?php $lk='ds='.$dl->id; 

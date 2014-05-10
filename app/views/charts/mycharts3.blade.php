@@ -16,11 +16,11 @@
 		--}}
 		<div class="span3">
 			@if(isset($_GET['ds']))
-				Building <b>{{Dataset::find($_GET['ds'])->name}}</b>
+				Dataset <b>{{Dataset::find($_GET['ds'])->name}}</b>
 			@endif
 			<div class="noprint">
 				<div class="dropdown">
-					<a href='' class=" dropdown-toggle" data-toggle="dropdown">Choose different building <b class="caret"></b></a>
+					<a href='' class=" dropdown-toggle" data-toggle="dropdown">Choose different dataset <b class="caret"></b></a>
 					<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
 						@foreach(Dataset::logged($user)->get() as $dl)
 							<?php $lk='ds='.$dl->id; 
@@ -156,7 +156,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="span12">
-				Please choose a building
+				Please choose a dataset
 			</div>
 		</div>
 	</div>

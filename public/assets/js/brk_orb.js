@@ -99,7 +99,7 @@ chapt_active*/
 				,datakeys:datakeys},function(d){
 
 					if (d==0) {
-						$('#newbuildingreg_result').html('<h3>You cannot overwrite existent register from here</h3>');
+						$('#newbuildingreg_result').html('<h3>You cannot overwrite existing row from here</h3>');
 						location.href = "#newbuildingreg_result";
 						$(window).scrollLeft((Number($(window).scrollLeft())+0)+'px');
 					}
@@ -204,7 +204,7 @@ chapt_active*/
 			var base=$('#base').html();
 			$.post(base+'/charts/datasetnew',{ds:ds,user:user},function(d){
 				if (d==0) {
-					$('#newdatasetmssg').html('Data set name cannot be repeated, choose another name').show('fast');
+					$('#newdatasetmssg').html('Dataset name cannot be repeated, please choose another name').show('fast');
 				}
 				else if (d==1) {
 					location.reload();
@@ -212,7 +212,7 @@ chapt_active*/
 			});
 		}
 		else {
-			$('#newdatasetmssg').html('Length name must be greater to three characters').show('fast');
+			$('#newdatasetmssg').html('The dataset name must be longer than three characters').show('fast');
 		}
 			
 	});
