@@ -48,17 +48,21 @@ Choose / change dataset to view its data &nbsp;&nbsp;
 
 <div class="row">
 	<div class="span3">
-		<a href="#" id='add_new_row_of_data'><h4><i class="icon-arrow-right"></i> Add data as single row</h4></a>
-		<a href="#" id='cancel_add_new_row_of_data' class='hide'><h4><i class="icon-remove"></i> cancel adding new row</h4></a>
+		<h4><a href="#" id='add_new_row_of_data'><i class="icon-arrow-right"></i> Add data as single row</a></h4>
+		<h4><a href="#" id='cancel_add_new_row_of_data' class='hide'><i class="icon-remove"></i> cancel adding new row</a></h4>
 		<div class="hide" id="dataset">{{$_GET['ds']}}</div>
 		<div id="newbuildingreg_result" class='text-error'></div>
 	</div>
 	<div class="span4">
-		<a href='#' id='openmodal_modal_import'><h4><i class="icon-folder-open"></i> Add data from a CSV file</h4></a>
+		<h4><a href='#' id='openmodal_modal_import'><i class="icon-folder-open"></i> Add data from a CSV file</a></h4>
 	</div>
-	<div class="span4">
-		<?php $legend=URL::to('/legend.html'); ?>
-		<a href="{{$legend}}" target="_blank"><h4>view a legend for the column headers</h4></a>
+	<div class="span4 ">
+		
+	</div>
+</div>
+<div class="row">
+	<div class="span12">
+		<small><a href="{{URL::to('/legend.html')}}" class='muted' target="_blank">view legends for the column headers</a></small>
 	</div>
 </div>
 		
@@ -72,7 +76,7 @@ Choose / change dataset to view its data &nbsp;&nbsp;
 		<th>Date&time</th>
 	@foreach(Bfield::display()->get() as $f)
 
-		<th ><a class='datakeys' data-toggle="tooltip" title="{{$f->tooltip}}" id='{{$f->name}}'>{{$f->header}}</a>
+		<th ><a class='datakeys'  title="{{$f->tooltip}}" id='{{$f->name}}'>{{$f->header}}</a>
 		</th>
 	@endforeach
 	<th>Delete</th>
@@ -96,7 +100,7 @@ Choose / change dataset to view its data &nbsp;&nbsp;
 	@foreach(buildingregister::activeds($_GET['ds'])->take(10)->skip($page)->get() as $dbl )
 		<tr id='datarow{{$dbl->id}}' class='datarow'>
 			<?php $dateconversion=strtotime(buildingregister::find($dbl->id)->datereading); ?>
-			<td>{{date('m-d-Y',$dateconversion).' '.buildingregister::find($dbl->id)->timereading}}</td>
+			{{--<td>date('m-d-Y',$dateconversion).' '.buildingregister::find($dbl->id)->timereading</td>--}}
 			@foreach(Bfield::display()->get() as $f)
 			<?php $field=$f->name; ?>
 				{{--$dbl->$field--}}

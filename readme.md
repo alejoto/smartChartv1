@@ -1,23 +1,19 @@
-## Laravel PHP Framework
+## Building Retuning Training Platform http://retuning.local39training.org/charts/public/
 
-[![Latest Stable Version](https://poser.pugx.org/laravel/framework/version.png)](https://packagist.org/packages/laravel/framework) [![Total Downloads](https://poser.pugx.org/laravel/framework/d/total.png)](https://packagist.org/packages/laravel/framework) [![Build Status](https://travis-ci.org/laravel/framework.png)](https://travis-ci.org/laravel/framework)
 
-[http://retuning.local39training.org/charts/public/]
+The Building Retuning Training Platform is a website designed for uploading, editing and deleting data related to diverse buildings scenarios in order to show good and bad practices when setting temperature adjustments according to the building ocupancy and energy consumption.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as authentication, routing, sessions, and caching.
+This web site has been constructed with the php framework Laravel v4.1, thought to be easy to navigate with a simple but functional design.
 
-Laravel aims to make the development process a pleasing one for the developer without sacrificing application functionality. Happy developers make the best code. To this end, we've attempted to combine the very best of what we have seen in other web frameworks, including frameworks implemented in other languages, such as Ruby on Rails, ASP.NET MVC, and Sinatra.
+Besides Laravel, some other libraries are used in this project, which are:
+* Twitter bootstrap v 2.3
+* Jquery 1.10.2
+* Timepicker Component for Twitter Bootstrap, Copyright 2013
+* bootstrap-datepicker.js  Version 2.0 (datepicker component)
+* Amcharts.js v 3.1.1 (js library for charts and graphics)
 
-Laravel is accessible, yet powerful, providing powerful tools needed for large, robust applications. A superb inversion of control container, expressive migration system, and tightly integrated unit testing support give you the tools you need to build any application with which you are tasked.
+Authors: Alejandro Toro - Maureen Young-Seller
 
-## Official Documentation
+Changes and version controlling: git - github
 
-Documentation for the entire framework can be found on the [Laravel website](http://laravel.com/docs).
-
-### Contributing To Laravel
-
-**All issues and pull requests should be filed on the [laravel/framework](http://github.com/laravel/framework) repository.**
-
-### License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
+Licence and Copyright: BreakingOrbit 2013

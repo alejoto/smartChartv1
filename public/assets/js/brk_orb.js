@@ -60,6 +60,10 @@ chapt_active*/
 		$('#cancel_add_new_row_of_data').show();
 	});
 
+	$('.datakeys').each(function(){
+		$(this).tooltip();
+	});
+
 
 	$('#savenewrow').click(function(e){
 		e.preventDefault();
@@ -252,7 +256,8 @@ chapt_active*/
 		});
 		$('#changename'+id).tooltip({
 			title:'Rename',
-			placement:'right'
+			placement:'right',
+			html: 'true'
 		});
 		$('#changename'+id).mouseover(function(e){
 			$(this).removeClass('icon-white');
@@ -265,7 +270,8 @@ chapt_active*/
 	function datatable(id){
 		$('#datatable'+id).tooltip({
 			title:'Table',
-			placement:'right'
+			placement:'left',
+			html: true
 		});
 		$('#datatable'+id).mouseover(function(e){
 			$(this).removeClass('icon-white');
@@ -278,7 +284,8 @@ chapt_active*/
 	function datachartpage(id){
 		$('#datachartpage'+id).tooltip({
 			title:'Charts',
-			placement:'right'
+			placement:'left',
+			html: true
 		});
 		$('#datachartpage'+id).mouseover(function(e){
 			$(this).removeClass('icon-white');
