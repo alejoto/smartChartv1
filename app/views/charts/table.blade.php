@@ -73,7 +73,6 @@ Choose / change dataset to view its data &nbsp;&nbsp;
 
 <table class="table table-hover table-condensed" id='alldata'>
 	<tr>
-		<th>Date&time</th>
 	@foreach(Bfield::display()->get() as $f)
 
 		<th ><a class='datakeys'  title="{{$f->tooltip}}" id='{{$f->name}}'>{{$f->header}}</a>
