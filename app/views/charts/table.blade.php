@@ -102,7 +102,15 @@ Choose / change dataset to view its data &nbsp;&nbsp;
 			<?php $dateconversion=strtotime(buildingregister::find($dbl->id)->datereading); ?>
 			{{--<td>date('m-d-Y',$dateconversion).' '.buildingregister::find($dbl->id)->timereading</td>--}}
 			@foreach(Bfield::display()->get() as $f)
-			<?php $field=$f->name; ?>
+			<?php $field=$f->name;
+			$validator='';
+			if ($field=='datereading') {
+				$validator='datepicker';
+			}
+			else if ($field=='timereading') {
+				$validator='timepicker';
+			}
+			 ?>
 				{{--$dbl->$field--}}
 				<td class=''>
 					<div class="text-right">
@@ -119,7 +127,7 @@ Choose / change dataset to view its data &nbsp;&nbsp;
 					<div id="editable{{$field.$dbl->id}}" class='hide'>
 						<input type="text" 
 						id='editdata{{$field.$dbl->id}}'
-						class='input-mini text-right {{$f->fieldclass}}'
+						class='input-mini text-right {{$f->fieldclass}} {{$validator}}'
 						dataid='{{$dbl->id}}' 
 						datacolumn='{{$field}}'
 						value="{{$dbl->$field}}"
