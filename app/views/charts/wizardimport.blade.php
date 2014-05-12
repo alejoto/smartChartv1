@@ -295,7 +295,7 @@ else //UNSPECIFIC "NO TEMPLATE-RELATED" CSV FILE
 	@endforeach
 	</h4>
 	
-	<div id="order_of_columns" class='hide'> {{-- Sequence of columns in order to properly save data from csv file --}}
+	<div id="order_of_columns" class='hider'> {{-- Sequence of columns in order to properly save data from csv file --}}
 	<?php $comma=''; ?>
 	@foreach($data as $d)
 		{{$comma}}<spam id="sortable{{$d}}"></spam>
@@ -303,7 +303,7 @@ else //UNSPECIFIC "NO TEMPLATE-RELATED" CSV FILE
 	@endforeach
 	</div>
 	
-	<div id='generaltemplate_data' class="hide" >
+	<div id='generaltemplate_data' class="hider" >
 	<?php 
 	$gnu='';
 	while (($data1=fgetcsv($handle, 2000, ","))!==false) {

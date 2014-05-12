@@ -2,12 +2,13 @@
 class dateformatfix{
 	//public $fixeddate;
 	public function fixdate($date,$format){
+		$date=trim($date);
 		$fixeddate=str_replace('/','-',$date);//unify data syntax separator as '-'.
 		$dateclean=explode('-',$fixeddate);//separating each date component
 		$preformatdate=array();
 		$i=0;
 		foreach ($format as $f) {
-			$preformatdate[$f]=$dateclean[$i];
+			$preformatdate[$f]=trim($dateclean[$i]);
 			$i++;
 		}
 		// Adding "20" if date year digits = 2
@@ -303,7 +304,7 @@ class ChartsController extends BaseController {
 
 		$ds=$_POST['ds'];//building dataset which values belong to
 
-		$df=$_POST['df'];//date column format
+		$df=trim($_POST['df']);//date column format
 		$df=explode(',',$df);
 
 		$tf=$_POST['tf'];//time format

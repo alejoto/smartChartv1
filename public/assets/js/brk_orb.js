@@ -160,7 +160,7 @@ chapt_active*/
 			$('#editdata'+id).val($('#editdata'+id).val());
 			$('#editdata'+id).focus();
 		});
-		$('#editdata'+id).blur(function(e){
+		$('#editdata'+id).on('blur change',function(e){
 			e.preventDefault();
 			var editdata=$(this).val().trim();
 			var dataid=$(this).attr('dataid');
@@ -170,6 +170,7 @@ chapt_active*/
 			if (editdata==''&&$('#edit'+id).html().trim()=='__') {}
 				else
 			if (editdata!=$('#edit'+id).html().trim() ) {
+				$('#edit'+id).html(editdata);
 				var base=$('#base').html();
 				$.post(base+'/charts/celledition',{editdata:editdata,dataid:dataid,datacolumn:datacolumn},function(d){
 					$('#edit'+id).html(editdata);

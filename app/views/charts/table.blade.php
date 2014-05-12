@@ -132,7 +132,8 @@ Choose / change dataset to view its data &nbsp;&nbsp;
 						datacolumn='{{$field}}'
 						value="{{$dbl->$field}}"
 						placeholder='{{$f->placeholder}}'
-						>
+						> 
+						<button class="btn"><i class="icon-ok"></i></button>
 					</div>
 				</td>
 			@endforeach
