@@ -160,12 +160,13 @@ chapt_active*/
 			$('#editdata'+id).val($('#editdata'+id).val());
 			$('#editdata'+id).focus();
 		});
-		$('#editdata'+id).on('blur change',function(e){
+		$('#editdata'+id).on(' change',function(e){
 			e.preventDefault();
 			var editdata=$(this).val().trim();
 			var dataid=$(this).attr('dataid');
 			var datacolumn=$(this).attr('datacolumn');
 			$('#editable'+id).hide();
+			$('#editable'+id).datepicker('hide');
 			$('#edit'+id).show();
 			if (editdata==''&&$('#edit'+id).html().trim()=='__') {}
 				else
@@ -598,7 +599,6 @@ chapt_active*/
 		$(this).hide('fast');
 		$('.canceluploading').hide();
 		$.post(base+'/charts/wizard2',{header:header,values:values,ds:ds,df:df,tf:tf},function(d){
-			//$('#send_to_db_from_notemplatecsv').html(d);
 			if (d==1) {
 				window.location.href=base+'/charts/ds?user='+user;
 			}

@@ -11,7 +11,7 @@ $('.timepicker').timepicker({
 $(function(){
 	$('.datepicker').datepicker({
 		format : 	'yyyy/mm/dd'
-	});
+	}).on('changeDate',function(){$('.datepicker').datepicker('hide');});
 
 	$('.floatnumber').each(function(){
 		var id=$(this).attr('id');
