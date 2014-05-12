@@ -239,7 +239,7 @@ $checker[0]=='Channel Id'
 				}
 				?>
 				</div>
-				<div id="kw_usage_template_data" class='hider'>
+				<div id="kw_usage_template_data" class='hide'>
 				<?php  
 				$k=0;
 				$column=array();//array with fields for importing data
@@ -295,7 +295,7 @@ else //UNSPECIFIC "NO TEMPLATE-RELATED" CSV FILE
 	@endforeach
 	</h4>
 	
-	<div id="order_of_columns" class='hider'> {{-- Sequence of columns in order to properly save data from csv file --}}
+	<div id="order_of_columns" class='hide'> {{-- Sequence of columns in order to properly save data from csv file --}}
 	<?php $comma=''; ?>
 	@foreach($data as $d)
 		{{$comma}}<spam id="sortable{{$d}}"></spam>
@@ -303,7 +303,7 @@ else //UNSPECIFIC "NO TEMPLATE-RELATED" CSV FILE
 	@endforeach
 	</div>
 	
-	<div id='generaltemplate_data' class="hider" >
+	<div id='generaltemplate_data' class="hide" >
 	<?php 
 	$gnu='';
 	while (($data1=fgetcsv($handle, 2000, ","))!==false) {
