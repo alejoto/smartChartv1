@@ -160,22 +160,29 @@ chapt_active*/
 			$('#editdata'+id).val($('#editdata'+id).val());
 			$('#editdata'+id).focus();
 		});
-		$('#editdata'+id).on(' change',function(e){
-			e.preventDefault();
+		$('#editdata'+id).on('change',function(e){
 			var editdata=$(this).val().trim();
 			var dataid=$(this).attr('dataid');
 			var datacolumn=$(this).attr('datacolumn');
-			$('#editable'+id).hide();
-			$('#editable'+id).datepicker('hide');
+			//$('.datepicker').datepicker('hide');
+			//$('#edit'+id).html('editdata');
 			$('#edit'+id).show();
 			if (editdata==''&&$('#edit'+id).html().trim()=='__') {}
-				else
-			if (editdata!=$('#edit'+id).html().trim() ) {
+			else if (editdata!=$('#edit'+id).html().trim()&&editdata!='' ) {
 				$('#edit'+id).html(editdata);
 				var base=$('#base').html();
 				$.post(base+'/charts/celledition',{editdata:editdata,dataid:dataid,datacolumn:datacolumn},function(d){
-					$('#edit'+id).html(editdata);
+					if (d==1) {
+						$('#edit'+id).html(editdata);
+						$('#editable'+id).hide();
+						$('.datepicker').datepicker('hide');
+					}
 				});
+			}
+			else {
+				$(this).val($('#edit'+id).text().trim());
+				$('#editable'+id).hide();
+				$('.datepicker').datepicker('hide');
 			}
 			
 			//if (editdata) {};
@@ -599,6 +606,7 @@ chapt_active*/
 		$(this).hide('fast');
 		$('.canceluploading').hide();
 		$.post(base+'/charts/wizard2',{header:header,values:values,ds:ds,df:df,tf:tf},function(d){
+			//$('#send_to_db_from_notemplatecsv').html(d);
 			if (d==1) {
 				window.location.href=base+'/charts/ds?user='+user;
 			}

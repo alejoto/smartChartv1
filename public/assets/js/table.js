@@ -8,10 +8,22 @@ $('.timepicker').timepicker({
 	defaultTime: '8:00:00',
 	showMeridian: false
 });
+
 $(function(){
 	$('.datepicker').datepicker({
 		format : 	'yyyy/mm/dd'
-	}).on('changeDate',function(){$('.datepicker').datepicker('hide');});
+	});
+	/*$('.datepicker').datepicker({
+		format : 	'yyyy/mm/dd'
+	}).on('onRender',function(date){
+		return  date.valueOf();
+	});
+
+	.on('onRender',function(){
+		return $(this).val();
+	})
+
+*/
 
 	$('.floatnumber').each(function(){
 		var id=$(this).attr('id');

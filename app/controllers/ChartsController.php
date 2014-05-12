@@ -196,6 +196,7 @@ class ChartsController extends BaseController {
 	}
 
 	public function postCelledition () {
+		//$id=$_POST['id'];
 		$editdata=$_POST['editdata'];
 		$id=$_POST['dataid'];
 		$datacolumn=$_POST['datacolumn'];
