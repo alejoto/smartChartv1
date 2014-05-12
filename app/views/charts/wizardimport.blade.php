@@ -13,10 +13,10 @@
 	<div class="span2 text-right">Date format</div>
 	<div class="span2"> 
 		<select name="" id="dateformat_import" class="span8"> 
-			<option value="m,d,y">mm dd yyyy (example 01-31-2011)</option>
-			<option value="d,m,y">dd mm yyyy (example 31-01-2011)</option> 
-			<option value="y,m,d">yyyy mm dd (example 2011-01-31)</option>
-			<option value="y,d,m">yyyy dd mm (example 2011-31-01)</option>
+			<option value="y,m,d">yyyy-mm-dd (example 2011-01-31)</option>
+			<option value="m,d,y">mm-dd-yyyy (example 01-31-2011)</option>
+			<option value="d,m,y">dd-mm-yyyy (example 31-01-2011)</option> 
+			<option value="y,d,m">yyyy-dd-mm (example 2011-31-01)</option>
 		</select> 
 	</div>
 	<div class="span2 hide text-right">Time format</div>
