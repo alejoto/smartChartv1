@@ -337,8 +337,8 @@ chapt_active*/
 	function delete_dsrequest(id){
 		$('#delete_dsrequest'+id).click(function(e){
 			e.preventDefault();
-			$('#groupsofactionsfor_ds'+id).hide('fast');
-			$('#delete_ds_btngroups'+id).show('fast');
+			$('#groupsofactionsfor_ds'+id).hide();
+			$('#delete_ds_btngroups'+id).show();
 		});
 		$('#delete_dsrequest'+id).tooltip({
 			title:'Delete',
@@ -355,7 +355,7 @@ chapt_active*/
 		$('#canceldelete_ds'+id).click(function(e){
 			e.preventDefault();
 			$('#groupsofactionsfor_ds'+id).show('fast');
-			$('#delete_ds_btngroups'+id).hide('fast');
+			$('#delete_ds_btngroups'+id).hide();
 		});
 	}
 
@@ -533,6 +533,8 @@ chapt_active*/
 		$('#uploading_csv_wizard_template').show();
 		var base=$('#base').html();
 		$.post(base+'/charts/wizard1',{ds:ds,data:template,usage:1},function(d){
+			//$('#upload_as_kw_usage').html(d);
+			//
 			if (d==1) {
 				window.location.href=base+'/charts/ds?user='+user;
 			}
