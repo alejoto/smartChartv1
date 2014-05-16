@@ -6,21 +6,22 @@
 		<h1>CSV Import module</h1>
 	</div>
 </div>
+<!-- <div class="row-fluid">
+	<div class="span12 hide">Date and time format: before uploading data please choose the date format as it appears in your csv file</div>
+</div> -->
 <div class="row-fluid">
-	<div class="span12">Date and time format: before uploading data please choose the date format as it appears in your csv file</div>
-</div>
-<div class="row-fluid">
-	<div class="span2 text-right">Date format</div>
-	<div class="span2"> 
+	<div class="offset2 span7 lead text-error"><strong>Date values from the csv file must match format 'm/d/y'. If no, the csv file will not be properly parsed.</strong></div>
+	<input type="hidden" id='dateformat_import' value='m,d,y'>
+	<!-- <div class="span2"> 
 		<select name="" id="dateformat_import" class="span8"> 
 			<option value="m,d,y">mm dd yyyy (example 01-31-2011)</option>
 			<option value="d,m,y">dd mm yyyy (example 31-01-2011)</option> 
 			<option value="y,m,d">yyyy mm dd (example 2011-01-31)</option>
 			<option value="y,d,m">yyyy dd mm (example 2011-31-01)</option>
 		</select> 
-	</div>
-	<div class="span2 hide text-right">Time format</div>
-	<div class="span2 hide"> 
+	</div> -->
+	<div class=" hide text-right">Time format</div>
+	<div class=" hide"> 
 		<select name="" id="timeformat_import" class="span8"> 
 			<option value="ampm">HH:mm 24h</option>
 			<option value="militar">hh:mm am/pm</option>
@@ -88,6 +89,7 @@ $checker[0]=='Date'
 			<div id="uploading_csv_wizard_template" class="hide">
 				<img src="{{URL::to('assets/img/progressBar.gif')}}" alt="">
 				Wait while file is being processed
+				<div class="lead text-error">Please wait while file is being processed - it may take several minutes</div>
 			</div>
 			<div id="generaltemplate_data" class="hide">
 				<?php 
@@ -205,7 +207,7 @@ $checker[0]=='Channel Id'
 				<br>
 				<div id="uploading_csv_wizard_template" class="hide">
 					<img src="{{URL::to('assets/img/progressBar.gif')}}" alt="">
-					Wait while file is being processed
+					<spam class="lead ">Please wait while file is being processed - it may take several minutes</spam>
 					<br>
 					<a href="{{URL::to('/charts/ds?user='.$user)}}">Go to datasets</a>
 				</div>
@@ -368,9 +370,10 @@ else //UNSPECIFIC "NO TEMPLATE-RELATED" CSV FILE
 		<div class="row-fluid">
 			<div class="offset2 span8 ">
 				<button id='send_to_db_from_notemplatecsv' class="btn span12 hide selectableskip">Start uploading</button>
-				<div id="uploading_csv_notemplate" class="hide">
+				<div id="uploading_csv_notemplate" class="hideR">
 					<img src="{{URL::to('assets/img/progressBar.gif')}}" alt="">
 					Wait while file is being processed
+					<div class="lead text-error">Please wait while file is being processed - it may take several minutes</div>
 				</div>
 			</div>
 		</div>

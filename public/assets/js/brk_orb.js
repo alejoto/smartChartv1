@@ -506,18 +506,23 @@ chapt_active*/
 		$('#no_choose_as_it_comes_from_template').show();
 	});
 
-	$('#upload_as_kw_demand').click(function(e){
-		e.preventDefault();
-		var template=$('#kw_template_data').text().trim();
-		var user=$('#user_fromwizard').html();
-		var ds=$('#datasetfromwizard').html();
-		$('.canceluploading').hide();
+	function kwimport(){
+		//$('.canceluploading').hide();
 		$('#upload_as_kw_demand').hide('fast');
+		$('#upload_as_kw_usage').hide('fast');
 		$('#uploading_csv_wizard_template').show();
-		var base=$('#base').html();
 		setTimeout(function() {
 			window.location.href=base+'/charts/ds?user='+user;
 		},60000);
+	}
+
+	$('#upload_as_kw_demand').click(function(e){
+		e.preventDefault();
+		kwimport();
+		var template=$('#kw_template_data').text().trim();
+		var user=$('#user_fromwizard').html();
+		var ds=$('#datasetfromwizard').html();
+		var base=$('#base').html();
 		$.post(base+'/charts/wizard1',{ds:ds,data:template},function(d){
 			if (d==1) {
 				window.location.href=base+'/charts/ds?user='+user;
@@ -527,17 +532,12 @@ chapt_active*/
 
 	$('#upload_as_kw_usage').click(function(e){
 		e.preventDefault();
+		kwimport();
 		$('.kw_previous_commas').show();
 		var template=$('#kw_template_data').text().trim();
 		var user=$('#user_fromwizard').html();
 		var ds=$('#datasetfromwizard').html();
-		$('.canceluploading').hide();
-		$('#upload_as_kw_demand').hide('fast');
-		$('#uploading_csv_wizard_template').show();
 		var base=$('#base').html();
-		setTimeout(function() {
-			window.location.href=base+'/charts/ds?user='+user;
-		},60000);
 		$.post(base+'/charts/wizard1',{ds:ds,data:template,usage:1},function(d){
 			//$('#upload_as_kw_usage').html(d);
 			//

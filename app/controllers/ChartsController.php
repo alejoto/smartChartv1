@@ -281,19 +281,12 @@ class ChartsController extends BaseController {
 				$id=$updatable->first()->id;
 				$update=array();
 				foreach ($column as $c) {
-					/*if ($c=='timereading') {
-						$data[$i][$j]=date('H:i:s',strtotime($data[$i][$j])) //Time conversion as h:m:s 24hrs format
-						;
-					}*/
 
-					if (/*$c=='datereading'||$c=='timereading'||*/$c=='a07kWusage'||$c=='a06kWdemand'){
+					if ($c=='a07kWusage'||$c=='a06kWdemand'){
 						if (trim($data[$i][$j])!='') {//updating only values with no empty data
 							$update[$c]=trim($data[$i][$j]);
 						}
 					}
-					/*if (trim($data[$i][$j])!='') {//updating only values with no empty data
-						$update[$c]=trim($data[$i][$j]);
-					}*/
 					
 					$j++;
 				}
