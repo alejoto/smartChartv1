@@ -29,7 +29,7 @@
 </div>
 
 <div class="hide" id="user_fromwizard">{{$user}}</div>
-<div class="hider" id="datasetfromwizard">{{$ds}}</div>
+<div class="hide" id="datasetfromwizard">{{$ds}}</div>
 
 <?php 
 $handle = fopen($_FILES['filename']['tmp_name'], "r");
@@ -208,7 +208,7 @@ $checker[0]=='Channel Id'
 					<i class="icon-remove icon-white"></i>
 					Cancel uploading data</a>
 
-				<div id="kw_template_data" class='hider'>
+				<div id="kw_template_data" class='hide'>
 				<?php  
 				$k=0;
 				$column=array();//array with fields for importing data
