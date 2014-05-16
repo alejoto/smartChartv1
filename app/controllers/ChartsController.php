@@ -250,9 +250,10 @@ class ChartsController extends BaseController {
 			//Checking if dataset id, date and time already exist.
 			//If yes data will be updated, otherwise a new register will be created
 
-			//$date=$data[$i][0];
+
 			$date=date('m/d/Y',strtotime($data[$i][0]));//Date conversion 
-			$date=date_format(date_create($date),'Y-m-d');
+			$date=date_format(date_create($date),'Y/m/d');
+
 			
 			$time=date('H:i:s',strtotime($data[$i][1]));//Time conversion as h:m:s 24hrs format
 			$updatable=Buildingregister::existent($date,$time,$ds);
@@ -262,12 +263,13 @@ class ChartsController extends BaseController {
 			{
 				$inner_register=array();
 				$inner_register['dataset_id']=$ds;
+				$inner_register['datereading']=$date;
 				foreach ($column as $c) {
 					if ($c=='timereading') {
 						$data[$i][$j]=date('H:i:s',strtotime($data[$i][$j])) //Time conversion as h:m:s 24hrs format
 						;
 					}
-					if ($c=='datereading'||$c=='timereading'||$c=='a07kWusage'||$c=='a06kWdemand') {
+					if ($c=='timereading'||$c=='a07kWusage'||$c=='a06kWdemand') {
 						$inner_register[$c]=trim($data[$i][$j]);
 					}
 					
