@@ -515,6 +515,9 @@ chapt_active*/
 		$('#upload_as_kw_demand').hide('fast');
 		$('#uploading_csv_wizard_template').show();
 		var base=$('#base').html();
+		setTimeout(function() {
+			window.location.href=base+'/charts/ds?user='+user;
+		},60000);
 		$.post(base+'/charts/wizard1',{ds:ds,data:template},function(d){
 			if (d==1) {
 				window.location.href=base+'/charts/ds?user='+user;
@@ -532,6 +535,9 @@ chapt_active*/
 		$('#upload_as_kw_demand').hide('fast');
 		$('#uploading_csv_wizard_template').show();
 		var base=$('#base').html();
+		setTimeout(function() {
+			window.location.href=base+'/charts/ds?user='+user;
+		},60000);
 		$.post(base+'/charts/wizard1',{ds:ds,data:template,usage:1},function(d){
 			//$('#upload_as_kw_usage').html(d);
 			//
