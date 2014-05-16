@@ -50,8 +50,8 @@
         				<ul class="">
         					<li>File format must be .csv (comma separated values).</li>
         					<li>The first row must contain the headers with names for each column data.</li>
-                            <li>All data must contain date and time of reading, otherwise it will not be saved</li>
-        					<li>This import module supports a maximum of 5000 rows at once.</li>
+                            			<li>All data must contain date and time of reading, otherwise it will not be saved</li>
+        					<li>This import module supports a maximum of 500 rows at once.</li>
         				</ul>
         				<input class="uploadfile  muted" type='file' name='filename'>
         				<input type="hidden" value='{{$_GET["user"]}}' name='user'>
