@@ -12,15 +12,16 @@
 				</div>
 			@endif
 		@endif
+		<br>
+		<?php  
+		$unformated='3/2/13';
+		$date=date('m/d/Y',strtotime($unformated));
+		?>
+		Unformated{{$unformated}} - Formated {{$date}}
+		<br>
 	</div>
 </div>
-test <br>
-<?php 
-$date='1/4/13';
-$date=date('m/d/Y',strtotime($date));
-$date=date_format(date_create($date),'Y/m/d');
-?>
-{{$date}}
+
 @if(isset($_GET['user']))
 <div id="user_dataset" class='hide'>{{$_GET['user']}}</div>
 @endif

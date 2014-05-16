@@ -177,7 +177,13 @@ $checker[0]=='Date'
 		<br><br>
 	</div>
 </div>
-
+{{-- 
+	|-----------------------------------------------------------------------------------------------------|
+	|                                                                                                     |
+	|    THIS SECTION CONTAINS THE IMPORT METHOD WHEN DETECTING DATA STRUCTURE AS ENERGY CONSUMPTION      |
+	|                                                                                                     |
+	|-----------------------------------------------------------------------------------------------------|
+ --}}
 <?php } else if(
 $checker[0]=='Channel Id'
 &&$checker[1]=='SERVICE AGREEMENT ID'
