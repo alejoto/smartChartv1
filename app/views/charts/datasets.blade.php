@@ -32,9 +32,21 @@
 			<table class="table table-condensed table-hovermaureen">
 				<tr>
 					<td class='span9 muted' colspan='2'><i>A dataset contains a single grouping of building data from which
-						you will create and view charts.  For ease of use, you may wish to
-						name your dataset with the description of the data that you will be importing
-						in to it &mdash; e.g. "Building One January Data."</i>
+						you will create and view charts.  You may have as many datasets as you like.
+						For ease of use, you may wish to name your dataset with the description of the data that
+						you will be importing in to it &mdash; e.g. "Building One January Data."</i>
+						<br/><br/>
+						<i>Use the icons at the left to manage each dataset:</i><br/>
+						<i><i class="icon-th icon-white"></i> &mdash; View the raw data in a table</i>
+						</br>
+						<i><i class="icon-signal icon-white"></i> &mdash; View the charts for this data</i>
+						</br>
+						<i><i class="icon-edit icon-white"></i> &mdash; Change the name of this dataset</i>
+						</br>
+						<i><i class="icon-trash icon-white"></i> &mdash; Delete this dataset</i>
+						</br>
+						<i><i class="icon-upload icon-white"></i> &mdash; Import a csv file into this dataset</i>
+						</br>
 					</td>
 				</tr>
 				<tr>
@@ -92,8 +104,8 @@
 		<table class="table table-condensed table-hovermaureen">
 				<tr>
 					<td class='span9 muted' colspan='2'><i>A dataset contains a single grouping of building data from which
-						you will create and view charts.  For ease of use, you may wish to
-						name your dataset with the description of the data that you will be importing
+						you will create and view charts.  You may have as many datasets as you like.  For ease of 
+						use, you may wish to name your dataset with the description of the data that you will be importing
 						in to it &mdash; e.g. "Building One January Data."</i>
 					</td>
 				</tr>
