@@ -236,6 +236,8 @@ class ChartsController extends BaseController {
 
 		$data=explode('~',$data);//First array conversion
 		$i=0;
+		$newregister=array();//setting new array that will contain whole bunch of data
+		//that will be added as new records at once
 		foreach ($data as $d) {
 			$data[$i]=explode(',', $d);//Second array conversion
 			//
@@ -252,19 +254,23 @@ class ChartsController extends BaseController {
 			$time=date('H:i:s',strtotime($data[$i][1]));//Time conversion as h:m:s 24hrs format
 			$updatable=Buildingregister::existent($date,$time,$ds);
 
+		
 			if ($updatable->count()==0) //Saving as new register if data does not exist
 			{
-				$register=new Buildingregister;
-				$register->dataset_id=$ds;
+				$inner_register=array();
+				$inner_register['dataset_id']=$ds;
 				foreach ($column as $c) {
 					if ($c=='timereading') {
 						$data[$i][$j]=date('H:i:s',strtotime($data[$i][$j])) //Time conversion as h:m:s 24hrs format
 						;
 					}
-					$register->$c=trim($data[$i][$j]);
+					if ($c=='datereading'||$c=='timereading'||$c=='a07kWusage'||$c=='a06kWdemand') {
+						$inner_register[$c]=trim($data[$i][$j]);
+					}
+					
 					$j++;
 				}
-				$register->save();
+
 			}
 			else {//update as register already exist
 				$id=$updatable->first()->id;
@@ -284,8 +290,16 @@ class ChartsController extends BaseController {
 				unset($update);//cleaning import array for new data update
 			}
 			$i++;
+			array_push($newregister,$inner_register);
+			unset($inner_register);
 		}
-		return //var_dump($update)
+		/*Buildingregister::insert(array(
+			array('datereading'=>'0','dataset_id'=>$ds),
+			array('datereading'=>'11/11/11','dataset_id'=>$ds)
+			));*/ //test code works fine
+		//DB::table('buildingregisters')->insert($newregister);
+		Buildingregister::insert($newregister);
+		return //var_dump($newregister)
 		1
 		;
 	}

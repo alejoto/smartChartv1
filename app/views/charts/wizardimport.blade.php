@@ -29,7 +29,7 @@
 </div>
 
 <div class="hide" id="user_fromwizard">{{$user}}</div>
-<div class="hide" id="datasetfromwizard">{{$ds}}</div>
+<div class="hider" id="datasetfromwizard">{{$ds}}</div>
 
 <?php 
 $handle = fopen($_FILES['filename']['tmp_name'], "r");
@@ -132,7 +132,7 @@ $checker[0]=='Date'
 	</div>
 	<div class="hide" id='choose_fields'>
 
-		<div id="order_of_columns" class='hider'> {{-- Sequence of columns in order to properly save data from csv file --}}
+		<div id="order_of_columns" class='hide'> {{-- Sequence of columns in order to properly save data from csv file --}}
 		<?php $comma=''; ?>
 		@foreach($checker as $d)
 		<?php $d=str_replace(' ', '_', $d); ?>
@@ -208,7 +208,7 @@ $checker[0]=='Channel Id'
 					<i class="icon-remove icon-white"></i>
 					Cancel uploading data</a>
 
-				<div id="kw_template_data" class='hide'>
+				<div id="kw_template_data" class='hider'>
 				<?php  
 				$k=0;
 				$column=array();//array with fields for importing data
@@ -228,7 +228,7 @@ $checker[0]=='Channel Id'
 							$time=date('H:i:s',($i-4)*900);
 							?>
 							@if(trim($d)!='')
-								{{$gnu.$data[2]}},{{$time}},,,,, <spam class="hide kw_previous_commas">,</spam>{{$d}},,,,,,,,, ,, ,, ,,, ,,, ,,,, ,,,
+								{{$gnu.$data[2]}},{{$time}},,,,, <spam class="hide kw_previous_commas">,</spam>{{$d}},,,,,,,,,,,,,,,,,,,,,,,,,,
 							@endif
 							
 							<?php 
