@@ -475,6 +475,10 @@ chapt_active*/
 	| 5. Wizard import
 	*/
 
+	if($("#no_choose_as_it_comes_from_template").length > 0) {
+		$('#proper_date_format_reminder').hide();
+	}
+
 
 	$('#upload_to_db1').click(function(e){
 		e.preventDefault();

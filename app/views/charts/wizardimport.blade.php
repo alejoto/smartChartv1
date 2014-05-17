@@ -9,8 +9,9 @@
 <!-- <div class="row-fluid">
 	<div class="span12 hide">Date and time format: before uploading data please choose the date format as it appears in your csv file</div>
 </div> -->
-<div class="row-fluid">
-	<div class="offset2 span7 lead text-error"><strong>Date values from the csv file must match format 'm/d/y'. If no, the csv file will not be properly parsed.</strong></div>
+<div class="row-fluid ">
+	<div id='proper_date_format_reminder' class="offset2 span7 lead text-error ">
+		<strong>Date values from the csv file must match format 'm/d/y'. If no, the csv file will not be properly parsed.</strong></div>
 	<input type="hidden" id='dateformat_import' value='m,d,y'>
 	<!-- <div class="span2"> 
 		<select name="" id="dateformat_import" class="span8"> 
