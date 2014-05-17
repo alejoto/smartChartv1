@@ -252,43 +252,47 @@ class ChartsController extends BaseController {
 
 
 			$date=date('Y/m/d',strtotime($data[$i][0]));//Date conversion 
-			//$date=date_format(date_create($date),'Y/m/d');
+			$date=date_format(date_create($date),'Y/m/d');
 
 			
 			$time=date('H:i:s',strtotime($data[$i][1]));//Time conversion as h:m:s 24hrs format
 			$updatable=Buildingregister::existent($date,$time,$ds);
 
-		
-			if ($updatable->count()==0) //Saving as new register if data does not exist
-			{
-				$inner_register=array();
-				$inner_register['dataset_id']=$ds;
-				$inner_register['datereading']=$date;
-				foreach ($column as $c) {
-					if ($c=='timereading') {
-						$data[$i][$j]=date('H:i:s',strtotime($data[$i][$j])) //Time conversion as h:m:s 24hrs format
-						;
-					}
-					$inner_register[$c]=trim($data[$i][$j]);
-					
-					$j++;
-				}
+			$emptyblocker1=date('Y/m/d',strtotime(''));
 
-			}
-			else {//update as register already exist
-				$id=$updatable->first()->id;
-				$update=array();
-				foreach ($column as $c) {
-
-					if (trim($data[$i][$j])!='') {//updating only values with no empty data
-						$update[$c]=trim($data[$i][$j]);
+			if (trim($data[$i][0])!=''&&$date!=$emptyblocker1&&$date!='0000/00/00'&&$date!='1970-01-01'&&$date!='0000-00-00') {
+				if ($updatable->count()==0) //Saving as new register if data does not exist
+				{
+					$inner_register=array();
+					$inner_register['dataset_id']=$ds;
+					$inner_register['datereading']=$date;
+					foreach ($column as $c) {
+						if ($c=='timereading') {
+							$data[$i][$j]=date('H:i:s',strtotime($data[$i][$j])) //Time conversion as h:m:s 24hrs format
+							;
+						}
+						$inner_register[$c]=trim($data[$i][$j]);
+						
+						$j++;
 					}
-					
-					$j++;
+
 				}
-				Buildingregister::find($id)->update($update);
-				unset($update);//cleaning import array for new data update
+				else {//update as register already exist
+					$id=$updatable->first()->id;
+					$update=array();
+					foreach ($column as $c) {
+
+						if (trim($data[$i][$j])!='') {//updating only values with no empty data
+							$update[$c]=trim($data[$i][$j]);
+						}
+						
+						$j++;
+					}
+					Buildingregister::find($id)->update($update);
+					unset($update);//cleaning import array for new data update
+				}
 			}
+				
 			$i++;
 			
 			if(isset($inner_register)) {
