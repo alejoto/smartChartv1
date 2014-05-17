@@ -219,6 +219,92 @@ class ChartsController extends BaseController {
 		} 
 	}
 
+	public function postWizard3 () {
+		$ds=$_POST['ds'];
+		$data=$_POST['data'];
+
+
+		//columns adjustment
+		$k=0;
+		$column=array();
+		foreach (Bfield::all() as $f) {
+		 	if ($f->name!='dataset_id') {
+		 		$column[$k]=$f->name;
+		 		$k++;
+		 	}
+		}
+
+		$data=explode('~',$data);//First array conversion
+		$i=0;
+		$newregister=array();//setting new array that will contain whole bunch of data
+		//that will be added as new records at once
+		foreach ($data as $d) {
+			$data[$i]=explode(',', $d);//Second array conversion
+			//
+			$j=0;
+			if (isset($_POST['usage'])) {
+				$data[$i][8]=$data[$i][7];
+				$data[$i][7]='';
+			}
+
+			//Checking if dataset id, date and time already exist.
+			//If yes data will be updated, otherwise a new register will be created
+
+
+			$date=date('Y/m/d',strtotime($data[$i][0]));//Date conversion 
+			//$date=date_format(date_create($date),'Y/m/d');
+
+			
+			$time=date('H:i:s',strtotime($data[$i][1]));//Time conversion as h:m:s 24hrs format
+			$updatable=Buildingregister::existent($date,$time,$ds);
+
+		
+			if ($updatable->count()==0) //Saving as new register if data does not exist
+			{
+				$inner_register=array();
+				$inner_register['dataset_id']=$ds;
+				$inner_register['datereading']=$date;
+				foreach ($column as $c) {
+					if ($c=='timereading') {
+						$data[$i][$j]=date('H:i:s',strtotime($data[$i][$j])) //Time conversion as h:m:s 24hrs format
+						;
+					}
+					$inner_register[$c]=trim($data[$i][$j]);
+					
+					$j++;
+				}
+
+			}
+			else {//update as register already exist
+				$id=$updatable->first()->id;
+				$update=array();
+				foreach ($column as $c) {
+
+					if (trim($data[$i][$j])!='') {//updating only values with no empty data
+						$update[$c]=trim($data[$i][$j]);
+					}
+					
+					$j++;
+				}
+				Buildingregister::find($id)->update($update);
+				unset($update);//cleaning import array for new data update
+			}
+			$i++;
+			
+			if(isset($inner_register)) {
+				array_push($newregister,$inner_register);
+				unset($inner_register);
+			}
+		}
+		if (count($newregister)>0) {
+			Buildingregister::insert($newregister);
+		}
+		
+		return //var_dump($newregister)
+		1
+		;
+	}
+
 	public function postWizard1 () {
 		$ds=$_POST['ds'];
 		$data=$_POST['data'];

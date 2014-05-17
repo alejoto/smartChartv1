@@ -370,7 +370,7 @@ else //UNSPECIFIC "NO TEMPLATE-RELATED" CSV FILE
 		<div class="row-fluid">
 			<div class="offset2 span8 ">
 				<button id='send_to_db_from_notemplatecsv' class="btn span12 hide selectableskip">Start uploading</button>
-				<div id="uploading_csv_notemplate" class="hideR">
+				<div id="uploading_csv_notemplate" class="hide">
 					<img src="{{URL::to('assets/img/progressBar.gif')}}" alt="">
 					Wait while file is being processed
 					<div class="lead text-error">Please wait while file is being processed - it may take several minutes</div>

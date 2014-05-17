@@ -486,7 +486,7 @@ chapt_active*/
 		$('#upload_to_db1').hide();
 		$('#skip_template_choose_fields').hide();
 		$('#uploading_csv_wizard_template').show();
-		$.post(base+'/charts/wizard1',{ds:ds,data:template},function(d){
+		$.post(base+'/charts/wizard3',{ds:ds,data:template},function(d){
 			if (d==1) {
 				window.location.href=base+'/charts/ds?user='+user;
 			}
