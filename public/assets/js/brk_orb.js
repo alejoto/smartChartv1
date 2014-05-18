@@ -490,6 +490,9 @@ chapt_active*/
 		$('#upload_to_db1').hide();
 		$('#skip_template_choose_fields').hide();
 		$('#uploading_csv_wizard_template').show();
+		setTimeout(function() {
+			window.location.href=base+'/charts/ds?user='+user;
+		},60000);
 		$.post(base+'/charts/wizard3',{ds:ds,data:template},function(d){
 			if (d==1) {
 				window.location.href=base+'/charts/ds?user='+user;
@@ -614,6 +617,9 @@ chapt_active*/
 		var user=$('#user_fromwizard').html();
 		var ds=$('#datasetfromwizard').html();
 		var base=$('#base').html();
+		setTimeout(function() {
+			window.location.href=base+'/charts/ds?user='+user;
+		},60000);
 		$('#uploading_csv_notemplate').show();
 		$(this).hide('fast');
 		$('.canceluploading').hide();

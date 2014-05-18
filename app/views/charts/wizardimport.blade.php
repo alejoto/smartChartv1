@@ -196,7 +196,7 @@ $checker[0]=='Channel Id'
 &&$checker[4]=='00:01-00:15 kW'
 ) {
 ?>
-@if($counter2<31)
+@if($counter2<35)
 <div class="content-fluid">
 	<div class="row-fluid">
 		<div class="offset2">
