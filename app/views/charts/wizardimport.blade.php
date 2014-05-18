@@ -33,10 +33,13 @@
 <div class="hide" id="user_fromwizard">{{$user}}</div>
 <div class="hide" id="datasetfromwizard">{{$ds}}</div>
 
-<?php 
+<?php $counter2=$linecount = count(file($_FILES['filename']['tmp_name']));
 $handle = fopen($_FILES['filename']['tmp_name'], "r");
+
 $data=($data=fgetcsv($handle, 2000, ","));
 $i=0;
+$count=count($data);
+//echo $counter2;
 
 foreach ($data as $d) {
 	$checker[$i]=$data[$i];
@@ -83,8 +86,6 @@ $checker[0]=='Date'
 	<div class="row-fluid" id='no_choose_as_it_comes_from_template'>
 		<div class="offset3 span6 whitebox whitetext">
 			Data structure matches with Excel template
-			<br>
-
 			<br>
 			<button class="btn span11" id='upload_to_db1'>Start uploading data to the database</button>
 			<div id="uploading_csv_wizard_template" class="hide">
@@ -195,12 +196,14 @@ $checker[0]=='Channel Id'
 &&$checker[4]=='00:01-00:15 kW'
 ) {
 ?>
+@if($counter2<31)
 <div class="content-fluid">
 	<div class="row-fluid">
 		<div class="offset2">
 			<div class="span8 whitebox whitetext">
 				Uploaded file matches with kw consumption data.  You can insert data into the database as KW usage or demand.
 				<br>
+
 				<button class="btn span6" id='upload_as_kw_usage'>Insert as KW usage</button>
 				<br>
 				<br>
@@ -228,9 +231,11 @@ $checker[0]=='Channel Id'
 				 	}
 				}
 				$gnu='';
+				$rows=0;
 				while (($data=fgetcsv($handle, 2000, ","))!==false) {
 					$i=0;
 					$checker='';
+					$rows++;
 					
 					foreach ($data as $d){
 						if ($i>3&&$i<100&&$data[3]=='KW') {
@@ -286,7 +291,17 @@ $checker[0]=='Channel Id'
 		</div>
 	</div>
 </div>
+@else
+<div class="row-fluid">
+	<div id="morethan31daysdata" class="offset2 span8 lead text-error">Sorry, file contains more than 31 days data. You can only import data corresponding to one month. Split your file into two or more files, each one containing one month data. Then import them one by one.</div>
+</div>
+<div class="row-fluid">
+	<div class="offset2 span8">
+		<a href="{{URL::to('charts/ds?user='.$user)}}" class="btn btn-danger span12">Go back to datasets</a>
+	</div>
+</div>
 
+@endif
 <?php
 }
 else //UNSPECIFIC "NO TEMPLATE-RELATED" CSV FILE

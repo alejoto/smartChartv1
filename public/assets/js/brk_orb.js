@@ -475,7 +475,7 @@ chapt_active*/
 	| 5. Wizard import
 	*/
 
-	if($("#no_choose_as_it_comes_from_template").length > 0) {
+	if($("#no_choose_as_it_comes_from_template").length > 0|| $('#morethan31daysdata').length>0) {
 		$('#proper_date_format_reminder').hide();
 	}
 

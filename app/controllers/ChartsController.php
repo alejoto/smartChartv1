@@ -313,7 +313,6 @@ class ChartsController extends BaseController {
 		$ds=$_POST['ds'];
 		$data=$_POST['data'];
 
-
 		//columns adjustment
 		$k=0;
 		$column=array();
@@ -347,7 +346,6 @@ class ChartsController extends BaseController {
 			
 			$time=date('H:i:s',strtotime($data[$i][1]));//Time conversion as h:m:s 24hrs format
 			$updatable=Buildingregister::existent($date,$time,$ds);
-
 		
 			if ($updatable->count()==0) //Saving as new register if data does not exist
 			{

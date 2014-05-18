@@ -12,14 +12,16 @@
 				</div>
 			@endif
 		@endif
-		<br>
-		<?php  
-		$unformated='';
-		$date=date('m/d/Y',strtotime($unformated));
-		$date=date_format(date_create($date),'Y/m/d');
-		?>
-		Unformated{{$unformated}} - Formated {{$date}}
-		<br>
+		<tester class="hide"> {{-- Remove hide class when doing some tests --}}
+			<br>
+			<?php  
+			$unformated='';
+			$date=date('m/d/Y',strtotime($unformated));
+			$date=date_format(date_create($date),'Y/m/d');
+			?>
+			Unformated{{$unformated}} - Formated {{$date}}
+			<br>
+		</tester>
 	</div>
 </div>
 
