@@ -219,6 +219,12 @@ class ChartsController extends BaseController {
 		} 
 	}
 
+	/*
+	| Function:		postWizard1()
+	| Description: 	Data coming from 
+	|
+	|
+	*/
 	public function postWizard3 () {
 		$ds=$_POST['ds'];
 		$data=$_POST['data'];
@@ -233,7 +239,7 @@ class ChartsController extends BaseController {
 		 		$k++;
 		 	}
 		}
-
+		$savingdata_limit=5000-Buildingregister::whereDataset_id($ds)->count();
 		$data=explode('~',$data);//First array conversion
 		$i=0;
 		$newregister=array();//setting new array that will contain whole bunch of data
@@ -263,18 +269,23 @@ class ChartsController extends BaseController {
 			if (trim($data[$i][0])!=''&&$date!=$emptyblocker1&&$date!='0000/00/00'&&$date!='1970-01-01'&&$date!='0000-00-00') {
 				if ($updatable->count()==0) //Saving as new register if data does not exist
 				{
-					$inner_register=array();
-					$inner_register['dataset_id']=$ds;
-					$inner_register['datereading']=$date;
-					foreach ($column as $c) {
-						if ($c=='timereading') {
-							$data[$i][$j]=date('H:i:s',strtotime($data[$i][$j])) //Time conversion as h:m:s 24hrs format
-							;
+					if ($savingdata_limit>0) {
+						$inner_register=array();
+						$inner_register['dataset_id']=$ds;
+						$inner_register['datereading']=$date;
+						foreach ($column as $c) {
+							if ($c=='timereading') {
+								$data[$i][$j]=date('H:i:s',strtotime($data[$i][$j])) //Time conversion as h:m:s 24hrs format
+								;
+							}
+							$inner_register[$c]=trim($data[$i][$j]);
+							
+							$j++;
 						}
-						$inner_register[$c]=trim($data[$i][$j]);
-						
-						$j++;
+						$savingdata_limit=$savingdata_limit-1;
 					}
+					
+						
 
 				}
 				else {//update as register already exist
@@ -303,12 +314,23 @@ class ChartsController extends BaseController {
 		if (count($newregister)>0) {
 			Buildingregister::insert($newregister);
 		}
+		if ($savingdata_limit==0) {
+			return 2;
+		}
+		else {
+			return //var_dump($newregister)
+			1
+			;
+		}
 		
-		return //var_dump($newregister)
-		1
-		;
+		
 	}
 
+	/*
+	| Function:		postWizard1()
+	| Description: 	Saves data from Kw csv file
+	|
+	*/
 	public function postWizard1 () {
 		$ds=$_POST['ds'];
 		$data=$_POST['data'];
@@ -323,6 +345,7 @@ class ChartsController extends BaseController {
 		 	}
 		}
 
+		$savingdata_limit=5000-Buildingregister::whereDataset_id($ds)->count();
 		$data=explode('~',$data);//First array conversion
 		$i=0;
 		$newregister=array();//setting new array that will contain whole bunch of data
@@ -349,20 +372,26 @@ class ChartsController extends BaseController {
 		
 			if ($updatable->count()==0) //Saving as new register if data does not exist
 			{
-				$inner_register=array();
-				$inner_register['dataset_id']=$ds;
-				$inner_register['datereading']=$date;
-				foreach ($column as $c) {
-					if ($c=='timereading') {
-						$data[$i][$j]=date('H:i:s',strtotime($data[$i][$j])) //Time conversion as h:m:s 24hrs format
-						;
+				if ($savingdata_limit>0) {
+					$inner_register=array();
+					$inner_register['dataset_id']=$ds;
+					$inner_register['datereading']=$date;
+					foreach ($column as $c) {
+						if ($c=='timereading') {
+							$data[$i][$j]=date('H:i:s',strtotime($data[$i][$j])) //Time conversion as h:m:s 24hrs format
+							;
+						}
+						if ($c=='timereading'||$c=='a07kWusage'||$c=='a06kWdemand') {
+							$inner_register[$c]=trim($data[$i][$j]);
+						}
+						
+						$j++;
 					}
-					if ($c=='timereading'||$c=='a07kWusage'||$c=='a06kWdemand') {
-						$inner_register[$c]=trim($data[$i][$j]);
-					}
+					$savingdata_limit=$savingdata_limit-1;
 					
-					$j++;
 				}
+				//else {return 2;}
+					
 
 			}
 			else {//update as register already exist
@@ -391,17 +420,22 @@ class ChartsController extends BaseController {
 		if (count($newregister)>0) {
 			Buildingregister::insert($newregister);
 		}
+
+		if ($savingdata_limit==0) {
+		 	return 2;
+		} else {return //var_dump($newregister)
+			1
+			;
+		}
 		
-		return //var_dump($newregister)
-		1
-		;
+		
 	}
 
 
 	/*
-	|
-	| Function name: postWizard2
-	| Actions: create / update row for header
+	| Name: 		postWizard2
+	| Description: 	Data imported from no-template source
+	| Triggered? 	Yes: #send_to_db_from_notemplatecsv
 	*/
 	public function postWizard2 () {
 		$header=$_POST['header'];//csv data header names
@@ -416,6 +450,10 @@ class ChartsController extends BaseController {
 		$df=explode(',',$df);
 
 		$tf=$_POST['tf'];//time format
+
+		$savingdata_limit=5000-Buildingregister::whereDataset_id($ds)->count();
+
+		$newregister=array();//setting new array that will contain whole bunch of data
 
 		$idt=0;//idt= iterator for date and time
 		foreach ($header as $h) {
@@ -440,22 +478,31 @@ class ChartsController extends BaseController {
 			$time=date('H:i:s',$time);//Time conversion as h:m:s 24hrs format
 			$updatable=Buildingregister::existent($date,$time,$ds);
 			if ($updatable->count()==0) {
-				$register=new Buildingregister;
-				$register->dataset_id=$ds;
-				foreach ($header as $h) {
-					$h=trim($h);
-					if ($h!='') {
-						if ($h=='datereading') {
-							$register->$h=$date;
+				if ($savingdata_limit>0) {
+					$inner_register=array();
+					$inner_register['dataset_id']=$ds;
+					/*$register=new Buildingregister;
+					$register->dataset_id=$ds;*/
+					foreach ($header as $h) {
+						$h=trim($h);
+						if ($h!='') {
+							if ($h=='datereading') {
+								$inner_register[$h]=$date;
+							}
+							else if ($h=='timereading') {
+								$inner_register[$h]=date('H:i:s',strtotime(trim($values[$i][$j]))); //Time conversion as h:m:s 24hrs format
+							}
+							else {
+								$inner_register[$h]=trim($values[$i][$j]);
+							}
+							
 						}
-						else {
-							$register->$h=trim($values[$i][$j]);
-						}
-						
+						$j++;
 					}
-					$j++;
+					//$register->save();
+					$savingdata_limit=$savingdata_limit-1;
 				}
-				$register->save();
+					
 			}
 			else {
 				$update=array();
@@ -474,230 +521,16 @@ class ChartsController extends BaseController {
 				$updatable->first()->update($update);
 			}
 			$i++;
+			if(isset($inner_register)) {
+				array_push($newregister,$inner_register);
+				unset($inner_register);
+			}
 		}
-		return 1;
+		if (count($newregister)>0) {
+			Buildingregister::insert($newregister);
+		}
+		if($savingdata_limit==0){return 2;} else {return 1;}
 	}
-
-/*deprecated
-	public function postUploadcsv () {
-		$ds=$_POST['ds'];//dataset id
-		$user=$_POST['user'];
-		if (isset($_POST['submit'])) {
-			if (is_uploaded_file($_FILES['filename']['tmp_name'])) //verifying not empty uploading
-			{
-				$handle = fopen($_FILES['filename']['tmp_name'], "r");//opening file
-
-				$column='';
-				foreach (Bfield::get() as  $v) {
-					$column[$v->id]=$v->name;
-				}//All column names added to $column array except dataset_id
-
-				$r=1;
-				while (($data=fgetcsv($handle, 1000, ","))!==false) //Iteration for each row
-				{
-					if ($r>1) //Skipping first (header) row
-					{
-						//Columns to be added: 35
-						//Columns from csv file: all except dataset_id (32)
-						$i=1;
-						$import=array();
-						foreach ($data as $d) //Iteration for each column
-						{
-							if ($i<36) {
-								$currentcol=$column[$i];
-								if ($column[$i]=='dataset_id') //skipping dataset_id field
-								{
-									$i++;
-								}
-
-								//Retrieving date and time of reading for each row
-								//If existent on the DB table plus same dataset 
-								//update will be performed
-								if ($currentcol=='datereading') {
-									$date=$d;//setting $date variable for checking if register exists 
-									if ($date!='') {
-										$import[$column[$i]]=$date;//Adding date to array 
-									}
-								}
-								if ($currentcol=='timereading') {
-									$time=$d;//setting $time variable for checking if register exists 
-									if ($time!='') {
-										$import[$column[$i]]=$time;//Adding time to array 
-									}
-								}
-								if ($i>2&&($date==''||$time==''))//cleaning $import array if date and or time have no value
-								{
-									unset($import);//cleaning import array
-									$import=array();//cleaning import array
-									$date='';//resetting variable as empty
-									$time='';//resetting variable as empty
-								}
-
-								if ($i>2&&$date!=''&&$time!='') //skipping row with no date and or time
-								{
-									if ($d!='') //skipping empty fields
-									{
-										if ($column[1]!='Date') {
-											$import[$column[$i]]=$d; //adding value to array for creating or updating
-										}
-										
-									}
-								}
-								$i++;
-							}	
-						}
-						if (count($import)>0)//skipping empty rows (for data with no date or time).
-						{
-							//Columns to check for update instead of new register:
-							// * timereading
-							// * datereading
-							// * dataset_id
-							$updatable=Buildingregister::existent($date,$time,$ds);
-							if ($updatable->count()>0) //action to be done= update
-							{
-								//$import[colum]=data;
-								$updatable->first()->update($import);
-							}
-							else //action to be done= new register
-							{
-								$row=new Buildingregister;
-								$row->dataset_id=$ds;
-								foreach ($import as $k => $v) {
-									$row->$k=$v;
-								}
-								$row->save();
-							}
-						}
-					}		
-				$r++;//Iteration for skipping first row
-				}
-
-				$import_result= 0;//succesful uploading 
-			}
-			else {
-				$import_result=1;//No file was selected
-			}
-			$title='Data table';
-			return View::make('charts.table',compact('title','user','ds','import_result'));
-		}
-	}*/
-
-	/* Deprecated
-	public function postUploadcsvusage (){
-		$ds=$_POST['ds'];//dataset id
-		$user=$_POST['user'];
-		if (isset($_POST['submit'])){
-			if (is_uploaded_file($_FILES['filename']['tmp_name'])){
-				$handle = fopen($_FILES['filename']['tmp_name'], "r");//opening file
-				$r=1;
-				while (($data=fgetcsv($handle, 1000, ","))!==false) //Iteration for each row
-				{
-					if ($r!=0) {//Skipping first (header) row
-						$i=0;
-						$day=$data[2];
-						$usable=$data[3];;
-						foreach ($data as $d) {
-							if ($i>3&&$i<100&&$usable=='KW') {
-								$time=date('H:i:s',($i-4)*900);
-								$updatable=Buildingregister::existent($day,$time,$ds);//checking if data already exist
-								
-
-								$update=array(
-									'a07kWusage'=>$d
-								);//in case of updatable>0
-
-								//saving if no exist
-								if ($updatable->count()==0&&$usable=='KW') {
-									$bur=new Buildingregister;
-									$bur->dataset_id=$ds;
-									$bur->datereading=$day;
-									$bur->timereading=$time;
-									$bur->a07kWusage=$d;
-									$bur->save();
-								}
-								else {
-									if ($updatable->count()>0) {
-										$u_id=$updatable->first()->id;
-										if ($usable=='KW') {
-											Buildingregister::find($u_id)->update($update);
-										}
-									}
-								}
-							}
-							
-							$i++;
-						}
-					}
-					$r++;//incrementing in order to skip first (header) row
-				}
-				return Redirect::to('charts/table?user='.$user.'&ds='.$ds);
-			}
-		}
-	}*/
-
-/* Deprecated
-	public function postUploadcsvdemand (){
-		$ds=$_POST['ds'];//dataset id
-		$user=$_POST['user'];
-		if (isset($_POST['submit'])){
-			if (is_uploaded_file($_FILES['filename']['tmp_name'])){
-				$handle = fopen($_FILES['filename']['tmp_name'], "r");//opening file
-				$r=1;
-				while (($data=fgetcsv($handle, 1000, ","))!==false) //Iteration for each row
-				{
-					if ($r!=0) {//Skipping first (header) row
-						$i=0;
-						$day='';
-						$usable='';
-						foreach ($data as $d) {
-							if ($i!=0||$i!=1||$i!=100||$i!=101) {
-								if ($i==2) {
-									$day=$day.$d;
-								}
-								if ($i==3) {
-									$usable=$usable.$d;
-								}
-								$time=date('H:i:s',($i-4)*900);
-
-								
-								if ($d>3) {
-									$updatable=Buildingregister::existent($day,$time,$ds);//checking if data already exist
-									
-
-									$update=array(
-										'a06kWdemand'=>$d
-									);//in case of updatable>0
-
-									//saving if no exist
-									if ($updatable->count()==0&&$usable=='KW') {
-										$bur=new Buildingregister;
-										$bur->dataset_id=$ds;
-										$bur->datereading=$day;
-										$bur->timereading=$time;
-										$bur->a06kWdemand=$d;
-										$bur->save();
-									}
-									else {
-										if ($updatable->count()>0) {
-											$u_id=$updatable->first()->id;
-											if ($usable=='KW') {
-												Buildingregister::find($u_id)->update($update);
-											}
-										}
-									}
-										
-								}
-							}
-							
-							$i++;
-						}
-					}
-					$r++;//incrementing in order to skip first (header) row
-				}
-				return Redirect::to('charts/table?user='.$user.'&ds='.$ds);
-			}
-		}
-	}*/
 
 	
 

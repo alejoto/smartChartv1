@@ -91,7 +91,12 @@
 								
 								<i class="icon-edit icon-white" id='changename{{$d->id}}'></i>
 								<i class="icon-trash icon-white" id='delete_dsrequest{{$d->id}}'></i>
+								@if($d->buildingregister->count()>=5000)
+								<i class="icon-upload"></i>
+								@else
 								<i class="icon-upload icon-white" id="openmodal_modal_import{{$d->id}}" building='{{$d->name}}'></i>
+								@endif
+								
 							</div>
 							<div id="deleting_dataset{{$d->id}}" class="hide muted">
 								<img src="{{URL::to('assets/img/progressBar.gif')}}" alt="">

@@ -497,6 +497,9 @@ chapt_active*/
 			if (d==1) {
 				window.location.href=base+'/charts/ds?user='+user;
 			}
+			else if (d==2) {
+				//
+			}
 			
 		});
 	});
@@ -514,7 +517,8 @@ chapt_active*/
 	});
 
 	function kwimport(){
-		//$('.canceluploading').hide();
+		var base=$('#base').html();
+		var user=$('#user_fromwizard').html();
 		$('#upload_as_kw_demand').hide('fast');
 		$('#upload_as_kw_usage').hide('fast');
 		$('#uploading_csv_wizard_template').show();
@@ -534,6 +538,11 @@ chapt_active*/
 			if (d==1) {
 				window.location.href=base+'/charts/ds?user='+user;
 			}
+			else if (d==2) {
+				$('#uploading_csv_wizard_template').html('Dataset cannot contain more than 5000 rows.'
+					+'<br>Code was stopped until reaching 5000 rows. Please create a new dataset'
+					+'<br>Datasets should contain data from only one month.');
+			}
 		});
 	});
 
@@ -550,6 +559,11 @@ chapt_active*/
 			//
 			if (d==1) {
 				window.location.href=base+'/charts/ds?user='+user;
+			}
+			else if (d==2) {
+				$('#uploading_csv_wizard_template').html('Dataset cannot contain more than 5000 rows.'
+					+'<br>Code was stopped until reaching 5000 rows. Please create a new dataset'
+					+'<br>Datasets should contain data from only one month.');
 			}
 		});
 	});
@@ -627,6 +641,9 @@ chapt_active*/
 			//$('#send_to_db_from_notemplatecsv').html(d);
 			if (d==1) {
 				window.location.href=base+'/charts/ds?user='+user;
+			}
+			else if (d==2) {
+				$('#csv_unsorted_template_limit_message').show('fast');
 			}
 		});
 	});

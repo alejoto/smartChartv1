@@ -24,7 +24,7 @@ function createnewchart2(jsondata,y_axis,x_axis,thecharts,target){
     chart.categoryField = y_axis;
     chart.addListener("dataUpdated", zoomChart);
     chart.sequencedAnimation=false; //Multiple animations at the same time, for faster appearance
-    chart.startEffect='bounce';
+    chart.startEffect='>';
     chart.startDuration = 1;
     chart.color = "#000000";
 

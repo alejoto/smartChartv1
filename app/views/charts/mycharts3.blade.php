@@ -19,6 +19,15 @@
 				Dataset <b>{{Dataset::find($_GET['ds'])->name}}</b>
 			@endif
 			<div class="noprint">
+				{{--
+				|-----------|---------------------------|----------|
+				|  dataset  |                           |          |
+				|  dropdown |                           |          |
+				|  list     |                           |          |
+				|           |                           |          |
+				|           |                           |          |
+				|-----------|---------------------------|----------|
+				--}}
 				<div class="dropdown">
 					<a href='' class=" dropdown-toggle" data-toggle="dropdown">Choose different dataset <b class="caret"></b></a>
 					<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
@@ -33,8 +42,20 @@
 				@if(isset($_GET['ds']))
 				<hr>
 				<h4>type of charts</h4>
+				{{--
+				|-----------|---------------------------|----------|
+				|           |                           |          |
+				|-----------|                           |          |
+				| chart     |                           |          |
+				| list      |                           |          |
+				|           |                           |          |
+				|-----------|---------------------------|----------|
+				--}}
 					<ul class="nav nav-pills nav-stacked">
 						@foreach(Chart::orderBy('id')->get() as $ch)
+							
+							
+							
 							<li>
 								<?php
 								$param='';
@@ -74,6 +95,7 @@
 									@endforeach
 								</ul>
 							</li>
+							
 						@endforeach
 					</ul>
 				@endif

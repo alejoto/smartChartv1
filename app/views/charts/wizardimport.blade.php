@@ -329,6 +329,15 @@ else //UNSPECIFIC "NO TEMPLATE-RELATED" CSV FILE
 		?>
 	@endforeach
 	</h4>
+	<div id='csv_unsorted_template_limit_message' class="text-error lead hide">
+		Sorry, data import was interrupted as each dataset cannot contain more than 5000 rows.
+		<br>
+		Each dataset should contain data from only one month.
+		<br>
+		<a href="{{URL::to('charts/ds?user='.$user)}}" class="btn btn-danger canceluploading span12 " >
+					<i class="icon-remove icon-white"></i>
+					Go back to datasets page</a>
+	</div>
 	
 	
 	<div id="order_of_columns" class='hide'> {{-- Sequence of columns in order to properly save data from csv file --}}
