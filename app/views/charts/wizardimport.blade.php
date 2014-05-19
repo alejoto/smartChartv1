@@ -39,7 +39,7 @@ $handle = fopen($_FILES['filename']['tmp_name'], "r");
 $data=($data=fgetcsv($handle, 2000, ","));
 $i=0;
 $count=count($data);
-//echo $counter2;
+
 
 foreach ($data as $d) {
 	$checker[$i]=$data[$i];
@@ -87,6 +87,7 @@ $checker[0]=='Date'
 		<div class="offset3 span6 whitebox whitetext">
 			Data structure matches with Excel template
 			<br>
+			@if($counter2<5000)
 			<button class="btn span11" id='upload_to_db1'>Start uploading data to the database</button>
 			<div id="uploading_csv_wizard_template" class="hide">
 				<img src="{{URL::to('assets/img/progressBar.gif')}}" alt="">
@@ -125,6 +126,7 @@ $checker[0]=='Date'
 					$gnu='~';
 				} ?>
 			</div>
+			@endif
 			<a href="{{URL::to('charts/ds?user='.$user)}}" class="btn btn-danger canceluploading span11 " >
 					<i class="icon-remove icon-white"></i>
 					Cancel uploading data</a>
@@ -306,9 +308,18 @@ $checker[0]=='Channel Id'
 }
 else //UNSPECIFIC "NO TEMPLATE-RELATED" CSV FILE
 {?>
+	{{-------------------------------------------------------------------
+	|
+	|
+	|  Wizard import data: file not created from predefined template
+	|
+	|
+	 --------------------------------------------------------------------}}
+	@if($counter2<5000)
 	<h4>
 	Columns found in csv file : 
 	<?php $comma=''; $i_data=0;?>
+
 	@foreach($data as $d) {{-- Displaying available headers to be uploaded --}}
 		{{$comma.str_replace(' ','_',$d)}}
 		<?php 
@@ -318,6 +329,7 @@ else //UNSPECIFIC "NO TEMPLATE-RELATED" CSV FILE
 		?>
 	@endforeach
 	</h4>
+	
 	
 	<div id="order_of_columns" class='hide'> {{-- Sequence of columns in order to properly save data from csv file --}}
 	<?php $comma=''; ?>
@@ -406,6 +418,18 @@ else //UNSPECIFIC "NO TEMPLATE-RELATED" CSV FILE
 		</div>
 		<br><br>
 	</div>
+	@else
+	<div class="lead text-error">Sorry, you can not import more than 5000 rows in one dataset.  Datasets should contain data from one month.</div>
+	
+
+	<div class="row-fluid">
+			<div class=" span12">
+				<a href="{{URL::to('charts/ds?user='.$user)}}" class="btn btn-danger canceluploading span12 " >
+					<i class="icon-remove icon-white"></i>
+					Cancel uploading data</a>
+			</div>
+		</div>
+	@endif
 	<?php
 	
 }
