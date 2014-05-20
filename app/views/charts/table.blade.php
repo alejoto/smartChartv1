@@ -45,7 +45,7 @@ Choose / change dataset to view its data &nbsp;&nbsp;
 @endif
 		
 	
-
+@if(Buildingregister::whereDataset_id($ds)->count()<5000)
 <div class="row">
 	<div class="span3">
 		<h4><a href="#" id='add_new_row_of_data'><i class="icon-arrow-right"></i> Add data as single row</a></h4>
@@ -56,10 +56,8 @@ Choose / change dataset to view its data &nbsp;&nbsp;
 	<div class="span4">
 		<h4><a href='#' id='openmodal_modal_import'><i class="icon-folder-open"></i> Add data from a CSV file</a></h4>
 	</div>
-	<div class="span4 ">
-		
-	</div>
 </div>
+@endif
 <div class="row">
 	<div class="span12">
 		<small><a href="{{URL::to('/legend.html')}}" class='muted' target="_blank">view legends for the column headers</a></small>

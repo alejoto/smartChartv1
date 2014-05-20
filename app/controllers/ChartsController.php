@@ -75,11 +75,13 @@ class ChartsController extends BaseController {
 
 			//previous-next page
 			$dslink='';
+			$ds='';
 			if (isset($_GET['ds'])) {
 				if (Dataset::whereId($_GET['ds'])->count()<1) {
 					return Redirect::to('charts/ds?user='.$_GET['user']);
 				}
 				$dslink='&ds='.$_GET['ds'];
+				$ds=$_GET['ds'];
 			}
 
 
@@ -106,7 +108,7 @@ class ChartsController extends BaseController {
 			$next=URL::to($next);
 
 			$user=$_GET['user'];
-			return View::make('charts.table',compact('title','user','previous','next','page'));
+			return View::make('charts.table',compact('title','user','previous','next','page','ds'));
 		}
 		
 	}

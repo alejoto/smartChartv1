@@ -66,14 +66,15 @@ $(function(){
 	$(window).on('load', function() {
 		var id=$('#chartidfromchapter').html();
 		$('#chartgroup'+id).show('fast');
-		var param=$('#parameters').html().trim();
-		param=param.split('~');
-		for (var i = 0; i < param.length; i++) {
-			param[i]=param[i].trim();//important! this trim removes an unnecesary space after the gnu that messes the chart
-			param[i]=param[i].split('|');
+		if ($('#parameters').length>0 ) {
+			var param=$('#parameters').html().trim();
+			param=param.split('~');
+			for (var i = 0; i < param.length; i++) {
+				param[i]=param[i].trim();//important! this trim removes an unnecesary space after the gnu that messes the chart
+				param[i]=param[i].split('|');
+			}
+			createnewchart2('data_as_json','time',{"leftaxis":"Temperature (F)","rightaxis":"Percent (%)"},param,'chartdiv');
 		}
-		createnewchart2('data_as_json','time',{"leftaxis":"Temperature (F)","rightaxis":"Percent (%)"},param,'chartdiv');
-	
 	});
 
 });

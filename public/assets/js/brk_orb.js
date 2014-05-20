@@ -498,7 +498,7 @@ chapt_active*/
 				window.location.href=base+'/charts/ds?user='+user;
 			}
 			else if (d==2) {
-				//
+				$('#csv_unsorted_template_limit_message').show('fast');
 			}
 			
 		});
