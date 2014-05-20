@@ -11,7 +11,7 @@
 </div> -->
 <div class="row-fluid ">
 	<div id='proper_date_format_reminder' class="offset2 span7 lead text-error ">
-		<strong>Date values from the csv file must match format 'm/d/y'. If no, the csv file will not be properly parsed.</strong></div>
+		<strong>Date values from the csv file must match format 'm/d/y'. If not, the csv file will not be parsed properly.</strong></div>
 	<input type="hidden" id='dateformat_import' value='m,d,y'>
 	<!-- <div class="span2"> 
 		<select name="" id="dateformat_import" class="span8"> 
@@ -138,8 +138,6 @@ $checker[0]=='Date'
 	</div>
 	<div id='csv_unsorted_template_limit_message' class="text-error lead hide">
 		Sorry, data import was interrupted as each dataset cannot contain more than 5000 rows.
-		<br>
-		Each dataset should contain data from only one month.
 		<br>
 		<a href="{{URL::to('charts/ds?user='.$user)}}" class="btn btn-danger canceluploading span12 " >
 					<i class="icon-remove icon-white"></i>
@@ -304,7 +302,7 @@ $checker[0]=='Channel Id'
 </div>
 @else
 <div class="row-fluid">
-	<div id="morethan31daysdata" class="offset2 span8 lead text-error">Sorry, file contains more than 31 days data. You can only import data corresponding to one month. Split your file into two or more files, each one containing one month data. Then import them one by one.</div>
+	<div id="morethan31daysdata" class="offset2 span8 lead text-error">Sorry, file contains more than 31 days data. You can only import data corresponding to one month. Split your file into two or more files, each one containing one month or less of data. Then import them one by one.</div>
 </div>
 <div class="row-fluid">
 	<div class="offset2 span8">
@@ -340,8 +338,6 @@ else //UNSPECIFIC "NO TEMPLATE-RELATED" CSV FILE
 	</h4>
 	<div id='csv_unsorted_template_limit_message' class="text-error lead hide">
 		Sorry, data import was interrupted as each dataset cannot contain more than 5000 rows.
-		<br>
-		Each dataset should contain data from only one month.
 		<br>
 		<a href="{{URL::to('charts/ds?user='.$user)}}" class="btn btn-danger canceluploading span12 " >
 					<i class="icon-remove icon-white"></i>
@@ -437,7 +433,7 @@ else //UNSPECIFIC "NO TEMPLATE-RELATED" CSV FILE
 		<br><br>
 	</div>
 	@else
-	<div class="lead text-error">Sorry, you can not import more than 5000 rows in one dataset.  Datasets should contain data from one month.</div>
+	<div class="lead text-error">Sorry, you can not import more than 5000 rows in one dataset.</div>
 	
 
 	<div class="row-fluid">
