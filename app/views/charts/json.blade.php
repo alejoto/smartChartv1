@@ -1,9 +1,14 @@
 
 <?php 
 $ds=$_GET['ds'];
+$actives=Buildingregister::activeds($ds);
 $comma='';
 $verifier='';
-$skipper=40;
+if ($actives->count()>100) {
+	$skipper=round($actives->count()/100);
+}
+else {$skipper=1;}
+
 $i=0;
 $rowmaker=array();
 foreach (Bfield::display()->get() as $d) {// Setting the rowmaker array, starting from zero values
@@ -11,7 +16,7 @@ foreach (Bfield::display()->get() as $d) {// Setting the rowmaker array, startin
 }
 ?>
 <div id="data_as_json" class='hide'>[
-	@foreach(Buildingregister::activeds($ds)->get() as $br)
+	@foreach($actives->get() as $br)
 		@if($verifier	!=	$br->datereading.' '.$br->timereading)
 			@foreach(Bfield::display()->get() as $d)
 				<?php 
