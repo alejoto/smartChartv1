@@ -37,6 +37,7 @@ foreach (Bfield::display()->get() as $d) {// Setting the rowmaker array, startin
 						<?php 
 						$bcolumn=$d->name;
 						$bvalue=$rowmaker[$bcolumn]/$skipper;//$br->$bcolumn;
+						$bvalue=round($bvalue*100)/100;
 						if ($bcolumn=='a01OM'||$bcolumn=='b11SFS') {
 							$bvalue=$bvalue*100;
 						}
