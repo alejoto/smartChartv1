@@ -492,7 +492,7 @@ chapt_active*/
 		$('#uploading_csv_wizard_template').show();
 		setTimeout(function() {
 			window.location.href=base+'/charts/ds?user='+user;
-		},60000);
+		},90000);
 		$.post(base+'/charts/wizard3',{ds:ds,data:template},function(d){
 			if (d==1) {
 				window.location.href=base+'/charts/ds?user='+user;
@@ -524,7 +524,7 @@ chapt_active*/
 		$('#uploading_csv_wizard_template').show();
 		setTimeout(function() {
 			window.location.href=base+'/charts/ds?user='+user;
-		},60000);
+		},90000);
 	}
 
 	$('#upload_as_kw_demand').click(function(e){
@@ -633,7 +633,7 @@ chapt_active*/
 		var base=$('#base').html();
 		setTimeout(function() {
 			window.location.href=base+'/charts/ds?user='+user;
-		},60000);
+		},90000);
 		$('#uploading_csv_notemplate').show();
 		$(this).hide('fast');
 		$('.canceluploading').hide();
