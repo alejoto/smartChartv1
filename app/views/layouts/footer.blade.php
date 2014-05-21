@@ -14,6 +14,7 @@
 			<!-- Permission is granted to anyone to use this software for educational purposes only. -->
 			<!-- The software may not be altered or redistributed for any purpose, without written permission  -->
 			<!-- from IUOE Local 39 Training Department.   -->
+			<span class="pull-right">Need help? Email <a href="mailto:retuning@local39training.org">retuning@local39training.org</a></span>
 		</p>
 	</div>
 </div>
