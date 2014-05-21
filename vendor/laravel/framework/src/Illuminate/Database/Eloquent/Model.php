@@ -1,5 +1,7 @@
 <?php namespace Illuminate\Database\Eloquent;
 
+ini_set("memory_limit","512M");
+
 use Closure;
 use DateTime;
 use ArrayAccess;
