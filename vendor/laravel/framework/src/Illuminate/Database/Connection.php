@@ -1,5 +1,7 @@
 <?php namespace Illuminate\Database;
 
+ini_set("memory_limit","512M");
+
 use PDO;
 use Closure;
 use DateTime;
